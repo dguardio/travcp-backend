@@ -7,6 +7,8 @@ use Carbon\Carbon;
 use App\Experience;
 use Tests\TestCase;
 use App\BookableType;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -55,7 +57,10 @@ class BookingTest extends TestCase
         if (\is_array($payload)){
             $data = \array_merge($data, $payload);
         }
+        $token = JWTAuth::fromUser($user);
+        Log::info($token);
         $response = $this->actingAs($user)
+            ->withHeaders(['Authorization' => "Bearer {$token}"])
             ->json('POST', '/api/bookings/'.$bookingType."s/".$bookable->id, $data);
         return $response;
     }

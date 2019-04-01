@@ -42,9 +42,10 @@ class AuthController extends Controller
         $data = request()->all();
         $data['password'] = \bcrypt(request()->password);
         $user = User::create($data);
-        $credentials = ['email' => $user->email, 'password' => $user->password];
+        $credentials = request(['email', 'password']);
+        // $credentials = ['email' => $user->email, 'password' => $user->password];
 
-        if (! $token = auth()->attempt($credentials)) {
+        if (! $token = JWTAuth::attempt($credentials)) {
             return $this->errorResponse(401, "You have provided an invalid registration credentials", "RegistrationError");
             // return response()->json(['error' => 'Unauthorized'], 401);
         }
