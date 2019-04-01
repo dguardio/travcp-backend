@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Restaurant;
+use Illuminate\Http\Request;
+
+class RestaurantController extends Controller
+{
+    public function list(Request $request){
+        $restaurants = Restaurant::latest()->paginate(20);
+        return response()->json($restaurants);
+    }
+}
