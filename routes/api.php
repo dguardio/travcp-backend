@@ -31,6 +31,7 @@ Route::group(['middleware' => 'api',
 Route::get('experiences', "ExperienceController@list");
 Route::get('events', "EventController@list");
 Route::get('restaurants', "RestaurantController@list");
+Route::get('restaurants/{id}/menu', "FoodMenuController@list");
 Route::group(['middleware' => ['api', 'auth:api']], function(){
     Route::post('bookings/experiences/{id}', "BookingController@bookExperience");    
     Route::post('bookings/events/{id}', "BookingController@bookEvent");

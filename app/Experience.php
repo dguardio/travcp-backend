@@ -5,11 +5,12 @@ namespace App;
 use Illuminate\Http\Request;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use willvincent\Rateable\Rateable;
 use Illuminate\Database\Eloquent\Model;
 
 class Experience extends Model
 {
-    use HasSlug;
+    use HasSlug, Rateable;
 
     protected $guarded = [];
     /**

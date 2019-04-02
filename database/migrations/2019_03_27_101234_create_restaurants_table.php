@@ -21,6 +21,8 @@ class CreateRestaurantsTable extends Migration
             $table->text('description')->nullable();
             $table->integer('merchant_id')->unsigned();
             $table->string('location')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
             $table->float('price_from', 10, 2)->default(0);
             $table->float('price_to', 10, 2)->default(0);
             $table->text('extra_perks')->nullable();

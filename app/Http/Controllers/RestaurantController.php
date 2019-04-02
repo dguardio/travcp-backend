@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class RestaurantController extends Controller
 {
     public function list(Request $request){
-        $restaurants = Restaurant::latest()->paginate(20);
+        $restaurants = Restaurant::getBySearch($request);
         return response()->json($restaurants);
     }
 }
