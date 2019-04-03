@@ -11,4 +11,9 @@ class RestaurantController extends Controller
         $restaurants = Restaurant::getBySearch($request);
         return response()->json($restaurants);
     }
+
+    public function show(Request $request, $id){
+        $restaurant = Restaurant::findOrFail($id);
+        return response()->json(['data' => $restaurant, 'status' => 'success']);
+    }
 }

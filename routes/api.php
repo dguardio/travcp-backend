@@ -28,9 +28,15 @@ Route::group(['middleware' => 'api',
 
 });
 
+Route::post('auth/forgot', "PasswordResetController@forgot");
+
 Route::get('experiences', "ExperienceController@list");
+Route::get('experiences/{id}', "ExperienceController@show");
+
 Route::get('events', "EventController@list");
+
 Route::get('restaurants', "RestaurantController@list");
+Route::get('restaurants/{id}', "RestaurantController@show");
 Route::get('restaurants/{id}/menu', "FoodMenuController@list");
 Route::group(['middleware' => ['api', 'auth:api']], function(){
     Route::post('bookings/experiences/{id}', "BookingController@bookExperience");    

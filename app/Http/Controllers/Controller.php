@@ -12,6 +12,6 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function errorResponse($status, $message="An error occured", $type="UnknownError"){
-        return response()->json(['error' => ['status' => $status, 'message' => $message, 'type' => $type]]);
+        return response()->json(['error' => ['status' => $status, 'message' => $message, 'type' => $type]], $status);
     }
 }

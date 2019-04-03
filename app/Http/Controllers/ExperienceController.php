@@ -11,4 +11,9 @@ class ExperienceController extends Controller
         $experiences = Experience::getBySearch($request)->appends($request->query());
         return response()->json($experiences);
     }
+
+    public function show(Request $request, $id){
+        $experience = Experience::findOrFail($id);
+        return response()->json(['data' => $experience, 'status' => 'success']);
+    }
 }
