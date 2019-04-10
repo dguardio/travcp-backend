@@ -14,11 +14,11 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
         $this->call([
             UsersTableSeeder::class,
-            BookableTypesTableSeeder::class,
+            // BookableTypesTableSeeder::class,
             ExperiencesTableSeeder::class,
-            EventsTableSeeder::class,
-            RestaurantsTableSeeder::class,
-            FoodMenuTableSeeder::class
+            // EventsTableSeeder::class,
+            // RestaurantsTableSeeder::class,
+            // FoodMenuTableSeeder::class
         ]);
     }
 }
