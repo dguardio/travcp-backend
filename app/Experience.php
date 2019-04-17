@@ -32,4 +32,7 @@ class Experience extends Model
             return $query->where('naira_price', '<=', $request->max_price);
         })->paginate();
     }
+    public function menus(){
+        return $this->hasMany(FoodMenu::class);
+    }
 }

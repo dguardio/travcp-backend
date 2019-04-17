@@ -13,7 +13,9 @@ class ExperienceController extends Controller
     }
 
     public function show(Request $request, $id){
-        $experience = Experience::findOrFail($id);
+        // $data = ['id','bookable_ty  pe_id','title','slug','description','merchant_id',
+        // 'location','city','state','drink_types','dining_options','has_outdoor_sitting','opening_and_closing_hours','extra_perks','cancellation_policy'];
+        $experience = Experience::where('type','restaurant')->findOrFail($id);
         return response()->json(['data' => $experience, 'status' => 'success']);
     }
 }
