@@ -33,6 +33,7 @@ Route::post('auth/forgot', "PasswordResetController@forgot");
 Route::get('experiences', "ExperienceController@list");
 Route::get('experiences/{id}', "ExperienceController@show");
 
+// Route::get();
 Route::get('events', "EventController@list");
 
 Route::get('restaurants', "RestaurantController@list");
