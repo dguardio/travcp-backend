@@ -6,7 +6,6 @@ use App\Http\Requests\UserPayments\UserPaymentsStoreRequest;
 use App\Http\Requests\UserPayments\UserPaymentsUpdateRequest;
 use App\UserPayment;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
 use App\Http\Resources\UserPayment as UserPaymentsResource;
 
 class UserPaymentsController extends Controller
@@ -33,19 +32,11 @@ class UserPaymentsController extends Controller
      */
     public function store(UserPaymentsStoreRequest $request)
     {
-        // create user payment object
-        $user_payment =  new UserPayment;
-
         // validate request and return validated data
         $validated = $request->validated();
 
-        // add other user payments object properties
-        $user_payment->description = $validated['description'];
-        $user_payment->user_id = $validated['user_id'];
-        $user_payment->experience_id = $validated["experience_id"];
-        $user_payment->transaction_id = $validated["transaction_id"];
-        $user_payment->amount = $validated["amount"];
-        $user_payment->currency = $validated["currency"];
+        // create user payment object and add other user payments object properties
+        $user_payment =  new UserPayment($validated);
 
         // save user payment if transaction goes well
         if($user_payment->save()){
@@ -59,7 +50,7 @@ class UserPaymentsController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return UserPayment
+     * @return UserPaymentsResource
      */
     public function show($id)
     {
@@ -100,12 +91,7 @@ class UserPaymentsController extends Controller
         $validated = $request->validated();
 
         // add other user payment object properties
-        $user_payment->description = empty($validated['description'])? $user_payment->description : $validated['description'];
-        $user_payment->user_id = empty($validated['user_id'])? $user_payment->user_id : $validated['user_id'];
-        $user_payment->experience_id = empty($validated["experience_id"])? $user_payment->experience_id : $validated["experience_id"];
-        $user_payment->transaction_id = empty($validated["transaction_id"])? $user_payment->transaction_id : $validated["transaction_id"];
-        $user_payment->amount = empty($validated["amount"])? $user_payment->amount : $validated["amount"];
-        $user_payment->currency = empty($validated["currency"])? $user_payment->currency : $validated["currency"];
+        $user_payment->update($validated);
 
         // save payment if transaction goes well
         if($user_payment->save()){

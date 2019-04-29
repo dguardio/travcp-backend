@@ -31,19 +31,11 @@ class MerchantPaymentsController extends Controller
      */
     public function store(MerchantPaymentsStoreRequest $request)
     {
-        // create merchant payment object
-        $merchant_payment =  new MerchantPayment;
-
         // validate request and return validated data
         $validated = $request->validated();
 
-        //add other merchant payment object properties
-        $merchant_payment->description = $validated['description'];
-        $merchant_payment->payer_id = $validated["payer_id"];
-        $merchant_payment->merchant_id =  $validated["merchant_id"];
-        $merchant_payment->amount = $validated['amount'];
-        $merchant_payment->currency = $validated['currency'];
-        $merchant_payment->transaction_id = $validated['transaction_id'];
+        // create merchant payment object and add other merchant payment object properties
+        $merchant_payment =  new MerchantPayment($validated);
 
         //save merchant payment if transaction goes well
         if($merchant_payment->save()){
@@ -97,12 +89,7 @@ class MerchantPaymentsController extends Controller
         $validated = $request->validated();
 
         //add other merchant payment object properties
-        $merchant_payment->description = empty($validated['description'])? $merchant_payment->description : $validated['description'];
-        $merchant_payment->payer_id = empty($validated["payer_id"])? $merchant_payment->payer_id : $validated["payer_id"];
-        $merchant_payment->merchant_id = empty($validated["merchant_id"])? $merchant_payment->merchant_id : $validated["merchant_id"];
-        $merchant_payment->amount = empty($validated['amount'])? $merchant_payment->amount : $validated['amount'];
-        $merchant_payment->currency = empty($validated['currency'])? $merchant_payment->currency : $validated['currency'];
-        $merchant_payment->transaction_id = empty($validated['transaction_id'])? $merchant_payment->transaction_id : $validated['transaction_id'];
+        $merchant_payment->update($validated);
 
         //save merchant payment if transaction goes well
         if($merchant_payment->save()){
@@ -110,6 +97,19 @@ class MerchantPaymentsController extends Controller
         }
 
         return new MerchantPaymentResource(null);
+    }
+
+    /**
+     * get all merchant payments by id
+     * @param $id
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function getMerchantPaymentsByMerchantId($id){
+        // get merchant payment by merchant id
+        $merchant_payment = MerchantPayment::where('merchant_id', $id)->orderBy('id', 'DESC')->paginate(10);
+
+        // return collection of merchant payment as a resource
+        return MerchantPaymentResource::collection($merchant_payment);
     }
 
     /**

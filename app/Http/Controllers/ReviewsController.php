@@ -32,16 +32,11 @@ class ReviewsController extends Controller
      */
     public function store(ReviewsStoreRequest $request)
     {
-        // create review object
-        $review =  new Review;
-
         // validate request and return validated data
         $validated = $request->validated();
 
-        // add other review object properties
-       $review->user_id = $validated['user_id'];
-       $review->experience_id = $validated["experience_id"];
-       $review->review_body = $validated["review_body"];
+        // create review object and add other review object properties
+        $review =  new Review($validated);
 
         // save review if transaction goes well
         if($review->save()){
@@ -96,9 +91,7 @@ class ReviewsController extends Controller
         $validated = $request->validated();
 
         // add other review object properties
-       $review->user_id = empty($validated['user_id'])? $review->user_id : $validated['user_id'];
-       $review->experience_id = empty($validated["experience_id"])? $review->experience_id : $validated["experience_id"];
-       $review->review_body = empty($validated["review_body"])? $review->review_body : $validated["review_body"];
+        $review->update($validated);
 
         // save review if transaction goes well
         if($review->save()){

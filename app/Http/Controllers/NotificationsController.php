@@ -33,15 +33,11 @@ class NotificationsController extends Controller
      */
     public function store(NotificationsStoreRequest $request)
     {
-        // create notification object
-        $notification =  new Notification;
-
         // validate request and return validated data
         $validated = $request->validated();
 
-        // add other notification object properties
-       $notification->user_id = $validated['user_id'];
-       $notification->notification_body = $validated["notification_body"];
+        // create notification object and add other notification object properties
+        $notification =  new Notification($validated);
 
         // save notification if transaction goes well
         if($notification->save()){
@@ -95,8 +91,7 @@ class NotificationsController extends Controller
         $validated = $request->validated();
 
         // add other notification object properties
-        $notification->user_id = empty($validated['user_id'])? $notification->user_id : $validated['user_id'];
-        $notification->notification_body = empty($validated["notification_body"])? $notification->notification_body : $validated["notification_body"];
+        $notification->update($validated);
 
         // save notification if transaction goes well
         if($notification->save()){

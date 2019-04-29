@@ -29,7 +29,14 @@ Route::group(['middleware' => 'api',
 Route::post('auth/forgot', "PasswordResetController@forgot");
 
 Route::group(['middleware' => ['api', 'auth:api']], function(){
-    /***** Merchant Endpoints ******/
+    /***** Merchant Related Endpoints ******/
+    /** Individual Merchant **/
+    Route::get('merchants/{id}/experiences', 'ExperiencesController@getExperienceByMerchantId'); // get merchant experiences
+    Route::get('merchants/{id}/payments', 'MerchantPaymentsController@getMerchantPaymentsByMerchantId'); // get merchant payments
+    // get merchant reviews
+    // get merchant restaurant [add more experiences as we go]
+
+    // create users endpoints
     /** Merchant Payments**/
     Route::get('payments/merchants/', 'MerchantPaymentsController@index'); // get all merchant payments
     Route::get('payments/merchants/{id}', 'MerchantPaymentsController@show'); // get a single merchant payment
@@ -44,6 +51,13 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     Route::put('notifications/{id}', 'NotificationsController@update'); // update an existing notification
     Route::delete('notifications/{id}', 'NotificationsController@destroy'); // delete a particular notification
 
+    /** Experiences **/
+    Route::get('experiences/', 'ExperiencesController@index'); // get all experiences
+    Route::get('experiences/{id}', 'ExperiencesController@show'); // get a single experience
+    Route::post('experiences/', 'ExperiencesController@store'); // create new experience
+    Route::put('experiences/{id}', 'ExperiencesController@update'); // update an existing experience
+    Route::delete('experiences/{id}', 'ExperiencesController@destroy'); // delete a particular experience
+
     /** Reviews **/
     Route::get('reviews/', 'ReviewsController@index'); // get all reviews
     Route::get('reviews/{id}', 'ReviewsController@show'); // get a single reviews
@@ -51,12 +65,18 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     Route::put('reviews/{id}', 'ReviewsController@update'); // update an existing review
     Route::delete('reviews/{id}', 'ReviewsController@destroy'); // delete a particular review
 
+    /** Experiences **/
+    Route::get('experiences/', 'ExperiencesController@index'); // get all experiences
+    Route::get('experiences/{id}', 'ExperiencesController@show'); // get a single experience
+    Route::post('experiences/', 'ExperiencesController@store'); // create new experience
+    Route::put('experiences/{id}', 'ExperiencesController@update'); // update an existing experience
+    Route::delete('experiences/{id}', 'ExperiencesController@destroy'); // delete a particular experience
+
     /**Misc - not yet sorted**/
-    Route::get('experiences', "ExperienceController@list");
-    Route::get('experiences/{id}', "ExperienceController@show");
+//    Route::get('experiences', "ExperienceController@list");
+//    Route::get('experiences/{id}', "ExperienceController@show");
 
     Route::get('events', "EventController@list");
-
     Route::get('restaurants', "RestaurantController@list");
     Route::get('restaurants/{id}', "RestaurantController@show");
     Route::get('restaurants/{id}/menu', "FoodMenuController@list");
@@ -71,5 +91,3 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     Route::put('payments/users/{id}', 'UserPaymentsController@update'); // update an existing user payment entry
     Route::delete('payments/users/{id}', 'UserPaymentsController@destroy'); // delete a particular user payment
 });
-
-
