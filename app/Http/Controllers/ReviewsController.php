@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Reviews\ReviewsStoreRequest;
 use App\Http\Requests\Reviews\ReviewsUpdateRequest;
 use App\Review;
+use App\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\Review as ReviewResource;
 
@@ -74,7 +75,6 @@ class ReviewsController extends Controller
         return new ReviewResource($review);
     }
 
-
     /**
      * Update the specified resource in storage.
      *
@@ -99,6 +99,18 @@ class ReviewsController extends Controller
         }
 
         return new ReviewResource(null);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function getReviewsByMerchantId($id){
+        // get reviews based on user id
+        $reviews = User::findOrFail($id)->experiences()->reviews()->paginate(10);
+
+        // return reviews as collection
+        return ReviewResource::collection($reviews);
     }
 
     /**

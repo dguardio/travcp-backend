@@ -30,13 +30,6 @@ Route::post('auth/forgot', "PasswordResetController@forgot");
 
 Route::group(['middleware' => ['api', 'auth:api']], function(){
     /***** Merchant Related Endpoints ******/
-    /** Individual Merchant **/
-    Route::get('merchants/{id}/experiences', 'ExperiencesController@getExperienceByMerchantId'); // get merchant experiences
-    Route::get('merchants/{id}/payments', 'MerchantPaymentsController@getMerchantPaymentsByMerchantId'); // get merchant payments
-    // get merchant reviews
-    // get merchant restaurant [add more experiences as we go]
-
-    // create users endpoints
     /** Merchant Payments**/
     Route::get('payments/merchants/', 'MerchantPaymentsController@index'); // get all merchant payments
     Route::get('payments/merchants/{id}', 'MerchantPaymentsController@show'); // get a single merchant payment
@@ -72,10 +65,25 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     Route::put('experiences/{id}', 'ExperiencesController@update'); // update an existing experience
     Route::delete('experiences/{id}', 'ExperiencesController@destroy'); // delete a particular experience
 
-    /**Misc - not yet sorted**/
-//    Route::get('experiences', "ExperienceController@list");
-//    Route::get('experiences/{id}', "ExperienceController@show");
+    /***** User Related Endpoints ******/
+    /** User Payments **/
+    Route::get('payments/users/', 'UserPaymentsController@index'); // get all user payment entries
+    Route::get('payments/users/{id}', 'UserPaymentsController@show'); // get a single user payment entry
+    Route::post('payments/users/', 'UserPaymentsController@store'); // create new user payment
+    Route::put('payments/users/{id}', 'UserPaymentsController@update'); // update an existing user payment entry
+    Route::delete('payments/users/{id}', 'UserPaymentsController@destroy'); // delete a particular user payment
 
+    /** Individual Merchant **/
+    Route::get('merchants/{id}/experiences', 'ExperiencesController@getExperienceByMerchantId'); // get merchant experiences
+    Route::get('merchants/{id}/payments', 'MerchantPaymentsController@getMerchantPaymentsByMerchantId'); // get merchant payments
+    Route::get('merchants/{id}/reviews', 'ReviewsController@getReviewsByMerchantId'); // get all merchant reviews
+
+    /** Users **/
+    Route::get('users/', 'UsersController@index'); // get all users
+    Route::get('users/{id}', 'UsersController@show'); // get a single user
+    Route::put('users/{id}', 'UsersController@update'); // update an existing user
+
+    /**Misc - not yet sorted**/
     Route::get('events', "EventController@list");
     Route::get('restaurants', "RestaurantController@list");
     Route::get('restaurants/{id}', "RestaurantController@show");
@@ -83,11 +91,7 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     Route::post('bookings/experiences/{id}', "BookingController@bookExperience");
     Route::post('bookings/events/{id}', "BookingController@bookEvent");
 
-    /***** User Endpoints ******/
-    /** User Payments **/
-    Route::get('payments/users/', 'UserPaymentsController@index'); // get all user payment entries
-    Route::get('payments/users/{id}', 'UserPaymentsController@show'); // get a single user payment entry
-    Route::post('payments/users/', 'UserPaymentsController@store'); // create new user payment
-    Route::put('payments/users/{id}', 'UserPaymentsController@update'); // update an existing user payment entry
-    Route::delete('payments/users/{id}', 'UserPaymentsController@destroy'); // delete a particular user payment
+//    Route::get('experiences', "ExperienceController@list");
+//    Route::get('experiences/{id}', "ExperienceController@show");
+//    Route::delete('users/{id}', 'UsersController@destroy'); // delete a particular user payment
 });
