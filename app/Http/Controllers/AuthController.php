@@ -32,7 +32,7 @@ class AuthController extends Controller
 
         return $this->respondWithToken($token, auth()->user());
     }
-
+   
     public function register(){
         $this->validate(request(),[
             'email' => 'required|min:6|email|unique:users',

@@ -28,6 +28,10 @@ Route::group(['middleware' => 'api',
 
 });
 
+Route::post('merchant', "MerchantController@register");
+
+
+
 Route::post('auth/forgot', "PasswordResetController@forgot");
 
 Route::get('experiences', "ExperienceController@list");
