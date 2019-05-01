@@ -12,7 +12,7 @@ use App\Http\Resources\Review as ReviewResource;
 class ReviewsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the all reviews in the db.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -26,7 +26,7 @@ class ReviewsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created review in storage.
      *
      * @param ReviewsStoreRequest $request
      * @return ReviewResource
@@ -48,7 +48,7 @@ class ReviewsController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified review using its id.
      *
      * @param  int  $id
      * @return ReviewResource
@@ -76,7 +76,7 @@ class ReviewsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified review in storage.
      *
      * @param ReviewsUpdateRequest $request
      * @param  int $id
@@ -102,6 +102,7 @@ class ReviewsController extends Controller
     }
 
     /**
+     * get all reviews from all the experiences of a particular merchant using id
      * @param $id
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -114,7 +115,7 @@ class ReviewsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified review from storage.
      *
      * @param  int  $id
      * @return ReviewResource

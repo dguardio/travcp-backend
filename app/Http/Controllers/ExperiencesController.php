@@ -11,7 +11,7 @@ use App\Http\Resources\Experience as ExperienceResource;
 class ExperiencesController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of all experiences with pagination.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -25,7 +25,7 @@ class ExperiencesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created experience in storage.
      *
      * @param ExperiencesStoreRequest $request
      * @return ExperienceResource
@@ -47,7 +47,7 @@ class ExperiencesController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified experience.
      *
      * @param  int  $id
      * @return ExperienceResource
@@ -70,15 +70,16 @@ class ExperiencesController extends Controller
             return response(['errors'=> $errors], 404);
         }
 
+        // add reviews to the shii
         // return single experience as a resource
         return new ExperienceResource($experience);
     }
 
     /**
+     * get specified experience by merchant id
      * @param $id
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-
     public function getExperienceByMerchantId($id){
         // get experiences by merchant id
         $experiences = Experience::where('merchant_id', $id)->orderBy('id', 'DESC')->paginate(10);
@@ -88,7 +89,7 @@ class ExperiencesController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified experience in storage.
      *
      * @param ExperiencesUpdateRequest $request
      * @param  int $id
@@ -114,7 +115,7 @@ class ExperiencesController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified experience from storage.
      *
      * @param  int  $id
      * @return ExperienceResource

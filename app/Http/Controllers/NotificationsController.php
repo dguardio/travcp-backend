@@ -11,7 +11,7 @@ use App\Http\Resources\Notification as NotificationResource;
 class NotificationsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of all db notifications with pagination.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -26,7 +26,7 @@ class NotificationsController extends Controller
 
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created notification in storage.
      *
      * @param NotificationsStoreRequest $request
      * @return NotificationResource
@@ -48,7 +48,7 @@ class NotificationsController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified notification.
      *
      * @param  int  $id
      * @return NotificationResource
@@ -76,7 +76,7 @@ class NotificationsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified notification in storage.
      *
      * @param NotificationsUpdateRequest $request
      * @param  int $id
@@ -102,7 +102,7 @@ class NotificationsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified notification from storage.
      *
      * @param  int  $id
      * @return NotificationResource

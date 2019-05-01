@@ -9,8 +9,9 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\MerchantPayment as MerchantPaymentResource;
 class MerchantPaymentsController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
+     * Display a listing of the all merchant payments with paginate.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -23,8 +24,9 @@ class MerchantPaymentsController extends Controller
         return MerchantPaymentResource::collection($merchant_payment);
     }
 
+
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created merchant payment entry in storage.
      *
      * @param MerchantPaymentsStoreRequest $request
      * @return MerchantPaymentResource
@@ -45,8 +47,9 @@ class MerchantPaymentsController extends Controller
         return new MerchantPaymentResource(null);
     }
 
+
     /**
-     * Display the specified resource.
+     * Display the specified merchant payment data.
      *
      * @param  int  $id
      * @return MerchantPaymentResource
@@ -73,8 +76,9 @@ class MerchantPaymentsController extends Controller
         return new MerchantPaymentResource($merchant_payment);
     }
 
+
     /**
-     * Update the specified resource in storage.
+     * Update the specified merchant payment entry in storage.
      *
      * @param MerchantPaymentsUpdateRequest $request
      * @param  int $id
@@ -99,8 +103,9 @@ class MerchantPaymentsController extends Controller
         return new MerchantPaymentResource(null);
     }
 
+
     /**
-     * get all merchant payments by id
+     * get all payments paid to a particular merchant using the merchant id
      * @param $id
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -112,8 +117,9 @@ class MerchantPaymentsController extends Controller
         return MerchantPaymentResource::collection($merchant_payment);
     }
 
+
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified merchant payment entry from storage.
      *
      * @param  int  $id
      * @return MerchantPaymentResource
@@ -136,7 +142,7 @@ class MerchantPaymentsController extends Controller
             return response(['errors'=> $errors], 404);
         }
 
-        //Delete merchant payment
+        // delete merchant payment
         if($merchant_payment->delete()){
             return new MerchantPaymentResource($merchant_payment);
         }

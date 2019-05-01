@@ -25,7 +25,7 @@ class CreateExperiencesTable extends Migration
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->text('offerings')->nullable();
-            $tabxle->string('language')->nullable();
+            $table->string('language')->nullable();
             $table->text('description')->nullable();
             $table->float('naira_price', 12, 2)->default(0);
             $table->float('dollar_price', 12, 2)->default(0);

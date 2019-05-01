@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Http\Resources\User as UserResource;
 use Auth;
 
 class  MerchantController extends Controller
@@ -22,33 +23,50 @@ class  MerchantController extends Controller
         ]);
         // $data = request()->all();
         $data= [
-        'role' => request()->role];
+            'role' => request()->role
+        ];
         $userid = request()->userId;
         $u = User::where('id',$userid)->update($data);
         return $u;
     }
 
-    public function profile()
+    /**
+     * display merchant profile
+     * @param $id
+     * @return UserResource
+     */
+    public function profile($id)
     {
-        $id = request()->id;
-       $data = User::select('id', 'first_name','surname', 'role')->findOrFail($id);
-       return $data;
+        // get merchant data from db
+       $merchant = User::select('id', 'first_name','surname', 'role')->findOrFail($id);
+
+       // return merchant data as a resource
+       return new UserResource($merchant);
     }
-    
-    public function updateprofile()
+
+    /**
+     * update merchant profile
+     * @param $id
+     * @return UserResource
+     */
+    public function update($id)
     {
+        // validate request data
         $this->validate(\request(),[
             'first_name'=>'required|min:3',
             "surname" => "required|min:3",
             'role'=>'required',
         ]);
-        $userid = request()->id;
+
+        // create data array
         $data= [
             'first_name' => request()->first_name,
             'surname' => request()->surname,
             'role' => request()->role,
         ];
-        $u = User::where('id',$userid)->update($data);
-        return $u;
+
+        // return user as a resource
+        $user = User::where('id',$id)->update($data);
+        return new UserResource($user);
     }
 }

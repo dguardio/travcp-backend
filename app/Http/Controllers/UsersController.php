@@ -9,7 +9,7 @@ use App\User;
 class UsersController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of all users, pagination data included.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -23,7 +23,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified user's data.
      *
      * @param  int  $id
      * @return UserResource
@@ -51,7 +51,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified user data in storage.
      *
      * @param UsersUpdateRequest $request
      * @param  int $id
@@ -77,7 +77,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified user's data from storage.
      *
      * @param  int  $id
      * @return UserResource

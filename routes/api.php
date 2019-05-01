@@ -66,6 +66,13 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     Route::put('experiences/{id}', 'ExperiencesController@update'); // update an existing experience
     Route::delete('experiences/{id}', 'ExperiencesController@destroy'); // delete a particular experience
 
+    /** Bookings **/
+    Route::get('bookings/', 'BookingsController@index'); // get all bookings
+    Route::get('bookings/{id}', 'BookingsController@show'); // get a single booking
+    Route::post('bookings/', 'BookingsController@store'); // create new booking
+    Route::put('bookings/{id}', 'BookingsController@update'); // update an existing booking
+    Route::delete('bookings/{id}', 'BookingsController@destroy'); // delete a particular booking
+
     /***** User Related Endpoints ******/
     /** User Payments **/
     Route::get('payments/users/', 'UserPaymentsController@index'); // get all user payment entries
@@ -75,11 +82,12 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     Route::delete('payments/users/{id}', 'UserPaymentsController@destroy'); // delete a particular user payment
 
     /** Individual Merchant **/
-    Route::get('merchants/{id}/profile', 'MerchantController@profile'); //register merchant 
-    Route::put('merchants/{id}/update', 'MerchantController@updateprofile'); //update merchant  
+    Route::get('merchants/{id}/profile', 'MerchantController@profile'); // get merchant profile
+    Route::put('merchants/{id}/update', 'MerchantController@update'); // update merchant
     Route::get('merchants/{id}/experiences', 'ExperiencesController@getExperienceByMerchantId'); // get merchant experiences
     Route::get('merchants/{id}/payments', 'MerchantPaymentsController@getMerchantPaymentsByMerchantId'); // get merchant payments
     Route::get('merchants/{id}/reviews', 'ReviewsController@getReviewsByMerchantId'); // get all merchant reviews
+    Route::get('merchants/{id}/bookings', 'BookingsController@getBookingsByMerchantId'); // get all merchant bookings
 
     /** Users **/
     Route::get('users/', 'UsersController@index'); // get all users

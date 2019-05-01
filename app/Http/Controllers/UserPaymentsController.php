@@ -11,7 +11,7 @@ use App\Http\Resources\UserPayment as UserPaymentsResource;
 class UserPaymentsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the all user payments.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
@@ -25,7 +25,7 @@ class UserPaymentsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created user payment entry in storage.
      *
      * @param UserPaymentsStoreRequest $request
      * @return UserPaymentsResource
@@ -47,7 +47,7 @@ class UserPaymentsController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified user payment entry.
      *
      * @param  int  $id
      * @return UserPaymentsResource
@@ -76,7 +76,7 @@ class UserPaymentsController extends Controller
 
     /**
      * /**
-     * Update the specified resource in storage.
+     * Update the specified user payment entry in storage.
      *
      * @param UserPaymentsUpdateRequest $request
      * @param  int $id
@@ -102,7 +102,7 @@ class UserPaymentsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified user payment entry from storage.
      *
      * @param  int  $id
      * @return UserPaymentsResource
