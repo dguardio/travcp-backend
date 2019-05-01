@@ -20,10 +20,14 @@ class  MerchantController extends Controller
             "destination" => "required|min:3",
             'role'=>'required',
         ]);
+        dd('$data');
+
+        // $userid = $request->$userId;
+        // $user = User::findOrFail($userId);
         $data = request()->all();
-        
-        $u = Auth::user();
-        return $u;
+        // $u = Auth::user();
+        // $u = User::where('id',$userid)->update($data);
+        return $data;
         
     }
 }

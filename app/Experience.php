@@ -35,4 +35,12 @@ class Experience extends Model
     public function menus(){
         return $this->hasMany(FoodMenu::class);
     }
+
+    public function user(){
+        return $this->belongsTo('App\User', 'merchant_id');
+    }
+
+    public function reviews(){
+        return $this->hasMany('App\Review');
+    }
 }
