@@ -75,8 +75,8 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     Route::delete('payments/users/{id}', 'UserPaymentsController@destroy'); // delete a particular user payment
 
     /** Individual Merchant **/
-    Route::post('merchants/', 'MerchantController@register'); //register merchant 
-    Route::get('merchants/{id}', 'MerchantController@profile'); //register merchant 
+    Route::get('merchants/{id}/profile', 'MerchantController@profile'); //register merchant 
+    Route::put('merchants/{id}/update', 'MerchantController@updateprofile'); //update merchant  
     Route::get('merchants/{id}/experiences', 'ExperiencesController@getExperienceByMerchantId'); // get merchant experiences
     Route::get('merchants/{id}/payments', 'MerchantPaymentsController@getMerchantPaymentsByMerchantId'); // get merchant payments
     Route::get('merchants/{id}/reviews', 'ReviewsController@getReviewsByMerchantId'); // get all merchant reviews
@@ -98,3 +98,4 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
 //    Route::get('experiences/{id}', "ExperienceController@show");
 //    Route::delete('users/{id}', 'UsersController@destroy'); // delete a particular user payment
 });
+
