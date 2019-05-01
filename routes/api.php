@@ -30,7 +30,20 @@ Route::group(['middleware' => 'api',
 Route::post('auth/forgot', "PasswordResetController@forgot");
 
 Route::group(['middleware' => ['api', 'auth:api']], function(){
-    /***** Merchant Related Endpoints ******/
+
+    /** Merchant **/
+    Route::get('merchants/{id}/profile', 'MerchantController@profile'); // get merchant profile
+    Route::put('merchants/{id}/update', 'MerchantController@update'); // update merchant
+    Route::get('merchants/{id}/experiences', 'ExperiencesController@getExperienceByMerchantId'); // get merchant experiences
+    Route::get('merchants/{id}/payments', 'MerchantPaymentsController@getMerchantPaymentsByMerchantId'); // get merchant payments
+    Route::get('merchants/{id}/reviews', 'ReviewsController@getReviewsByMerchantId'); // get all merchant reviews
+    Route::get('merchants/{id}/bookings', 'BookingsController@getBookingsByMerchantId'); // get all merchant bookings
+
+    /** Users **/
+    Route::get('users/', 'UsersController@index'); // get all users
+    Route::get('users/{id}', 'UsersController@show'); // get a single user
+    Route::put('users/{id}', 'UsersController@update'); // update an existing user
+
     /** Merchant Payments**/
     Route::get('payments/merchants/', 'MerchantPaymentsController@index'); // get all merchant payments
     Route::get('payments/merchants/{id}', 'MerchantPaymentsController@show'); // get a single merchant payment
@@ -73,26 +86,12 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     Route::put('bookings/{id}', 'BookingsController@update'); // update an existing booking
     Route::delete('bookings/{id}', 'BookingsController@destroy'); // delete a particular booking
 
-    /***** User Related Endpoints ******/
     /** User Payments **/
     Route::get('payments/users/', 'UserPaymentsController@index'); // get all user payment entries
     Route::get('payments/users/{id}', 'UserPaymentsController@show'); // get a single user payment entry
     Route::post('payments/users/', 'UserPaymentsController@store'); // create new user payment
     Route::put('payments/users/{id}', 'UserPaymentsController@update'); // update an existing user payment entry
     Route::delete('payments/users/{id}', 'UserPaymentsController@destroy'); // delete a particular user payment
-
-    /** Individual Merchant **/
-    Route::get('merchants/{id}/profile', 'MerchantController@profile'); // get merchant profile
-    Route::put('merchants/{id}/update', 'MerchantController@update'); // update merchant
-    Route::get('merchants/{id}/experiences', 'ExperiencesController@getExperienceByMerchantId'); // get merchant experiences
-    Route::get('merchants/{id}/payments', 'MerchantPaymentsController@getMerchantPaymentsByMerchantId'); // get merchant payments
-    Route::get('merchants/{id}/reviews', 'ReviewsController@getReviewsByMerchantId'); // get all merchant reviews
-    Route::get('merchants/{id}/bookings', 'BookingsController@getBookingsByMerchantId'); // get all merchant bookings
-
-    /** Users **/
-    Route::get('users/', 'UsersController@index'); // get all users
-    Route::get('users/{id}', 'UsersController@show'); // get a single user
-    Route::put('users/{id}', 'UsersController@update'); // update an existing user
 
     /**Misc - not yet sorted**/
     Route::get('events', "EventController@list");
