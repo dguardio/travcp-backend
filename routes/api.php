@@ -31,7 +31,7 @@ Route::post('auth/forgot', "PasswordResetController@forgot");
 
 Route::group(['middleware' => ['api', 'auth:api']], function(){
 
-    /** Merchant **/
+    /** Merchants **/
     Route::get('merchants/{id}/profile', 'MerchantController@profile'); // get merchant profile
     Route::put('merchants/{id}/update', 'MerchantController@update'); // update merchant
     Route::get('merchants/{id}/experiences', 'ExperiencesController@getExperienceByMerchantId'); // get merchant experiences
@@ -42,6 +42,7 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     /** Users **/
     Route::get('users/', 'UsersController@index'); // get all users
     Route::get('users/{id}', 'UsersController@show'); // get a single user
+    Route::get('users/role/{role}', 'UsersController@getUsersByRole'); // get a single user
     Route::put('users/{id}', 'UsersController@update'); // update an existing user
 
     /** Merchant Payments**/
@@ -66,7 +67,7 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     Route::put('experiences/{id}', 'ExperiencesController@update'); // update an existing experience
     Route::delete('experiences/{id}', 'ExperiencesController@destroy'); // delete a particular experience
 
-    /** Experience Type **/
+    /** Experience Types **/
     Route::get('experiences/types/', 'ExperiencesTypesController@index'); // get all experiences types
     Route::get('experiences/types/{id}', 'ExperiencesTypesController@show'); // get a single experience type
     Route::post('experiences/types/', 'ExperiencesTypesController@store'); // create new experience type

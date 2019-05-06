@@ -51,6 +51,19 @@ class UsersController extends Controller
     }
 
     /**
+     * get all users with a particular role
+     * @param $role
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function getUsersByRole($role){
+        // get all users with a particular role
+        $users = User::where('role', $role)->orderBy('id', 'DESC')->paginate(10);
+
+        // return users as a collection
+        return UserResource::collection($users);
+    }
+
+    /**
      * Update the specified user data in storage.
      *
      * @param UsersUpdateRequest $request
