@@ -55,13 +55,13 @@ Route::get('notifications/', 'NotificationsController@index'); // get all notifi
 Route::get('notifications/{id}', 'NotificationsController@show'); // get a single notification
 
 /** Experience Types **/
-Route::get('experiences_types/{id}', 'ExperienceTypesController@show'); // get a single experience type
-Route::get('experiences_types/', 'ExperienceTypesController@index'); // get all experiences types
+Route::get('experience_types/{id}', 'ExperienceTypesController@show'); // get a single experience type
+Route::get('experience_types/', 'ExperienceTypesController@index'); // get all experiences types
 
 /** Experience Type Categories **/
-Route::get('experiences_types_categories', 'ExperienceTypesCategoriesController@index'); // get all categories
-Route::get('experiences_types/{id}/categories', 'ExperienceTypesCategoriesController@getCategoryByExperienceTypeId'); // get categories by experience type id
-Route::get('experiences_types_categories/{id}', 'ExperienceTypesCategoriesController@show'); // get a single category
+Route::get('experience_types_categories', 'ExperienceTypesCategoriesController@index'); // get all categories
+Route::get('experience_types/{id}/categories', 'ExperienceTypesCategoriesController@getCategoryByExperienceTypeId'); // get categories by experience type id
+Route::get('experience_types_categories/{id}', 'ExperienceTypesCategoriesController@show'); // get a single category
 
 /** Reviews **/
 Route::get('reviews/', 'ReviewsController@index'); // get all reviews
