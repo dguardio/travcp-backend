@@ -24,7 +24,7 @@ class ExperienceTypesStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => 'string|required'
+            "name" => 'string|required|unique:experiences_types'
         ];
     }
 }

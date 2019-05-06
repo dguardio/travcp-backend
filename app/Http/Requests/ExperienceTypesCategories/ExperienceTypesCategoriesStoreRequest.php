@@ -24,8 +24,8 @@ class ExperienceTypesCategoriesStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string|required',
-            'id' => 'integer|required'
+            'name' => 'string|required|unique:experiences_types_categories',
+            'experiences_type_id' => 'integer|required'
         ];
     }
 }

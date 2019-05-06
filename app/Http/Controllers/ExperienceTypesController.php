@@ -36,11 +36,11 @@ class ExperienceTypesController extends Controller
         $validated = $request->validated();
 
         // create experience type object and add other notification object properties
-        $experiences_types =  new ExperienceType($validated);
+        $experience_type =  new ExperienceType($validated);
 
         // save experience type if transaction goes well
-        if($experiences_types->save()){
-            return new ExperienceTypeResource($experiences_types);
+        if($experience_type->save()){
+            return new ExperienceTypeResource($experience_type);
         }
 
         // return error if transaction not successful
@@ -81,7 +81,7 @@ class ExperienceTypesController extends Controller
      *
      * @param ExperienceTypesUpdateRequest $request
      * @param  int $id
-     * @return ExperienceType
+     * @return ExperienceTypeResource
      */
     public function update(ExperienceTypesUpdateRequest $request, $id)
     {
@@ -96,7 +96,7 @@ class ExperienceTypesController extends Controller
 
         //save experience type if transaction goes well
         if($experience_type->save()){
-            return new ExperienceType($experience_type);
+            return new ExperienceTypeResource($experience_type);
         }
 
         // return error if transaction not successful

@@ -24,7 +24,7 @@ class ExperienceTypesUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => 'string'
+            "name" => 'string|unique:experiences_types'
         ];
     }
 }
