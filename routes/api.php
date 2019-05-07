@@ -44,7 +44,7 @@ Route::get('users/role/{role}', 'UsersController@getUsersByRole'); // get a sing
 /** Experiences **/
 Route::get('experiences/', 'ExperiencesController@index'); // get all experiences
 Route::get('experiences/{id}', 'ExperiencesController@show'); // get a single experience
-Route::get('experiences/types/{id}/experiences', 'ExperiencesController@getExperiencesByTypesId');
+Route::get('experience_types/{id}/experiences', 'ExperiencesController@getExperiencesByTypesId');
 
 /** Merchant Payments**/
 Route::get('payments/merchants/', 'MerchantPaymentsController@index'); // get all merchant payments
@@ -57,16 +57,12 @@ Route::get('notifications/{id}', 'NotificationsController@show'); // get a singl
 /** Experience Types **/
 Route::get('experience_types/{id}', 'ExperienceTypesController@show'); // get a single experience type
 Route::get('experience_types/', 'ExperienceTypesController@index'); // get all experiences types
+Route::get('experience_types/name/{name}', 'ExperienceTypesController@getExperienceTypeByName'); // get a single experience type by its name
 
 /** Experience Type Categories **/
 Route::get('experience_types_categories', 'ExperienceTypesCategoriesController@index'); // get all categories
 Route::get('experience_types/{id}/categories', 'ExperienceTypesCategoriesController@getCategoryByExperienceTypeId'); // get categories by experience type id
 Route::get('experience_types_categories/{id}', 'ExperienceTypesCategoriesController@show'); // get a single category
-
-/** Experience Type Categories **/
-Route::post('experience_types_categories', 'ExperienceTypesCategoriesController@store'); // create new category
-Route::put('experience_types_categories/{id}', 'ExperienceTypesCategoriesController@update'); // update an existing category
-Route::delete('experience_types_categories/{id}', 'ExperienceTypesCategoriesController@destroy'); // delete a particular category
 
 /** Reviews **/
 Route::get('reviews/', 'ReviewsController@index'); // get all reviews
@@ -97,12 +93,12 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     /** Merchant Payments**/
     Route::post('payments/merchants/', 'MerchantPaymentsController@store'); // create new merchant payment
     Route::put('payments/merchants/{id}', 'MerchantPaymentsController@update'); // update an existing merchant payment
-    Route::delete('payments/merchants/{id}', 'MerchantPaymentsController@destroy'); // delete a particular merchant payment
+//    Route::delete('payments/merchants/{id}', 'MerchantPaymentsController@destroy'); // delete a particular merchant payment
 
     /** Notifications **/
     Route::post('notifications/', 'NotificationsController@store'); // create new notification
     Route::put('notifications/{id}', 'NotificationsController@update'); // update an existing notification
-    Route::delete('notifications/{id}', 'NotificationsController@destroy'); // delete a particular notification
+//    Route::delete('notifications/{id}', 'NotificationsController@destroy'); // delete a particular notification
 
     /** Experiences **/
     Route::post('experiences/', 'ExperiencesController@store'); // create new experience
@@ -112,9 +108,12 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     /** Experience Types **/
     Route::post('experience_types/', 'ExperienceTypesController@store'); // create new experience type
     Route::put('experience_types/{id}', 'ExperienceTypesController@update'); // update an existing experience type
-    Route::delete('experience_types/{id}', 'ExperienceTypesController@destroy'); // delete a particular experience
+//    Route::delete('experience_types/{id}', 'ExperienceTypesController@destroy'); // delete a particular experience
 
-
+    /** Experience Type Categories **/
+    Route::post('experience_types_categories', 'ExperienceTypesCategoriesController@store'); // create new category
+    Route::put('experience_types_categories/{id}', 'ExperienceTypesCategoriesController@update'); // update an existing category
+//    Route::delete('experience_types_categories/{id}', 'ExperienceTypesCategoriesController@destroy'); // delete a particular category
 
     /** Reviews **/
     Route::post('reviews/', 'ReviewsController@store'); // create new review
@@ -129,7 +128,7 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     /** User Payments **/
     Route::post('payments/users/', 'UserPaymentsController@store'); // create new user payment
     Route::put('payments/users/{id}', 'UserPaymentsController@update'); // update an existing user payment entry
-    Route::delete('payments/users/{id}', 'UserPaymentsController@destroy'); // delete a particular user payment
+//    Route::delete('payments/users/{id}', 'UserPaymentsController@destroy'); // delete a particular user payment
 
     /**Misc - not yet sorted**/
     Route::post('bookings/experiences/{id}', "BookingController@bookExperience");

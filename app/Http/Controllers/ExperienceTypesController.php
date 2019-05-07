@@ -25,6 +25,19 @@ class ExperienceTypesController extends Controller
     }
 
     /**
+     * @param $name
+     * @return ExperienceTypeResource
+     */
+    public function getExperienceTypeByName($name)
+    {
+        // get experiences types by name
+        $experiences_type = ExperienceType::where('name', $name)->orderBy('id', 'DESC')->get();
+
+        // return experience types as a collection
+        return new ExperienceTypeResource($experiences_type);
+    }
+
+    /**
      * Store a newly created experience type in storage.
      *
      * @param ExperienceTypesStoreRequest $request

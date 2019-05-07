@@ -4,14 +4,15 @@ use App\BookableType;
 use Faker\Generator as Faker;
 
 $factory->define(App\Experience::class, function (Faker $faker) {
-    $experienceBookable = BookableType::whereName('experience')->first();
     return [
-        'merchant_id' => 1,
-        'bookable_type_id' => $experienceBookable->id,
         'title' => $faker->sentence,
-        'about_merchant' => $faker->text,
+        'slug' => $faker->url,
+        'merchant_id' => 1,
+        'about_merchant' => $faker->sentence,
+        'contact_email' =>  $faker->unique()->safeEmail,
+        'location' => $faker->address,
         'city' => $faker->city,
-        'state' => $faker->state,
+        'state' => $faker->city,
         'offerings' => $faker->word . "," . $faker->word,
         'language' => $faker->languageCode,
         'description' => $faker->text,
@@ -19,8 +20,20 @@ $factory->define(App\Experience::class, function (Faker $faker) {
         'dollar_price' => $faker->randomNumber(3),
         'pounds_price' => $faker->randomNumber(3),
         'meetup_location' => $faker->streetAddress,
+        'price_from' => $faker->randomNumber(3),
+        'price_to' => $faker->randomNumber(5),
         'itenary' => $faker->realText(20),
+        'extra_perks' => $faker->realText(20),
+        'drink_types' => $faker->realText(20),
+        'dining_options' => $faker->realText(20),
+        'has_outdoor_sitting' => $faker->boolean,
+        'opening_and_closing_hours' => $faker->time(),
+        'cancellation_policy' =>  $faker->sentence,
         'tourist_expected_items' => $faker->realText(10),
-        'number_admittable' => $faker->randomNumber(2)
+        'number_admittable' => $faker->randomNumber(2),
+        'experiences_type_id' => $faker->numberBetween(1,3),
+        'rating' => $faker->numberBetween(0,5),
+        'rating_count' => $faker->randomNumber(3),
+        'history' => $faker->sentence." ".$faker->sentence." ".$faker->sentence,
     ];
 });

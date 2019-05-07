@@ -97,7 +97,7 @@ class ExperiencesController extends Controller
      */
     public function getExperiencesByTypesId($id){
         // get experiences by experience types id
-        $experiences = Experience::where('experience_types_id', $id)->orderBy('id', 'DESC')->paginate(10);
+        $experiences = Experience::where('experiences_type_id', $id)->orderBy('id', 'DESC')->paginate(10);
 
         // return collection of experiences as a resource
         return ExperienceResource::collection($experiences);
