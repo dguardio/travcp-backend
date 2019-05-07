@@ -82,6 +82,7 @@ Route::get('restaurants', "RestaurantController@list");
 Route::get('restaurants/{id}', "RestaurantController@show");
 Route::get('restaurants/{id}/menu', "FoodMenuController@list");
 
+
 Route::group(['middleware' => ['api', 'auth:api']], function(){
 
     /** Merchants **/
@@ -106,8 +107,9 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     Route::delete('experiences/{id}', 'ExperiencesController@destroy'); // delete a particular experience
 
     /** Experience Types **/
-    Route::post('experience_types/', 'ExperienceTypesController@store'); // create new experience type
     Route::put('experience_types/{id}', 'ExperienceTypesController@update'); // update an existing experience type
+    Route::post('experience_types/', 'ExperienceTypesController@store'); // create new experience type
+
 //    Route::delete('experience_types/{id}', 'ExperienceTypesController@destroy'); // delete a particular experience
 
     /** Experience Type Categories **/
