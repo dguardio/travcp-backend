@@ -80,11 +80,15 @@ class ExperiencesController extends Controller
     /**
      * get specified experience by merchant id
      * @param $id
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function getExperienceByMerchantId($id){
+    public function getExperienceByMerchantId($id, Request $request){
         // get experiences by merchant id
-        $experiences = Experience::where('merchant_id', $id)->orderBy('id', 'DESC')->paginate(10);
+        $experiences = Experience::getBySearch($request)->where('merchant_id', $id)
+            ->orderBy('id', 'DESC')
+            ->paginate(10)
+            ->appends($request->query());
 
         // return collection of experiences as a resource
         return ExperienceResource::collection($experiences);
@@ -93,11 +97,16 @@ class ExperiencesController extends Controller
     /**
      * get all experiences by specified type id
      * @param $id
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function getExperiencesByTypesId($id){
+    public function getExperiencesByTypesId($id, Request $request){
         // get experiences by experience types id
-        $experiences = Experience::where('experiences_type_id', $id)->orderBy('id', 'DESC')->paginate(10);
+        $experiences = Experience::getBySearch($request)
+            ->where('experiences_type_id', $id)
+            ->orderBy('id', 'DESC')
+            ->paginate(10)
+            ->appends($request->query());
 
         // return collection of experiences as a resource
         return ExperienceResource::collection($experiences);

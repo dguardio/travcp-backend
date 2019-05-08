@@ -25,7 +25,9 @@ class Experience extends Model
 
     public static function getBySearch(Request $request){
         return self::when($request->location, function($query) use($request){
-            return $query->where('city', "LIKE", "%{$request->location}%")->orWhere('state', 'LIKE', "%{$request->location}%");
+            return $query->where('location', "LIKE", "%{$request->location}%")
+                ->orWhere('city', "LIKE", "%{$request->location}%")
+                ->orWhere('state', 'LIKE', "%{$request->location}%");
         })->when($request->min_price, function($query) use($request){
             return $query->where('naira_price', '>=', $request->min_price);
         })->when($request->max_price, function($query)  use($request){
