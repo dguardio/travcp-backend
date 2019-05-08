@@ -14,11 +14,11 @@ class UpdateUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string("company");
-            $table->string("address");
-            $table->string("city");
-            $table->string("country");
-            $table->integer("postal_code");
+            $table->string("company")->nullable();
+            $table->string("address")->nullable();
+            $table->string("city")->nullable();
+            $table->string("country")->nullable();
+            $table->integer("postal_code")->nullable();
         });
     }
 
