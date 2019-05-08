@@ -38,7 +38,7 @@ class Experience extends Model
             return $query->where('rating', '>=', $request->rating);
         })->when($request->cities, function($query)  use($request){
             return $query->whereIn('city', $request->cities);
-        })->paginate(10);
+        });
     }
 
     public function menus(){

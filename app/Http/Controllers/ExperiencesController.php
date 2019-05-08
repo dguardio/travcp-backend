@@ -20,7 +20,7 @@ class ExperiencesController extends Controller
     public function index(Request $request)
     {
         // get experiences
-        $experiences = Experience::getBySearch($request)->appends($request->query());
+        $experiences = Experience::getBySearch($request)->appends($request->query())->paginate(10);
 
         // return collection of experiences as a resource
         return ExperienceResource::collection($experiences);
@@ -85,7 +85,8 @@ class ExperiencesController extends Controller
      */
     public function getExperienceByMerchantId($id, Request $request){
         // get experiences by merchant id
-        $experiences = Experience::getBySearch($request)->where('merchant_id', $id)
+        $experiences = Experience::getBySearch($request)
+            ->where('merchant_id', $id)
             ->orderBy('id', 'DESC')
             ->paginate(10)
             ->appends($request->query());
