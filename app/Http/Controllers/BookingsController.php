@@ -123,6 +123,18 @@ class BookingsController extends Controller
         return response(['errors'=> $errors], 500);
     }
 
+    /**
+     * get all bookings made by user with id $id
+     * @param $id
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    function getBookingByUserId($id){
+        // get all bookings from latest to oldest
+        $bookings = Booking::where('user_id', $id)->orderBy('id', 'DESC')->paginate(10);
+
+        // return bookings as a resource
+        return BookingResource::collection($bookings);
+    }
 
     /**
      * Remove the specified resource from storage.

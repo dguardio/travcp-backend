@@ -39,6 +39,7 @@ Route::get('merchants/{id}/bookings', 'BookingsController@getBookingsByMerchantI
 Route::get('users/', 'UsersController@index'); // get all users
 Route::get('users/{id}', 'UsersController@show'); // get a single user
 Route::get('users/role/{role}', 'UsersController@getUsersByRole'); // get a single user
+Route::get('users/{id}/bookings', 'BookingsController@getBookingByUserId'); // get all bookings made by a particular user
 
 /** Experiences **/
 Route::get('experiences/', 'ExperiencesController@index'); // get all experiences
