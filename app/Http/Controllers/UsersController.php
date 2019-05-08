@@ -77,8 +77,9 @@ class UsersController extends Controller
 
         // validate request and return validated data
         $validated = $request->validated();
-        $validated['password'] = \bcrypt($validated['password']);
-
+        if(isset($validated['password'])){
+            $validated['password'] = \bcrypt($validated['password']);
+        }
         // add other user object properties
         $users->update($validated);
 
