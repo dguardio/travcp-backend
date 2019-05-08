@@ -30,6 +30,11 @@ class UsersUpdateRequest extends FormRequest
             'subscribed_to_newsletter' => 'boolean',
             'password' => 'string',
             'role' => 'string',
+            'company' => 'string',
+            'address' => 'string',
+            'city' => 'string',
+            'country' => 'string',
+            'postal_code' => 'integer',
         ];
     }
 }
