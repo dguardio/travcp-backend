@@ -24,10 +24,6 @@ class BookingsUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'bookable_type_id' => 'integer',
-            'bookable_type_name' => 'string',
-            'bookable_id' => 'integer',
-            'bookable_name' => 'string',
             'merchant_id' => 'integer',
             'price' => 'integer|max:13',
             'currency' => 'string',
@@ -35,6 +31,8 @@ class BookingsUpdateRequest extends FormRequest
             'start_date' => 'date',
             'end_date' => 'date',
             'quantity' => 'integer',
+            'food_menu_ids' => 'string|',
+            'experience_id' => 'integer',
         ];
     }
 }

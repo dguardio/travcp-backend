@@ -20,7 +20,9 @@ class ExperiencesController extends Controller
     public function index(Request $request)
     {
         // get experiences
-        $experiences = Experience::getBySearch($request)->appends($request->query())->paginate(10);
+        $experiences = Experience::getBySearch($request)
+            ->paginate(10)
+            ->appends($request->query());
 
         // return collection of experiences as a resource
         return ExperienceResource::collection($experiences);

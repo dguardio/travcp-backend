@@ -30,7 +30,6 @@ Route::group(['middleware' => 'api',
 Route::post('auth/forgot', "PasswordResetController@forgot");
 
 /** Merchants **/
-Route::get('merchants/{id}/profile', 'MerchantController@profile'); // get merchant profile
 Route::get('merchants/{id}/experiences', 'ExperiencesController@getExperienceByMerchantId'); // get merchant experiences
 Route::get('merchants/{id}/payments', 'MerchantPaymentsController@getMerchantPaymentsByMerchantId'); // get merchant payments
 Route::get('merchants/{id}/reviews', 'ReviewsController@getReviewsByMerchantId'); // get all merchant reviews
@@ -86,7 +85,6 @@ Route::get('restaurants/{id}/menu', "FoodMenuController@list");
 Route::group(['middleware' => ['api', 'auth:api']], function(){
 
     /** Merchants **/
-    Route::put('merchants/{id}/update', 'MerchantController@update'); // update merchant
 
     /** Users **/
     Route::put('users/{id}', 'UsersController@update'); // update an existing user
@@ -118,9 +116,9 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
 //    Route::delete('experience_types_categories/{id}', 'ExperienceTypesCategoriesController@destroy'); // delete a particular category
 
     /** Reviews **/
-    Route::post('reviews/', 'ReviewsController@store'); // create new review
     Route::put('reviews/{id}', 'ReviewsController@update'); // update an existing review
     Route::delete('reviews/{id}', 'ReviewsController@destroy'); // delete a particular review
+    Route::post('reviews/', 'ReviewsController@store'); // create new review
 
     /** Bookings **/
     Route::post('bookings/', 'BookingsController@store'); // create new booking
