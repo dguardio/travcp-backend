@@ -37,6 +37,7 @@ class ExperienceTypesController extends Controller
         return new ExperienceTypeResource($experiences_type);
     }
 
+
     /**
      * Store a newly created experience type in storage.
      *

@@ -1,9 +1,12 @@
 <?php
 
 use App\BookableType;
+use App\ExperienceType;
 use Faker\Generator as Faker;
 
 $factory->define(App\Experience::class, function (Faker $faker) {
+    $experiences_type = ExperienceType::inRandomOrder()->get()->first();
+
     return [
         'title' => $faker->sentence,
         'slug' => $faker->url,
@@ -31,7 +34,7 @@ $factory->define(App\Experience::class, function (Faker $faker) {
         'cancellation_policy' =>  $faker->sentence,
         'tourist_expected_items' => $faker->realText(10),
         'number_admittable' => $faker->randomNumber(2),
-        'experiences_type_id' => $faker->numberBetween(1,3),
+        'experiences_type_id' => $experiences_type->id,
         'rating' => $faker->numberBetween(0,5),
         'rating_count' => $faker->randomNumber(3),
         'history' => $faker->sentence." ".$faker->sentence." ".$faker->sentence,
