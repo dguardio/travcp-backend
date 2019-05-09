@@ -15,12 +15,12 @@ class CreateMerchantExtrasTableMigration extends Migration
     {
         Schema::create('merchant_extras', function (Blueprint $table) {
             $table->increments('id');
-            $table->string("business_name");
-            $table->string("business_email");
-            $table->string("identity_document_url");
-            $table->string("bio");
-            $table->string("phone");
-            $table->integer("user_id");
+            $table->string("business_name")->nullable();
+            $table->string("business_email")->nullable();
+            $table->string("identity_document_file")->nullble();
+            $table->string("bio")->nullable();
+            $table->string("phone")->nullable();
+            $table->integer("merchant_id");
             $table->timestamps();
         });
     }

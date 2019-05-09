@@ -24,12 +24,12 @@ class MerchantExtrasStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "business_name" => "string|required",
-            "business_email" => "string|required|unique:merchant_extras",
-            "identity_document_url" => "string|required",
-            "bio" => "string|required",
-            "phone" => "string|required",
-            "user_id" => "integer|required|unique:merchant_extras",
+            "business_name" => "string",
+            "business_email" => "string|unique:merchant_extras",
+            "identity_document" => "image|nullable|max:2048",
+            "bio" => "string",
+            "phone" => "string",
+            "merchant_id" => "integer|required|unique:merchant_extras",
         ];
     }
 }

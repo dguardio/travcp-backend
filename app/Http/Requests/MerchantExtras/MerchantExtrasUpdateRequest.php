@@ -26,10 +26,10 @@ class MerchantExtrasUpdateRequest extends FormRequest
         return [
             "business_name" => "string",
             "business_email" => "string",
-            "identity_document_url" => "string",
+            "identity_document" => "image|nullable|max:2048",
             "bio" => "string",
             "phone" => "string",
-            "user_id" => "integer",
+            "merchant_id" => "integer",
         ];
     }
 }

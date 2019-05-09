@@ -34,6 +34,7 @@ Route::get('merchants/{id}/experiences', 'ExperiencesController@getExperienceByM
 Route::get('merchants/{id}/payments', 'MerchantPaymentsController@getMerchantPaymentsByMerchantId'); // get merchant payments
 Route::get('merchants/{id}/reviews', 'ReviewsController@getReviewsByMerchantId'); // get all merchant reviews
 Route::get('merchants/{id}/bookings', 'BookingsController@getBookingsByMerchantId'); // get all merchant bookings
+Route::get('merchants/{id}/extras', 'MerchantExtrasController@getMerchantExtrasByMerchantId'); // get merchant extras
 
 /** Users **/
 Route::get('users/', 'UsersController@index'); // get all users
@@ -68,6 +69,10 @@ Route::get('experience_types_categories/{id}', 'ExperienceTypesCategoriesControl
 Route::get('reviews/', 'ReviewsController@index'); // get all reviews
 Route::get('reviews/{id}', 'ReviewsController@show'); // get a single reviews
 
+/** Merchant Extras**/
+Route::get('merchant/extras/', 'MerchantExtrasController@index'); // get all merchant extras
+Route::get('merchant/extras/{id}', 'MerchantExtrasController@show'); // get a single merchant extras entry by id
+
 /** Bookings **/
 Route::get('bookings/', 'BookingsController@index'); // get all bookings
 Route::get('bookings/{id}', 'BookingsController@show'); // get a single booking
@@ -86,6 +91,7 @@ Route::get('restaurants/{id}/menu', "FoodMenuController@list");
 Route::group(['middleware' => ['api', 'auth:api']], function(){
 
     /** Merchants **/
+    Route::put('merchants/{id}/extras', 'MerchantExtrasController@updateByMerchantId'); // update merchant extras using merchant id
 
     /** Users **/
     Route::put('users/{id}', 'UsersController@update'); // update an existing user
@@ -125,6 +131,11 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     Route::post('bookings/', 'BookingsController@store'); // create new booking
     Route::put('bookings/{id}', 'BookingsController@update'); // update an existing booking
     Route::delete('bookings/{id}', 'BookingsController@destroy'); // delete a particular booking
+
+    /** Merchant Extras **/
+    Route::post('merchant/extras/', 'MerchantExtrasController@store'); // store a new merchant extras entry
+    Route::put('merchant/extras/{id}', 'MerchantExtrasController@update'); // store a new merchant extras entry
+    Route::delete('merchant/extras/{id}', 'MerchantExtrasController@delete'); // delete a new merchant extras entry
 
     /** User Payments **/
     Route::post('payments/users/', 'UserPaymentsController@store'); // create new user payment
