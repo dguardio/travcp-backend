@@ -15,12 +15,12 @@ class CreateMerchantPaymentTableMigration extends Migration
     {
         Schema::create('merchant_payments', function (Blueprint $table) {
             $table->increments('id');
-            $table->string("description");
-            $table->integer("payer_id"); // id of the admin making the payment
-            $table->integer("merchant_id"); // id of the merchant recieving the payment
-            $table->double("amount"); // amount paid to the merchant
-            $table->string("currency"); //currency of payment; naira, dollar, pounds
-            $table->string("transaction_id"); // transaction id gotten from the payment gateway
+            $table->string("description")->nullable();
+            $table->integer("payer_id")->nullable(); // id of the admin making the payment
+            $table->integer("merchant_id")->nullable(); // id of the merchant recieving the payment
+            $table->double("amount")->nullable(); // amount paid to the merchant
+            $table->string("currency")->nullable(); //currency of payment; naira, dollar, pounds
+            $table->string("transaction_id")->nullable(); // transaction id gotten from the payment gateway
             $table->timestamps();
         });
     }

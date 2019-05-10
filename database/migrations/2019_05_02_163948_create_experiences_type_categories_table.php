@@ -15,8 +15,8 @@ class CreateExperiencesTypeCategoriesTable extends Migration
     {
         Schema::create('experiences_types_categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->string("name");
-            $table->integer("experiences_type_id");
+            $table->string("name")->nullable();
+            $table->integer("experiences_type_id")->nullable();
             $table->timestamps();
         });
     }

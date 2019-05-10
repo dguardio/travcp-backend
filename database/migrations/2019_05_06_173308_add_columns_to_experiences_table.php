@@ -14,9 +14,9 @@ class AddColumnsToExperiencesTable extends Migration
     public function up()
     {
         Schema::table('experiences', function (Blueprint $table) {
-            $table->integer("rating");
-            $table->integer("rating_count");
-            $table->string("history");
+            $table->integer("rating")->nullable();
+            $table->integer("rating_count")->nullable();
+            $table->string("history")->nullable();
         });
     }
 

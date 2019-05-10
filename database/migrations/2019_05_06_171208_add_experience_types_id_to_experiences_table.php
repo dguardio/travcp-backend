@@ -15,7 +15,7 @@ class AddExperienceTypesIdToExperiencesTable extends Migration
     {
         Schema::table('experiences', function (Blueprint $table) {
             $table->dropColumn("bookable_type_id");
-            $table->integer("experiences_type_id");
+            $table->integer("experiences_type_id")->nullable();
         });
     }
 

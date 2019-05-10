@@ -14,6 +14,8 @@ class Booking extends Resource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $old =  parent::toArray($request);
+        $old['experience'] = new Experience($this->experience);
+        return $old;
     }
 }

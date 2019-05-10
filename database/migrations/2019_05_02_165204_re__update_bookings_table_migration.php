@@ -18,7 +18,7 @@ class ReUpdateBookingsTableMigration extends Migration
             $table->dropColumn("bookable_type_name");
             $table->dropColumn("bookable_id");
             $table->dropColumn("bookable_name");
-            $table->integer("experience_id");
+            $table->integer("experience_id")->nullable();
         });
     }
 

@@ -37,6 +37,6 @@ $factory->define(App\Experience::class, function (Faker $faker) {
         'experiences_type_id' => $experiences_type->id,
         'rating' => $faker->numberBetween(0,5),
         'rating_count' => $faker->randomNumber(3),
-        'history' => $faker->sentence." ".$faker->sentence." ".$faker->sentence,
+        'history' => $faker->sentence." ".$faker->sentence,
     ];
 });

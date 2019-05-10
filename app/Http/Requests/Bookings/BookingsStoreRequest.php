@@ -31,7 +31,7 @@ class BookingsStoreRequest extends FormRequest
             'start_date' => 'date',
             'end_date' => 'date',
             'quantity' => 'integer',
-            'food_menu_ids' => 'string|required',
+            'food_menu_ids' => 'string',
             'experience_id' => 'integer|required',
         ];
     }

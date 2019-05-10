@@ -14,7 +14,7 @@ class UpdateBookingsTableMigration extends Migration
     public function up()
     {
         Schema::table('bookings', function (Blueprint $table) {
-            $table->string("food_menu_ids");
+            $table->string("food_menu_ids")->nullable();
         });
     }
 

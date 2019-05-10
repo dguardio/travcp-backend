@@ -15,10 +15,10 @@ class CreateUserPaymentsTableMigration extends Migration
     {
         Schema::create('user_payments', function (Blueprint $table) {
             $table->increments('id');
-            $table->string("description"); // payment description
-            $table->integer("user_id"); // user making the payment
-            $table->integer("experience_id"); //experience the user is paying for
-            $table->string("transaction_id"); // transaction id gotten from the payment gateway
+            $table->string("description")->nullable(); // payment description
+            $table->integer("user_id")->nullable(); // user making the payment
+            $table->integer("experience_id")->nullable(); //experience the user is paying for
+            $table->string("transaction_id")->nullable(); // transaction id gotten from the payment gateway
             $table->timestamps();
         });
     }

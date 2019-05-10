@@ -14,8 +14,8 @@ class AddAmountAndCurrencyToUserPaymentsMigration extends Migration
     public function up()
     {
         Schema::table('user_payments', function (Blueprint $table) {
-            $table->float("amount");
-            $table->string("currency");
+            $table->float("amount")->nullable();
+            $table->string("currency")->nullable();
         });
     }
 

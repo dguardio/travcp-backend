@@ -15,9 +15,9 @@ class CreateReviewsTableMigration extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer("user_id"); // user creating the review
-            $table->integer("experience_id"); // experience the user is reviewing
-            $table->string("review_body"); // actual review the user wrote
+            $table->integer("user_id")->nullable(); // user creating the review
+            $table->integer("experience_id")->nullable(); // experience the user is reviewing
+            $table->string("review_body")->nullable(); // actual review the user wrote
             $table->timestamps();
         });
     }

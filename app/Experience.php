@@ -52,4 +52,8 @@ class Experience extends Model
     public function reviews(){
         return $this->hasMany('App\Review');
     }
+
+    public function bookings(){
+        return $this->hasMany('App\Booking');
+    }
 }
