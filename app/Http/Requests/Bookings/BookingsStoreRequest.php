@@ -25,7 +25,7 @@ class BookingsStoreRequest extends FormRequest
     {
         return [
             'merchant_id' => 'integer|required',
-            'price' => 'integer|max:13|required',
+            'price' => 'integer|required',
             'currency' => 'string',
             'user_id' => 'integer|required',
             'start_date' => 'date',

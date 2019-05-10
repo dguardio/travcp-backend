@@ -25,7 +25,7 @@ class BookingsUpdateRequest extends FormRequest
     {
         return [
             'merchant_id' => 'integer',
-            'price' => 'integer|max:13',
+            'price' => 'integer',
             'currency' => 'string',
             'user_id' => 'integer|required',
             'start_date' => 'date',
