@@ -15,10 +15,6 @@ class CreateBookingsTable extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('bookable_type_id')->nullable();
-            $table->string('bookable_type_name')->nullable();
-            $table->integer('bookable_id')->unsigned();
-            $table->string('bookable_name')->nullable();
             $table->integer('merchant_id')->comment("merchant owning the bookable");
             $table->float('price', 12, 2)->default(0);
             $table->string('currency')->nullable();
