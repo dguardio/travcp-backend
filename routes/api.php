@@ -27,7 +27,7 @@ Route::group(['middleware' => 'api',
     Route::post('refresh', 'AuthController@refresh');
     Route::get('me', 'AuthController@me');
 });
-Route::post('auth/forgot', "PasswordResetController@forgot");
+// Route::post('auth/forgot', "PasswordResetController@forgot");
 
 Route::group(['middleware' => ['api', 'auth:api']], function(){
     /***** Merchant Related Endpoints ******/
@@ -83,11 +83,17 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
 
     /** Individual Merchant **/
     Route::get('merchants/{id}/profile', 'MerchantController@profile'); // get merchant profile
-    Route::put('merchants/{id}/update', 'MerchantController@update'); // update merchant
+    // Route::put('merchants/{id}/update', 'MerchantController@update'); // update merchant
     Route::get('merchants/{id}/experiences', 'ExperiencesController@getExperienceByMerchantId'); // get merchant experiences
     Route::get('merchants/{id}/payments', 'MerchantPaymentsController@getMerchantPaymentsByMerchantId'); // get merchant payments
     Route::get('merchants/{id}/reviews', 'ReviewsController@getReviewsByMerchantId'); // get all merchant reviews
     Route::get('merchants/{id}/bookings', 'BookingsController@getBookingsByMerchantId'); // get all merchant bookings
+   /*Merchant Data */
+    Route::get('merchants/', 'MerchantController@index'); // get merchant experiences
+    Route::post('merchants/', 'MerchantController@register'); // get merchant by id
+    Route::put('merchants/{id}', 'MerchantController@update'); // get all merchant reviews
+    Route::delete('merchants', 'MerchantController@deletemerchant'); //delete merchants
+
 
     /** Users **/
     Route::get('users/', 'UsersController@index'); // get all users
@@ -106,4 +112,5 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
 //    Route::get('experiences/{id}', "ExperienceController@show");
 //    Route::delete('users/{id}', 'UsersController@destroy'); // delete a particular user payment
 });
+Route::post('auth/forgot', "PasswordResetController@forgot");
 
