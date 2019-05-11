@@ -24,7 +24,6 @@ class ExperiencesStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'bookable_type_id' => 'integer',
             'title' => 'string|required',
             'slug' => 'string|unique:experiences|required',
             'merchant_id' => 'integer|required',
@@ -51,6 +50,10 @@ class ExperiencesStoreRequest extends FormRequest
             'cancellation_policy' => 'string',
             'tourist_expected_items' => 'string',
             'number_admittable' => 'integer',
+            'experiences_types_id' => 'integer|required',
+            'rating' => 'integer',
+            'rating_count' => 'integer',
+            'history' => 'string',
         ];
     }
 }

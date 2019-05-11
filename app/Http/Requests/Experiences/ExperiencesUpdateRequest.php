@@ -24,7 +24,6 @@ class ExperiencesUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'bookable_type_id' => 'integer',
             'title' => 'string',
             'slug' => 'string|unique:experiences',
             'merchant_id' => 'integer',
@@ -51,6 +50,10 @@ class ExperiencesUpdateRequest extends FormRequest
             'cancellation_policy' => 'string',
             'tourist_expected_items' => 'string',
             'number_admittable' => 'integer',
+            'experiences_types_id' => 'integer',
+            'rating' => 'integer',
+            'rating_count' => 'integer',
+            'history' => 'string',
         ];
     }
 }

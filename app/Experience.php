@@ -30,8 +30,15 @@ class Experience extends Model
             return $query->where('naira_price', '>=', $request->min_price);
         })->when($request->max_price, function($query)  use($request){
             return $query->where('naira_price', '<=', $request->max_price);
-        })->paginate();
+        })->when($request->type, function($query)  use($request){
+            return $query->where('type', '=', $request->type);
+        })->when($request->rating, function($query)  use($request){
+            return $query->where('rating', '>=', $request->rating);
+        })->when($request->cities, function($query)  use($request){
+            return $query->whereIn('city', $request->cities);
+        })->paginate(10);
     }
+
     public function menus(){
         return $this->hasMany(FoodMenu::class);
     }

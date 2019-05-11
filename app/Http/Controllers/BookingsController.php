@@ -6,8 +6,8 @@ use App\Booking;
 use App\Http\Requests\Bookings\BookingsStoreRequest;
 use App\Http\Requests\Bookings\BookingsUpdateRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
 use App\Http\Resources\Booking as BookingResource;
+
 class BookingsController extends Controller
 {
 

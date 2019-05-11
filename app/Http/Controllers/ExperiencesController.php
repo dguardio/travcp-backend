@@ -7,18 +7,20 @@ use App\Http\Requests\Experiences\ExperiencesUpdateRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Experience;
 use App\Http\Resources\Experience as ExperienceResource;
+use Illuminate\Http\Request;
 
 class ExperiencesController extends Controller
 {
     /**
-     * Display a listing of all experiences with pagination.
+     * Display a listing of all experiences, searches with pagination.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
         // get experiences
-        $experiences = Experience::orderBy('id', 'DESC')->paginate(10);
+        $experiences = Experience::getBySearch($request)->appends($request->query());
 
         // return collection of experiences as a resource
         return ExperienceResource::collection($experiences);
@@ -83,6 +85,19 @@ class ExperiencesController extends Controller
     public function getExperienceByMerchantId($id){
         // get experiences by merchant id
         $experiences = Experience::where('merchant_id', $id)->orderBy('id', 'DESC')->paginate(10);
+
+        // return collection of experiences as a resource
+        return ExperienceResource::collection($experiences);
+    }
+
+    /**
+     * get all experiences by specified type id
+     * @param $id
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function getExperiencesByTypesId($id){
+        // get experiences by experience types id
+        $experiences = Experience::where('experience_types_id', $id)->orderBy('id', 'DESC')->paginate(10);
 
         // return collection of experiences as a resource
         return ExperienceResource::collection($experiences);
