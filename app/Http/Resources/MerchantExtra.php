@@ -15,15 +15,15 @@ class MerchantExtra extends Resource
     public function toArray($request)
     {
         // get parent data
-        $old =  parent::toArray($request);
+        $result =  parent::toArray($request);
 
         // add extra data
-        $old["identity_document"] = new Upload($this->upload);
+        $result["identity_document"] = new Upload($this->upload);
 
         // remove unnecessary data
-        unset($old['upload_id']);
+        unset($result['upload_id']);
 
         // return array
-        return $old;
+        return $result;
     }
 }

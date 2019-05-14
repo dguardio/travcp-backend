@@ -11,4 +11,8 @@ class Upload extends Model
     public function merchant_extra(){
         return $this->belongsTo("App\MerchantExtra");
     }
+
+    public function experience(){
+        return $this->belongsTo("App\Experience");
+    }
 }

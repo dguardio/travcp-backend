@@ -14,8 +14,9 @@ class Experience extends Resource
      */
     public function toArray($request)
     {
-        $old =  parent::toArray($request);
-        $old["reviews"] = Review::collection($this->reviews);
-        return $old;
+        $result =  parent::toArray($request);
+        $result["reviews"] = Review::collection($this->reviews);
+        $result["images"] = Upload::collection($this->uploads);
+        return $result;
     }
 }

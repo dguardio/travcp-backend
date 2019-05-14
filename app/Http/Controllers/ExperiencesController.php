@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Experiences\ExperiencesStoreRequest;
 use App\Http\Requests\Experiences\ExperiencesUpdateRequest;
+use App\Traits\Uploads;
+use App\Upload;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Experience;
 use App\Http\Resources\Experience as ExperienceResource;
@@ -11,6 +13,7 @@ use Illuminate\Http\Request;
 
 class ExperiencesController extends Controller
 {
+    use Uploads;
     /**
      * Display a listing of all experiences, searches with pagination.
      *
@@ -39,11 +42,24 @@ class ExperiencesController extends Controller
         // validate request and return validated data
         $validated = $request->validated();
 
+        // store file and get filename
+        $uploads_ids = $this->multipleImagesUpload($request, 'images');
+
+        // create new merchant extras based of the validated data
+        unset($validated['images']);
+
         // create new experience object and add other user payments object properties
         $experience =  new Experience($validated);
 
         // save experience if transaction goes well
         if($experience->save()){
+            foreach($uploads_ids as $upload_id){
+                if($upload_id !== -1){
+                    $upload = Upload::findOrFail($upload_id);
+                    $upload->experience_id = $experience->id;
+                    $upload->save();
+                }
+            }
             return new ExperienceResource($experience);
         }
 
@@ -74,7 +90,6 @@ class ExperiencesController extends Controller
             return response(['errors'=> $errors], 404);
         }
 
-        // add reviews to the shii
         // return single experience as a resource
         return new ExperienceResource($experience);
     }

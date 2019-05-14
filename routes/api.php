@@ -85,11 +85,11 @@ Route::get('uploads/{id}', 'UploadsController@show'); // get a single upload
 Route::get('payments/users/', 'UserPaymentsController@index'); // get all user payment entries
 Route::get('payments/users/{id}', 'UserPaymentsController@show'); // get a single user payment entry
 
-/**Misc - not yet sorted**/
-Route::get('events', "EventController@list");
-Route::get('restaurants', "RestaurantController@list");
-Route::get('restaurants/{id}', "RestaurantController@show");
-Route::get('restaurants/{id}/menu', "FoodMenuController@list");
+///**Misc - not yet sorted**/
+//Route::get('events', "EventController@list");
+//Route::get('restaurants', "RestaurantController@list");
+//Route::get('restaurants/{id}', "RestaurantController@show");
+//Route::get('restaurants/{id}/menu', "FoodMenuController@list");
 
 
 Route::group(['middleware' => ['api', 'auth:api']], function(){
@@ -104,6 +104,12 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     Route::post('payments/merchants/', 'MerchantPaymentsController@store'); // create new merchant payment
     Route::put('payments/merchants/{id}', 'MerchantPaymentsController@update'); // update an existing merchant payment
 //    Route::delete('payments/merchants/{id}', 'MerchantPaymentsController@destroy'); // delete a particular merchant payment
+
+    /** uploads **/
+    Route::post('uploads/', 'UploadsController@store'); // create an upload
+    Route::put('uploads/{id}', 'UploadsController@update'); // update an upload
+    Route::delete('uploads/{id}', 'UploadsController@destroy'); // delete an upload
+
 
     /** Notifications **/
     Route::post('notifications/', 'NotificationsController@store'); // create new notification

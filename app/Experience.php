@@ -56,4 +56,8 @@ class Experience extends Model
     public function bookings(){
         return $this->hasMany('App\Booking');
     }
+
+    public function uploads(){
+        return $this->hasMany("App\Upload");
+    }
 }
