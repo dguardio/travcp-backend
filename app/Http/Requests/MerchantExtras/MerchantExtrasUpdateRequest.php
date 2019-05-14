@@ -26,7 +26,7 @@ class MerchantExtrasUpdateRequest extends FormRequest
         return [
             "business_name" => "string",
             "business_email" => "string",
-            "identity_document" => "image|nullable|max:2048",
+            "upload_id" => "integer",
             "bio" => "string",
             "phone" => "string",
             "merchant_id" => "integer",

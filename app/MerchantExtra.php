@@ -10,4 +10,7 @@ class MerchantExtra extends Model
 
     protected $guarded = [];
 
+    public function upload(){
+        return $this->hasOne("App\Upload");
+    }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class Review extends Resource
+class Upload extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -14,8 +14,11 @@ class Review extends Resource
      */
     public function toArray($request)
     {
-        $old =  parent::toArray($request);
-        $old["user_name"] = $this->user->first_name." ".$this->user->surname;
-        return $old;
+//        return parent::toArray($request);
+
+        return [
+            "id" => $this->id,
+            "image" => $this->upload_data
+        ];
     }
 }

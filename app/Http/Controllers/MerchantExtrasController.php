@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MerchantExtras\MerchantExtrasStoreRequest;
 use App\Http\Requests\MerchantExtras\MerchantExtrasUpdateRequest;
 use App\MerchantExtra;
+use App\Traits\Uploads;
+use App\Upload;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\MerchantExtra as MerchantExtraResource;
-use Illuminate\Support\Facades\Storage;
 
 class MerchantExtrasController extends Controller
 {
-    private $identity_documents_dir = 'public/identity_documents';
+    use Uploads;
     /**
      * Display a listing of the all merchant extras.
      *
@@ -39,16 +40,21 @@ class MerchantExtrasController extends Controller
         $validated = $request->validated();
 
         // store file and get filename
-        $fileNameToStore = $this->storeFile($request);
+        $uploads_id = $this->storeFile($request, 'identity_document');
 
         // create new merchant extras based of the validated data
         unset($validated['identity_document']);
 
         $merchant_extra = new MerchantExtra($validated);
-        $merchant_extra->identity_document_file = $fileNameToStore;
+        $merchant_extra->upload_id = $uploads_id;
 
         // save merchant extra
         if($merchant_extra->save()){
+            if($merchant_extra->upload_id !== -1){
+                $upload = Upload::findOrFail($merchant_extra->upload_id);
+                $upload->merchant_extra_id = $merchant_extra->id;
+                $upload->save();
+            }
             return new MerchantExtraResource($merchant_extra);
         }
 
@@ -57,34 +63,6 @@ class MerchantExtrasController extends Controller
         return response(['errors'=>$errors], 500);
     }
 
-    /**
-     * store file from request
-     * @param $request
-     * @return string
-     */
-    private function storeFile($request){
-        // handle file upload
-        if($request->hasFile('identity_document')){
-            // get filename with extension
-            $filenameWithExt = $request->file('identity_document')->getClientOriginalName();
-
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-
-            // Get just ext
-            $extension = $request->file('identity_document')->getClientOriginalExtension();
-
-            //Filename to store
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;
-
-            // Upload Image
-            $path = $request->file('identity_document')->storeAs($this->identity_documents_dir, $fileNameToStore);
-        }else{
-            $fileNameToStore = 'noimage.jpg';
-        }
-
-        return $fileNameToStore;
-    }
 
     /**
      * Display the specified merchant extra by id.
@@ -142,20 +120,19 @@ class MerchantExtrasController extends Controller
         // find merchant extra object for updating
         $merchant_extra = MerchantExtra::findOrFail($id);
 
-        // delete previous image
-        if($merchant_extra->identity_document_file !== "noimage.jpg"
-            && $merchant_extra->identity_document_file !== null
-            && $merchant_extra->identity_document_file !== ""
-            && $request->hasFile('identity_document')){
+        // get upload extra data
+        $extras = ["merchant_extra_id" => $merchant_extra->id];
 
-            Storage::delete($this->identity_documents_dir."/".$merchant_extra->identity_document_file);
+        // store file and get file upload id
+        if($merchant_extra->upload_id !== -1){
+            $upload_id = $this->updateFile($request, $merchant_extra->upload_id, 'identity_document');
+        }else{
+            $upload_id = $this->storeFile($request, 'identity_document', $extras);
         }
-        // store file and get filename
-        $fileNameToStore = $this->storeFile($request);
 
         // update the merchant extra
         unset($validated['identity_document']);
-        $validated['identity_document_file'] = $fileNameToStore;
+        $validated['upload_id'] = $upload_id;
         $merchant_extra->update($validated);
 
         // return updated collection as a resource
@@ -176,20 +153,19 @@ class MerchantExtrasController extends Controller
         // get merchant extra
         $merchant_extra = MerchantExtra::where('merchant_id', $id)->get();
 
-        // delete previous image
-        if($merchant_extra->identity_document_file !== "noimage.jpg"
-            && $merchant_extra->identity_document_file !== null
-            && $merchant_extra->identity_document_file !== ""
-            && $request->hasFile('identity_document')){
+        // get upload extra data
+        $extras = ["merchant_extra_id" => $merchant_extra->id];
 
-            Storage::delete($this->identity_documents_dir."/".$merchant_extra->identity_document_file);
+        // store file and get upload id
+        if($merchant_extra->upload_id !== -1){
+            $upload_id = $this->updateFile($request, $merchant_extra->upload_id, 'identity_document');
+        }else{
+            $upload_id = $this->storeFile($request, 'identity_document', $extras);
         }
-        // store file and get filename
-        $fileNameToStore = $this->storeFile($request);
 
         // update the merchant extra
         unset($validated['identity_document']);
-        $validated['identity_document_file'] = $fileNameToStore;
+        $validated['upload_id'] = $upload_id;
 
         $merchant_extra->update($validated);
 

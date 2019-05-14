@@ -77,6 +77,10 @@ Route::get('merchant/extras/{id}', 'MerchantExtrasController@show'); // get a si
 Route::get('bookings/', 'BookingsController@index'); // get all bookings
 Route::get('bookings/{id}', 'BookingsController@show'); // get a single booking
 
+/** uploads **/
+Route::get('uploads/', 'UploadsController@index'); // get all uploads
+Route::get('uploads/{id}', 'UploadsController@show'); // get a single upload
+
 /** User Payments **/
 Route::get('payments/users/', 'UserPaymentsController@index'); // get all user payment entries
 Route::get('payments/users/{id}', 'UserPaymentsController@show'); // get a single user payment entry
