@@ -57,4 +57,8 @@ class User extends Authenticatable implements JWTSubject
     public function reviews(){
         return $this->hasMany('App\Review', 'user_id');
     }
+
+    public function cart(){
+        return $this->hasOne("App\Cart");
+    }
 }

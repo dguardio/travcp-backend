@@ -55,6 +55,22 @@ Route::get('payments/merchants/{id}', 'MerchantPaymentsController@show'); // get
 Route::get('notifications/', 'NotificationsController@index'); // get all notifications
 Route::get('notifications/{id}', 'NotificationsController@show'); // get a single notification
 
+/** Orders **/
+Route::get('orders/', 'OrdersController@index'); // get all order
+Route::get('orders/{id}', 'OrdersController@show'); // get single order
+
+/** Order Items **/
+Route::get('order_items', 'OrderItemsController@index'); // get all order items
+Route::get('order_items/{id}', 'OrderItemsController@show'); // get single order items
+
+/** Carts **/
+Route::get('carts/', 'CartsController@index'); // get all carts
+Route::get('carts/{id}', 'CartsController@show'); // get single cart
+
+/** Cart Items **/
+Route::get('cart_items', 'CartItemsController@index'); // get all cart items
+Route::get('cart_items/{id}', 'CartItemsController@show'); // get single cart item
+
 /** Experience Types **/
 Route::get('experience_types/{id}', 'ExperienceTypesController@show'); // get a single experience type
 Route::get('experience_types/', 'ExperienceTypesController@index'); // get all experiences types
@@ -93,6 +109,30 @@ Route::get('payments/users/{id}', 'UserPaymentsController@show'); // get a singl
 
 
 Route::group(['middleware' => ['api', 'auth:api']], function(){
+
+    /** Order **/
+    Route::post('cart/add/', 'OrderController@addToCart'); // add booking to cart
+    Route::post('cart/checkout/', 'OrderController@checkout'); // checkout
+
+    /** Orders **/
+    Route::post('orders/', 'OrdersController@store'); // create new order
+    Route::put('orders/{id}', 'OrdersController@update'); // update an existing order
+//    Route::delete('orders/{id}', 'OrdersController@destroy'); // delete a particular order
+
+    /** Order Items **/
+    Route::post('order_items', 'OrderItemsController@store'); // create new order item
+    Route::put('order_items/{id}', 'OrderItemsController@update'); // update an existing order item
+//    Route::delete('order_items/{id}', 'OrderItemsController@destroy'); // delete a particular order item
+
+    /** Carts **/
+    Route::post('carts/', 'CartsController@store'); // create new cart
+    Route::put('carts/{id}', 'CartsController@update'); // update an existing cart
+//    Route::delete('carts/{id}', 'CartsController@destroy'); // delete a particular cart
+
+    /** Cart Items **/
+    Route::post('cart_items', 'CartItemsController@store'); // create new cart item
+    Route::put('cart_items/{id}', 'CartItemsController@update'); // update an existing cart item
+    Route::delete('cart_items/{id}', 'CartItemsController@destroy'); // delete a particular cart item
 
     /** Merchants **/
     Route::put('merchants/{id}/extras', 'MerchantExtrasController@updateByMerchantId'); // update merchant extras using merchant id

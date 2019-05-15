@@ -8,6 +8,8 @@ class Upload extends Model
 {
     protected $table = "uploads";
 
+    protected $guarded = [];
+
     public function merchant_extra(){
         return $this->belongsTo("App\MerchantExtra");
     }

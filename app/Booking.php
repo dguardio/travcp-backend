@@ -12,4 +12,12 @@ class Booking extends Model
     public function experience(){
         return $this->belongsTo('App\Experience');
     }
+
+    public function order_items(){
+        return $this->hasMany("App\OrderItem");
+    }
+
+    public function cart_items(){
+        return $this->hasMany("App\CartItem");
+    }
 }
