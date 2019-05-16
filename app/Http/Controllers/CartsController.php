@@ -77,6 +77,24 @@ class CartsController extends Controller
     }
 
     /**
+     * get cart of a specified user
+     * @param $id
+     * @return CartsResource
+     */
+    public function getUserCart($id){
+        // get single cart
+        try{
+            $cart = Cart::where('user_id', $id)->firstOrFail();
+        }catch (ModelNotFoundException $e){
+            $errors = ["cart not found"];
+            return response(['errors'=> $errors], 404);
+        }
+
+        // return as resource
+        return new CartsResource($cart);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param CartsUpdateRequest $request

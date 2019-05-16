@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Booking;
 use App\Cart;
 use App\CartItem;
+use App\Http\Requests\Order\AddToCartRequest;
 use App\Http\Requests\Order\CheckoutRequest;
 use App\Order;
 use App\OrderItem;
@@ -18,10 +19,13 @@ class OrderController extends Controller
 
     /**
      * add to cart, create cart if not already created
-     * @param $booking_id
+     * @param AddToCartRequest $request
      * @return CartItemResource
      */
-    public function addToCart($booking_id){
+    public function addToCart(AddToCartRequest $request){
+        // get data
+        $validated = $request->validated();
+
         // get user
         $user = Auth::user();
 
@@ -38,11 +42,12 @@ class OrderController extends Controller
         if($cart == null){
             $cart = new Cart();
             $cart->user_id = $user->id;
+            $cart->save();
         }
 
         // add to cart items
         $cart_item = new CartItem;
-        $cart_item->booking_id = $booking_id;
+        $cart_item->booking_id = $validated['booking_id'] + 0;
         $cart_item->cart_id = $cart->id;
 
         // save cart item
@@ -79,6 +84,7 @@ class OrderController extends Controller
             $order = new Order;
             $order->user_id = $user->id;
             $order->transaction_id = $validated['transaction_id'];
+            $order->price = $validated['price'];
             $order->save();
 
             // get cart items

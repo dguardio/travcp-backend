@@ -115,6 +115,22 @@ class ReviewsController extends Controller
     }
 
     /**
+     *  get experience reviews by rating id
+     * @param $experience_id
+     * @param $rating
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function getExperienceReviewByRating($experience_id, $rating){
+        // get reviews
+        $reviews = Review::where('experience_id', $experience_id)
+            ->where('rating', $rating)
+            ->paginate(10);
+
+        // return reviews as collection
+        return ReviewResource::collection($reviews);
+    }
+
+    /**
      * Remove the specified review from storage.
      *
      * @param  int  $id

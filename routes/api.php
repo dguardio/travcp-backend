@@ -39,11 +39,13 @@ Route::get('merchants/{id}/extras', 'MerchantExtrasController@getMerchantExtrasB
 /** Users **/
 Route::get('users/', 'UsersController@index'); // get all users
 Route::get('users/{id}', 'UsersController@show'); // get a single user
-Route::get('users/role/{role}', 'UsersController@getUsersByRole'); // get a single user
+Route::get('users/role/{role}', 'UsersController@getUsersByRole'); // get a single user by role
 Route::get('users/{id}/bookings', 'BookingsController@getBookingByUserId'); // get all bookings made by a particular user
+Route::get('users/{id}/cart', 'CartsController@getUserCart'); // get the cart of a particular user
 
 /** Experiences **/
 Route::get('experiences/', 'ExperiencesController@index'); // get all experiences
+Route::get('experiences/random/{limit}', 'ExperiencesController@getRandom'); // get all experiences
 Route::get('experiences/{id}', 'ExperiencesController@show'); // get a single experience
 Route::get('experience_types/{id}/experiences', 'ExperiencesController@getExperiencesByTypesId');
 
@@ -83,6 +85,7 @@ Route::get('experience_types_categories/{id}', 'ExperienceTypesCategoriesControl
 
 /** Reviews **/
 Route::get('reviews/', 'ReviewsController@index'); // get all reviews
+Route::get('experience/{experience_id}/reviews/rating/{rating}', 'ReviewsController@getExperienceReviewByRating'); // get all an experience reviews with a specific rating
 Route::get('reviews/{id}', 'ReviewsController@show'); // get a single reviews
 
 /** Merchant Extras**/
@@ -91,6 +94,7 @@ Route::get('merchant/extras/{id}', 'MerchantExtrasController@show'); // get a si
 
 /** Bookings **/
 Route::get('bookings/', 'BookingsController@index'); // get all bookings
+Route::post('bookings/exists', 'BookingsController@checkIfPreviousBookingExists'); // check if booking exists
 Route::get('bookings/{id}', 'BookingsController@show'); // get a single booking
 
 /** uploads **/

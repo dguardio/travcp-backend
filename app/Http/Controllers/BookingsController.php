@@ -7,6 +7,7 @@ use App\Http\Requests\Bookings\BookingsStoreRequest;
 use App\Http\Requests\Bookings\BookingsUpdateRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\Booking as BookingResource;
+use Illuminate\Http\Request;
 
 class BookingsController extends Controller
 {
@@ -95,6 +96,29 @@ class BookingsController extends Controller
     }
 
 
+    /**
+     * check if user has booked experience before
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function checkIfPreviousBookingExists(Request $request){
+        // get parameters
+        $experience_id = $request->input("experience_id");
+        $user_id = $request->input("user_id");
+
+        // try if booking can be found
+        try{
+            $user = Booking::where('experience_id', $experience_id)
+                ->where('user_id', $user_id)
+                ->firstOrFail();
+            $response = [true];
+        }catch (ModelNotFoundException $e){
+            $response = [false];
+        }
+
+        // return response
+        return response($response, 200);
+    }
     /**
      * Update the specified booking in storage.
      *

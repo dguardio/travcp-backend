@@ -26,6 +26,7 @@ class OrdersUpdateRequest extends FormRequest
         return [
             "user_id" => "integer",
             "transaction_id" => "string",
+            "price" => "integer"
         ];
     }
 }

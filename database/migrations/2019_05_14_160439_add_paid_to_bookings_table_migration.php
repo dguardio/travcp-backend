@@ -14,8 +14,8 @@ class AddPaidToBookingsTableMigration extends Migration
     public function up()
     {
         Schema::table('bookings', function (Blueprint $table) {
-            $table->boolean("paid")->nullable();
-            $table->boolean("experienced")->nullable();
+            $table->boolean("paid")->nullable()->default(false);
+            $table->boolean("experienced")->nullable()->default(false);
         });
     }
 

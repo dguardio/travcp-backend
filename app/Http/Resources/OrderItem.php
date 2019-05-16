@@ -15,6 +15,7 @@ class OrderItem extends Resource
     public function toArray($request)
     {
         $result =  parent::toArray($request);
-        $result["booking"] = Booking::collection($this->booking);
+        $result["booking"] = new Booking($this->booking);
+        return $result;
     }
 }

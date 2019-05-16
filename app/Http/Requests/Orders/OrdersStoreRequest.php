@@ -26,6 +26,7 @@ class OrdersStoreRequest extends FormRequest
         return [
             "user_id" => "integer|required",
             "transaction_id" => "string|required",
+            "price" => "integer|required"
         ];
     }
 }

@@ -11,10 +11,10 @@ class CartItem extends Model
     protected $guarded = [];
 
     public function cart(){
-        $this->belongsTo("App\Cart");
+        return $this->belongsTo("App\Cart");
     }
 
     public function booking(){
-        $this->belongsTo("App\Booking");
+        return $this->belongsTo("App\Booking");
     }
 }

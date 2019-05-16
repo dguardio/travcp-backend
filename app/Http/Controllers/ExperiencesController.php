@@ -131,6 +131,19 @@ class ExperiencesController extends Controller
     }
 
     /**
+     *  get random experiences
+     * @param $limit
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function getRandom($limit){
+        // get 5 random experiences
+        $experience = Experience::inRandomOrder()->take($limit)->get();
+
+        // return as experience resource
+        return ExperienceResource::collection($experience);
+    }
+
+    /**
      * Update the specified experience in storage.
      *
      * @param ExperiencesUpdateRequest $request
