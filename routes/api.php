@@ -97,9 +97,14 @@ Route::get('bookings/', 'BookingsController@index'); // get all bookings
 Route::post('bookings/exists', 'BookingsController@checkIfPreviousBookingExists'); // check if booking exists
 Route::get('bookings/{id}', 'BookingsController@show'); // get a single booking
 
-/** uploads **/
+/** Uploads **/
 Route::get('uploads/', 'UploadsController@index'); // get all uploads
 Route::get('uploads/{id}', 'UploadsController@show'); // get a single upload
+
+/** Food Menu **/
+Route::get('food/menus/', 'FoodMenusController@index'); // get all food menus
+Route::get('food/menus/{id}', 'FoodMenusController@show'); // get a single food menu
+Route::get('restaurants/{id}/menu', "FoodMenuController@list");
 
 /** User Payments **/
 Route::get('payments/users/', 'UserPaymentsController@index'); // get all user payment entries
@@ -109,14 +114,19 @@ Route::get('payments/users/{id}', 'UserPaymentsController@show'); // get a singl
 //Route::get('events', "EventController@list");
 //Route::get('restaurants', "RestaurantController@list");
 //Route::get('restaurants/{id}', "RestaurantController@show");
-//Route::get('restaurants/{id}/menu', "FoodMenuController@list");
 
 
 Route::group(['middleware' => ['api', 'auth:api']], function(){
 
-    /** Order **/
+    /** Cart **/
     Route::post('cart/add/', 'OrderController@addToCart'); // add booking to cart
     Route::post('cart/checkout/', 'OrderController@checkout'); // checkout
+
+
+    /** Food menu **/
+    Route::post('food/menus', 'FoodMenusController@store'); // create a food menu
+    Route::put('food/menus/{id}', 'FoodMenusController@update'); // update a food menu
+    Route::delete('food/menus/{id}', 'FoodMenusController@destroy'); // delete a food menu
 
     /** Orders **/
     Route::post('orders/', 'OrdersController@store'); // create new order
@@ -200,8 +210,5 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     Route::post('bookings/experiences/{id}', "BookingController@bookExperience");
     Route::post('bookings/events/{id}', "BookingController@bookEvent");
 
-//    Route::get('experiences', "ExperienceController@list");
-//    Route::get('experiences/{id}', "ExperienceController@show");
-//    Route::delete('users/{id}', 'UsersController@destroy'); // delete a particular user payment
 });
 

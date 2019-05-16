@@ -42,7 +42,7 @@ class Experience extends Model
     }
 
     public function menus(){
-        return $this->hasMany(FoodMenu::class);
+        return $this->hasMany(FoodMenu::class, 'restaurant_id');
     }
 
     public function user(){

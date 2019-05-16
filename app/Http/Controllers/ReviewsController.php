@@ -44,7 +44,9 @@ class ReviewsController extends Controller
             return new ReviewResource($review);
         }
 
-        return new ReviewResource(null);
+        // return error if transaction not successful
+        $errors = ['unknown error occurred while trying to create review'];
+        return response(['errors'=> $errors], 500);
     }
 
     /**
@@ -98,7 +100,10 @@ class ReviewsController extends Controller
             return new ReviewResource($review);
         }
 
-        return new ReviewResource(null);
+        // return error if transaction not successful
+        $errors = ['unknown error occurred while trying to update review'];
+        return response(['errors'=> $errors], 500);
+
     }
 
     /**
@@ -159,6 +164,8 @@ class ReviewsController extends Controller
             return new ReviewResource($review);
         }
 
-        return new ReviewResource(null);
+        // return error if transaction not successful
+        $errors = ['unknown error occurred while trying to delete review'];
+        return response(['errors'=> $errors], 500);
     }
 }

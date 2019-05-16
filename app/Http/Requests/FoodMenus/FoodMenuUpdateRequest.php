@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Order;
+namespace App\Http\Requests\FoodMenus;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CheckoutRequest extends FormRequest
+class FoodMenuUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,10 @@ class CheckoutRequest extends FormRequest
     public function rules()
     {
         return [
-            "price" => "integer|required",
-            "transaction_id" => "string|required|unique:orders",
-            "cart_id" => "integer|required"
+            "restaurant_id" => "integer",
+            "category_id" => "integer",
+            "description" => "string",
+            "price" => "integer"
         ];
     }
 }

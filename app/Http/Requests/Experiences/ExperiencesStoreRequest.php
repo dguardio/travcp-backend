@@ -25,7 +25,7 @@ class ExperiencesStoreRequest extends FormRequest
     {
         return [
             'title' => 'string|required',
-            'slug' => 'string|unique:experiences|required',
+            'slug' => 'string',
             'merchant_id' => 'integer|required',
             'about_merchant' => 'string',
             'contact_email' => 'string|required',

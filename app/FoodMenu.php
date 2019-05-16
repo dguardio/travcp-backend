@@ -11,6 +11,6 @@ class FoodMenu extends Model
     protected $table = "food_menu";
 
     public function restaurant(){
-        return $this->belongsTo(Restaurant::class);
+        return $this->belongsTo(Experience::class, 'restaurant_id');
     }
 }
