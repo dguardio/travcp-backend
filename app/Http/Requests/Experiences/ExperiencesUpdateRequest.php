@@ -54,6 +54,8 @@ class ExperiencesUpdateRequest extends FormRequest
             'rating' => 'integer',
             'rating_count' => 'integer',
             'history' => 'string',
+            'start_date' => 'date',
+            'end_date' => 'date'
         ];
     }
 }
