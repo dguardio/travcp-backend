@@ -104,7 +104,7 @@ Route::get('uploads/{id}', 'UploadsController@show'); // get a single upload
 /** Food Menu **/
 Route::get('food/menus/', 'FoodMenusController@index'); // get all food menus
 Route::get('food/menus/{id}', 'FoodMenusController@show'); // get a single food menu
-Route::get('restaurants/{id}/menu', "FoodMenuController@list");
+Route::get('restaurants/{id}/menus', "FoodMenuController@list");
 
 /** User Payments **/
 Route::get('payments/users/', 'UserPaymentsController@index'); // get all user payment entries
@@ -122,7 +122,6 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     Route::post('cart/add/', 'OrderController@addToCart'); // add booking to cart
     Route::post('cart/checkout/', 'OrderController@checkout'); // checkout
 
-
     /** Food menu **/
     Route::post('food/menus', 'FoodMenusController@store'); // create a food menu
     Route::put('food/menus/{id}', 'FoodMenusController@update'); // update a food menu
@@ -136,7 +135,7 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     /** Order Items **/
     Route::post('order_items', 'OrderItemsController@store'); // create new order item
     Route::put('order_items/{id}', 'OrderItemsController@update'); // update an existing order item
-//    Route::delete('order_items/{id}', 'OrderItemsController@destroy'); // delete a particular order item
+    Route::delete('order_items/{id}', 'OrderItemsController@destroy'); // delete a particular order item
 
     /** Carts **/
     Route::post('carts/', 'CartsController@store'); // create new cart

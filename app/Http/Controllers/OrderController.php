@@ -13,6 +13,8 @@ use App\Traits\Payments;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Order as OrderResource;
 use App\Http\Resources\CartItem as CartItemResource;
+use Sdkcodes\LaraPaystack\PaystackService;
+
 class OrderController extends Controller
 {
     use Payments;
@@ -78,8 +80,9 @@ class OrderController extends Controller
             return response(['errors'=> $errors], 404);
         }
 
-        // verify transaction and see
-        if($this->verifyTransaction($validated['transaction_id'], $validated['price'])){
+        $paystackService =  new PaystackService;
+        // verify transaction and checkout
+        if($this->verifyTransaction($paystackService, $validated['transaction_id'], $validated['price'])){
             // create order
             $order = new Order;
             $order->user_id = $user->id;

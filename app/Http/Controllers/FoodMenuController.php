@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Experience;
 use App\FoodMenu;
-use App\Restaurant;
 use App\Http\Resources\FoodMenu as FoodMenuResource;
 class FoodMenuController extends Controller
 {
@@ -13,7 +13,7 @@ class FoodMenuController extends Controller
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function list($restaurantId){
-        $restaurant = Restaurant::findOrFail($restaurantId);
+        $restaurant = Experience::findOrFail($restaurantId);
         $menus = FoodMenu::where('restaurant_id', $restaurantId)->latest()->paginate(20);
         return FoodMenuResource::collection($menus);
     }
