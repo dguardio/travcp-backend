@@ -50,7 +50,7 @@ class ExperiencesStoreRequest extends FormRequest
             'cancellation_policy' => 'string',
             'tourist_expected_items' => 'string',
             'number_admittable' => 'integer',
-            'experiences_types_id' => 'integer|required',
+            'experiences_type_id' => 'integer|required',
             'rating' => 'integer',
             'rating_count' => 'integer',
             'history' => 'string',
