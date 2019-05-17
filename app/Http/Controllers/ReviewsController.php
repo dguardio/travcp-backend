@@ -120,6 +120,23 @@ class ReviewsController extends Controller
     }
 
     /**
+     * get al reviews from an experience
+     * @param $experience_id
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function getReviewsByExperienceId($id){
+        $reviews = Review::where('experience_id', $id);
+
+        $res['one_star'] = Review::where('experience_id', $id)->where('rating', 1)->get();
+        $res['two_star'] = Review::where('experience_id', $id)->where('rating', 2)->get();
+        $res['three_star'] = Review::where('experience_id', $id)->where('rating', 3)->get();
+        $res['four_star'] = Review::where('experience_id', $id)->where('rating', 4)->get();
+        $res['five_star'] = Review::where('experience_id', $id)->where('rating', 5)->get();
+
+//        return ReviewResource::collection($res);
+        return response(['data'=> $res], 201);
+    }
+    /**
      *  get experience reviews by rating id
      * @param $experience_id
      * @param $rating

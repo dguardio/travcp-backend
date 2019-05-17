@@ -85,8 +85,9 @@ Route::get('experience_types_categories/{id}', 'ExperienceTypesCategoriesControl
 
 /** Reviews **/
 Route::get('reviews/', 'ReviewsController@index'); // get all reviews
-Route::get('experience/{experience_id}/reviews/rating/{rating}', 'ReviewsController@getExperienceReviewByRating'); // get all an experience reviews with a specific rating
+Route::get('experiences/{experience_id}/reviews/rating/{rating}', 'ReviewsController@getExperienceReviewByRating'); // get all an experience reviews with a specific rating
 Route::get('reviews/{id}', 'ReviewsController@show'); // get a single reviews
+Route::get('experiences/{id}/reviews', 'ReviewsController@getReviewsByExperienceId'); // get a single reviews
 
 /** Merchant Extras**/
 Route::get('merchant/extras/', 'MerchantExtrasController@index'); // get all merchant extras
