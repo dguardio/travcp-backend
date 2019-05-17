@@ -34,6 +34,7 @@ class ExperiencesStoreRequest extends FormRequest
             'state' => 'string',
             'offerings' => 'string',
             'language' => 'string',
+            'country' => 'string',
             'description' => 'string',
             'naira_price' => 'integer',
             'dollar_price' => 'integer',
