@@ -20,7 +20,7 @@ class ReviewsController extends Controller
     public function index()
     {
         // get reviews
-        $reviews = Review::orderBy('id', 'DESC')->paginate(10);
+        $reviews = Review::orderBy('id', 'DESC')->paginate(20);
 
         // return collection of reviews as a resource
         return ReviewResource::collection($reviews);

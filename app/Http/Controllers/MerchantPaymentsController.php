@@ -18,7 +18,7 @@ class MerchantPaymentsController extends Controller
     public function index()
     {
         //get merchant payments
-        $merchant_payment = MerchantPayment::orderBy('id', 'DESC')->paginate(10);
+        $merchant_payment = MerchantPayment::orderBy('id', 'DESC')->paginate(20);
 
         //return collection of merchant payments as a resource
         return MerchantPaymentResource::collection($merchant_payment);

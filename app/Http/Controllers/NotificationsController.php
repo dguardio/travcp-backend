@@ -18,7 +18,7 @@ class NotificationsController extends Controller
     public function index()
     {
         // get notifications
-        $notifications = Notification::orderBy('id', 'DESC')->paginate(10);
+        $notifications = Notification::orderBy('id', 'DESC')->paginate(20);
 
         // return collection of notifications as a resource
         return NotificationResource::collection($notifications);

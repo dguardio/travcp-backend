@@ -24,7 +24,8 @@ class ExperiencesController extends Controller
     {
         // get experiences
         $experiences = Experience::getBySearch($request)
-            ->paginate(10)
+            ->orderBy('id', 'DESC')
+            ->paginate(20)
             ->appends($request->query());
 
         // return collection of experiences as a resource

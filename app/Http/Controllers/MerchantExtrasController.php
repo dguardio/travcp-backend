@@ -22,7 +22,7 @@ class MerchantExtrasController extends Controller
     public function index()
     {
         // get all merchant extras from the db
-        $merchant_extras = MerchantExtra::orderBy('id', 'DESC')->paginate(10);
+        $merchant_extras = MerchantExtra::orderBy('id', 'DESC')->paginate(20);
 
         // return the merchant extras as a resource
         return MerchantExtraResource::collection($merchant_extras);
