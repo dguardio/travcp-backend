@@ -10,7 +10,6 @@
 namespace App\Traits;
 use App\Upload;
 use Illuminate\Http\Request;
-use App\Http\Resources\Upload as UploadsResource;
 
 trait Uploads
 {

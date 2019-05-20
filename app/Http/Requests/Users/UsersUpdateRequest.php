@@ -35,7 +35,7 @@ class UsersUpdateRequest extends FormRequest
             'city' => 'string',
             'country' => 'string',
             'postal_code' => 'integer',
-            'upload_id' => 'integer',
+            'profile_image' => 'image|nullable|mimes:jpeg,jfif,png,jpg,gif,svg|max:2048',
         ];
     }
 }
