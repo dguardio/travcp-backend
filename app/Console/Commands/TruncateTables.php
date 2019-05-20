@@ -5,21 +5,21 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
-class DropTables extends Command
+class TruncateTables extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'droptables';
+    protected $signature = 'tables:truncate';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Truncate all tables';
 
     /**
      * Create a new command instance.
@@ -38,9 +38,8 @@ class DropTables extends Command
      */
     public function handle()
     {
-
-        if (!$this->confirm('CONFIRM DROP AL TABLES IN THE CURRENT DATABASE? [y|N]')) {
-            exit('Drop Tables command aborted');
+        if (!$this->confirm('CONFIRM TRUNCATE ALL TABLES IN THE CURRENT DATABASE? [y|N]')) {
+            exit('Truncate Tables command aborted');
         }
 
         $colname = 'Tables_in_' . env('DB_DATABASE');
@@ -52,17 +51,19 @@ class DropTables extends Command
             $droplist[] = $table->$colname;
 
         }
-        $droplist = implode(',', $droplist);
+//        $droplist = implode(',', $droplist);
 
         DB::beginTransaction();
         //turn off referential integrity
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        DB::statement("DROP TABLE $droplist");
+        foreach ($droplist as $table){
+            DB::statement("TRUNCATE TABLE $table");
+            DB::commit();
+
+        }
         //turn referential integrity back on
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-        DB::commit();
 
-        $this->comment(PHP_EOL."If no errors showed up, all tables were dropped".PHP_EOL);
-
+        $this->comment(PHP_EOL."If no errors showed up, all tables were truncated".PHP_EOL);
     }
 }
