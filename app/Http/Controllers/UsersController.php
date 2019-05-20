@@ -96,6 +96,7 @@ class UsersController extends Controller
         // add upload
         $validated['upload_id'] = $upload_id;
         unset($validated["profile_image"]);
+
         // add other user object properties
         $user->update($validated);
 
