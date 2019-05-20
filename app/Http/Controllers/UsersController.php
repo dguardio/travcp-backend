@@ -88,20 +88,19 @@ class UsersController extends Controller
 
         // store file and get file upload id
         if($user->upload_id !== -1){
-            $upload_id = $this->updateFile($request, $user->upload_id, 'profile_picture');
+            $upload_id = $this->updateFile($request, $user->upload_id, 'profile_image');
         }else{
-            $upload_id = $this->storeFile($request, 'profile_picture', $extras);
+            $upload_id = $this->storeFile($request, 'profile_image', $extras);
         }
+
+        // add upload
+        $validated['upload_id'] = $upload_id;
 
         // add other user object properties
         $user->update($validated);
 
         // save user if transaction goes well
-        if($user->save()){
-            return new UserResource($user);
-        }
-
-        return new UserResource(null);
+        return new UserResource($user);
     }
 
     /**

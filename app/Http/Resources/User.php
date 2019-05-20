@@ -14,6 +14,9 @@ class User extends Resource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $result =  parent::toArray($request);
+        $result["profile_image"] = new Upload($this->upload);
+        unset($result["upload_id"]);
+        return $result;
     }
 }
