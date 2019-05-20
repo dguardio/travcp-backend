@@ -28,7 +28,7 @@ class ReviewsUpdateRequest extends FormRequest
             'experience_id' => 'integer',
             'review_body' => 'string',
             'video_url' => 'string',
-            'rating' => 'string',
+            'rating' => 'integer',
         ];
     }
 }

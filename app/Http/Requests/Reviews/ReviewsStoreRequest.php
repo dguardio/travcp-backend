@@ -28,7 +28,7 @@ class ReviewsStoreRequest extends FormRequest
             'experience_id' => 'integer|required',
             'review_body' => 'string|required',
             'video_url' => 'string',
-            'rating' => 'string|required',
+            'rating' => 'integer|required',
         ];
     }
 
