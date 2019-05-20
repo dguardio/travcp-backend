@@ -56,7 +56,9 @@ class ExperiencesStoreRequest extends FormRequest
             'rating_count' => 'integer',
             'history' => 'string',
             'start_date' => 'date',
-            'end_date' => 'date'
+            'end_date' => 'date',
+            'approved' => 'boolean',
+
         ];
     }
 }

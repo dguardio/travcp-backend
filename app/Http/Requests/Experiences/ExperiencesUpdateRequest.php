@@ -57,6 +57,8 @@ class ExperiencesUpdateRequest extends FormRequest
             'start_date' => 'date',
             'end_date' => 'date',
             'country' => 'string',
+            'approved' => 'boolean',
+
         ];
     }
 }

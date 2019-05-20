@@ -14,6 +14,8 @@ class Experience extends Resource
      */
     public function toArray($request)
     {
+        $result =  parent::toArray($request);
+
         // manipulate date
         if($this->start_date && $this->end_date){
             $num_seconds_between = strtotime($this->end_date) - strtotime($this->start_date)  ;
@@ -21,8 +23,8 @@ class Experience extends Resource
             $result["duration"] = $num_days_between;
         }
 
-        $result =  parent::toArray($request);
-        $result["reviews"] = Review::collection($this->reviews);
+        $result["experience_type"] = $this->experience_type->name;
+        $result["reviews"] = Review::collection($this->reviews->take(5));
         $result["images"] = Upload::collection($this->uploads);
 
         return $result;
