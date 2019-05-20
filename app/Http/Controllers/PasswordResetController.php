@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\PasswordReset;
 
-Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class PasswordResetController extends Controller
 {
     use SendsPasswordResetEmails;
-    use ResetsPassword;
+    // use ResetsPassword;
 
     public function forgot(Request $request){
         return $this->sendResetLinkEmail($request);
