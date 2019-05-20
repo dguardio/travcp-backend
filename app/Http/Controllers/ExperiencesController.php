@@ -44,10 +44,12 @@ class ExperiencesController extends Controller
         $validated = $request->validated();
 
         // store file and get filename
-        $uploads_ids = $this->multipleImagesUpload($request, 'images');
+        if(app('request')->exists('images')){
+            $uploads_ids = $this->multipleImagesUpload($request, 'images');
+        }
 
         // create new merchant extras based of the validated data
-        unset($validated['images']);
+//        unset($validated['images']);
 
         // create new experience object and add other user payments object properties
         $experience =  new Experience($validated);
@@ -64,7 +66,8 @@ class ExperiencesController extends Controller
             return new ExperienceResource($experience);
         }
 
-        return new ExperienceResource(null);
+        $errors = ["error while creating experience"];
+        return response(['errors'=> $errors], 500);
     }
 
     /**
