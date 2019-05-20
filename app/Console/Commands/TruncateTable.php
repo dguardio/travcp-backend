@@ -19,7 +19,7 @@ class TruncateTable extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Truncate a particular table in the db';
 
     /**
      * Create a new command instance.

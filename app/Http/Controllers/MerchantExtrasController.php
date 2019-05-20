@@ -7,6 +7,7 @@ use App\Http\Requests\MerchantExtras\MerchantExtrasUpdateRequest;
 use App\MerchantExtra;
 use App\Traits\Uploads;
 use App\Upload;
+use App\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\MerchantExtra as MerchantExtraResource;
 
@@ -48,6 +49,16 @@ class MerchantExtrasController extends Controller
         $merchant_extra = new MerchantExtra($validated);
         $merchant_extra->upload_id = $uploads_id;
 
+        // make user role merchant
+        try{
+            $user = User::findOrFail($merchant_extra->merchant_id);
+            $user->role = "merchant";
+            $user->save();
+        }catch (ModelNotFoundException $e){
+            $errors = ["no user with id ".$merchant_extra->merchant_id." found"];
+            return response(['errors'=> $errors], 404);
+        }
+
         // save merchant extra
         if($merchant_extra->save()){
             if($merchant_extra->upload_id !== -1){
@@ -59,7 +70,7 @@ class MerchantExtrasController extends Controller
         }
 
         // return error if couldn't be saved
-        $errors = ['unknown error trying to create a booking'];
+        $errors = ['unknown error trying to create a merchant extra'];
         return response(['errors'=>$errors], 500);
     }
 
