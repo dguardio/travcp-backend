@@ -56,11 +56,13 @@ class ExperiencesController extends Controller
 
         // save experience if transaction goes well
         if($experience->save()){
-            foreach($uploads_ids as $upload_id){
-                if($upload_id !== -1){
-                    $upload = Upload::findOrFail($upload_id);
-                    $upload->experience_id = $experience->id;
-                    $upload->save();
+            if (isset($uploads_ids)) {
+                foreach($uploads_ids as $upload_id){
+                    if($upload_id !== -1){
+                        $upload = Upload::findOrFail($upload_id);
+                        $upload->experience_id = $experience->id;
+                        $upload->save();
+                    }
                 }
             }
             return new ExperienceResource($experience);

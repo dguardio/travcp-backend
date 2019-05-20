@@ -14,11 +14,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UsersTableSeeder::class,
             ExperienceTypeSeeder::class,
+            ExperienceTypesCategorySeeder::class,
             ExperiencesTableSeeder::class,
             BookingsSeeder::class,
             ReviewSeeder::class,
+            FoodMenuSeeder::class
             // RestaurantsTableSeeder::class,
-            // FoodMenuTableSeeder::class
         ]);
     }
 }
