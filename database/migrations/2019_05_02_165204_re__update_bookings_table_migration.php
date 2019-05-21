@@ -30,10 +30,10 @@ class ReUpdateBookingsTableMigration extends Migration
     public function down()
     {
         Schema::table('bookings', function (Blueprint $table) {
-            $table->integer("bookable_type_id");
-            $table->string("bookable_type_name");
-            $table->integer("bookable_id");
-            $table->string("bookable_id");
+            // $table->integer("bookable_type_id");
+            // $table->string("bookable_type_name");
+            // $table->integer("bookable_id");
+            // $table->string("bookable_id");
             $table->dropColumn("experience_id");
         });
     }

@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             ExperiencesTableSeeder::class,
             BookingsSeeder::class,
             ReviewSeeder::class,
+            FoodClassificationTableSeeder::class,
             FoodMenuSeeder::class
             // RestaurantsTableSeeder::class,
         ]);

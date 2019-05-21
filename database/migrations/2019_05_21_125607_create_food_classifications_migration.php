@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExperiencesTypeTable extends Migration
+class CreateFoodClassificationsMigration extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateExperiencesTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('experiences_types', function (Blueprint $table) {
+        Schema::create('food_classifications', function (Blueprint $table) {
             $table->increments('id');
-            $table->string("name")->nullable();
+            $table->string('name');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateExperiencesTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('experiences_types');
+        Schema::dropIfExists('food_classifications');
     }
 }

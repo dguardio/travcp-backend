@@ -13,4 +13,8 @@ class FoodMenu extends Model
     public function restaurant(){
         return $this->belongsTo(Experience::class, 'restaurant_id');
     }
+
+    public function category(){
+        return $this->belongsTo(FoodClassification::class, 'category_id');
+    }
 }
