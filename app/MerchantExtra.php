@@ -13,4 +13,8 @@ class MerchantExtra extends Model
     public function upload(){
         return $this->hasOne("App\Upload");
     }
+
+    public function user(){
+        return $this->belongsTo("App\User");
+    }
 }
