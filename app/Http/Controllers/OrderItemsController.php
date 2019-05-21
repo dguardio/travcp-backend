@@ -18,7 +18,7 @@ class OrderItemsController extends Controller
     public function index()
     {
         // get all order items
-        $order_items = OrderItem::orderBy('id', 'DESC')->paginate(10);
+        $order_items = OrderItem::orderBy('id', 'DESC')->paginate(20);
 
         // return order items as a collection
         return OrderItemsResource::collection($order_items);

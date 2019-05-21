@@ -18,7 +18,7 @@ class UserPaymentsController extends Controller
     public function index()
     {
         // get user payments
-        $user_payments = UserPayment::orderBy('id', 'DESC')->paginate(10);
+        $user_payments = UserPayment::orderBy('id', 'DESC')->paginate(20);
 
         // return collection of user payments as a resource
         return UserPaymentsResource::collection($user_payments);

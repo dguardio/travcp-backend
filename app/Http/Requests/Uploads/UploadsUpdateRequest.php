@@ -26,7 +26,9 @@ class UploadsUpdateRequest extends FormRequest
         return [
             "image" => "image|nullable|max:2048",
             "merchant_extra_id" => "integer",
-            "experience_id" => "integer"
+            "experience_id" => "integer",
+            "user_id" => "integer"
+
         ];
     }
 }

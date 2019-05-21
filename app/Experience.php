@@ -60,4 +60,8 @@ class Experience extends Model
     public function uploads(){
         return $this->hasMany("App\Upload");
     }
+
+    public function experience_type(){
+        return $this->belongsTo("App\ExperienceType", 'experiences_type_id');
+    }
 }

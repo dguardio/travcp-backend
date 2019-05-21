@@ -61,4 +61,8 @@ class User extends Authenticatable implements JWTSubject
     public function cart(){
         return $this->hasOne("App\Cart");
     }
+
+    public function upload(){
+        return $this->hasOne("App\Upload");
+    }
 }

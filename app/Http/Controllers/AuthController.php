@@ -41,6 +41,7 @@ class AuthController extends Controller
         ]);
         $data = request()->all();
         $data['password'] = \bcrypt(request()->password);
+        $data['name'] = $data['first_name'." ".'surname'];
         $user = User::create($data);
         $credentials = request(['email', 'password']);
         // $credentials = ['email' => $user->email, 'password' => $user->password];

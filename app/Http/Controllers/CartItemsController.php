@@ -18,7 +18,7 @@ class CartItemsController extends Controller
     public function index()
     {
         // get all cart items
-        $cart_items = CartItem::orderBy('id', 'DESC')->paginate(10);
+        $cart_items = CartItem::orderBy('id', 'DESC')->paginate(20);
 
         // return cart items as a collection
         return CartItemsResources::collection($cart_items);

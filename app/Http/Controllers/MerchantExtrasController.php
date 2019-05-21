@@ -7,6 +7,7 @@ use App\Http\Requests\MerchantExtras\MerchantExtrasUpdateRequest;
 use App\MerchantExtra;
 use App\Traits\Uploads;
 use App\Upload;
+use App\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\MerchantExtra as MerchantExtraResource;
 
@@ -21,7 +22,7 @@ class MerchantExtrasController extends Controller
     public function index()
     {
         // get all merchant extras from the db
-        $merchant_extras = MerchantExtra::orderBy('id', 'DESC')->paginate(10);
+        $merchant_extras = MerchantExtra::orderBy('id', 'DESC')->paginate(20);
 
         // return the merchant extras as a resource
         return MerchantExtraResource::collection($merchant_extras);
@@ -48,6 +49,16 @@ class MerchantExtrasController extends Controller
         $merchant_extra = new MerchantExtra($validated);
         $merchant_extra->upload_id = $uploads_id;
 
+        // make user role merchant
+        try{
+            $user = User::findOrFail($merchant_extra->user_id);
+            $user->role = "merchant";
+            $user->save();
+        }catch (ModelNotFoundException $e){
+            $errors = ["no user with id ".$merchant_extra->user_id." found"];
+            return response(['errors'=> $errors], 404);
+        }
+
         // save merchant extra
         if($merchant_extra->save()){
             if($merchant_extra->upload_id !== -1){
@@ -59,7 +70,7 @@ class MerchantExtrasController extends Controller
         }
 
         // return error if couldn't be saved
-        $errors = ['unknown error trying to create a booking'];
+        $errors = ['unknown error trying to create a merchant extra'];
         return response(['errors'=>$errors], 500);
     }
 
@@ -99,7 +110,7 @@ class MerchantExtrasController extends Controller
      */
     public function getMerchantExtrasByMerchantId($id){
         // get merchant extras by merchant id
-        $merchant_extra = MerchantExtra::where('merchant_id', $id)->first();
+        $merchant_extra = MerchantExtra::where('user_id', $id)->first();
 
         // return merchant extras as a resource
         return new MerchantExtraResource($merchant_extra);
@@ -151,7 +162,7 @@ class MerchantExtrasController extends Controller
         $validated = $request->validated();
 
         // get merchant extra
-        $merchant_extra = MerchantExtra::where('merchant_id', $id)->get();
+        $merchant_extra = MerchantExtra::where('user_id', $id)->get();
 
         // get upload extra data
         $extras = ["merchant_extra_id" => $merchant_extra->id];
@@ -170,7 +181,7 @@ class MerchantExtrasController extends Controller
         $merchant_extra->update($validated);
 
         // get merchant extra
-        $merchant_extra = MerchantExtra::where('merchant_id', $id)->get();
+        $merchant_extra = MerchantExtra::where('user_id', $id)->get();
 
         // return updated collection as a resource
         return new MerchantExtraResource($merchant_extra);

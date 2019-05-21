@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Users\UsersUpdateRequest;
+use App\Traits\Uploads;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\User as UserResource;
 use App\User;
 class UsersController extends Controller
 {
+    use Uploads;
     /**
      * Display a listing of all users, pagination data included.
      *
@@ -16,7 +18,7 @@ class UsersController extends Controller
     public function index()
     {
         // get all users
-        $users = User::orderBy('id', 'DESC')->paginate(10);
+        $users = User::orderBy('id', 'DESC')->paginate(20);
 
         // return users as a collection
         return UserResource::collection($users);
@@ -73,22 +75,33 @@ class UsersController extends Controller
     public function update(UsersUpdateRequest $request, $id)
     {
         // create user object
-        $users =  User::findOrFail($id);
+        $user =  User::findOrFail($id);
 
         // validate request and return validated data
         $validated = $request->validated();
         if(isset($validated['password'])){
             $validated['password'] = \bcrypt($validated['password']);
         }
-        // add other user object properties
-        $users->update($validated);
 
-        // save user if transaction goes well
-        if($users->save()){
-            return new UserResource($users);
+        // add extras you want to be included in the upload
+        $extras = ["user_id" => $id];
+
+        // store file and get file upload id
+        if($user->upload_id !== -1){
+            $upload_id = $this->updateFile($request, $user->upload_id, 'profile_image');
+        }else{
+            $upload_id = $this->storeFile($request, 'profile_image', $extras);
         }
 
-        return new UserResource(null);
+        // add upload
+        $validated['upload_id'] = $upload_id;
+        unset($validated["profile_image"]);
+
+        // add other user object properties
+        $user->update($validated);
+
+        // save user if transaction goes well
+        return new UserResource($user);
     }
 
     /**

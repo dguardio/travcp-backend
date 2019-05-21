@@ -10,4 +10,8 @@ class ExperienceType extends Model
 
     protected $guarded = [];
 
+    public function experiences(){
+        return $this->hasMany("App\Experiences", 'experiences_type_id');
+    }
+
 }

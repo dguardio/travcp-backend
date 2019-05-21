@@ -21,7 +21,7 @@ class BookingsController extends Controller
     public function index()
     {
         // get all bookings from latest to oldest
-        $bookings = Booking::orderBy('id', 'DESC')->paginate(10);
+        $bookings = Booking::orderBy('id', 'DESC')->paginate(20);
 
         // return bookings as a resource
         return BookingResource::collection($bookings);

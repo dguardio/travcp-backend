@@ -17,4 +17,8 @@ class Upload extends Model
     public function experience(){
         return $this->belongsTo("App\Experience");
     }
+
+    public function user(){
+        return $this->belongsTo("App\User");
+    }
 }

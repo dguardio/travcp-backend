@@ -18,7 +18,7 @@ class ExperienceTypesController extends Controller
     public function index()
     {
         // get all experiences types
-        $experiences_types = ExperienceType::orderBy('id', 'DESC')->paginate(10);
+        $experiences_types = ExperienceType::orderBy('id', 'DESC')->paginate(20);
 
         // return experience types as a collection
         return ExperienceTypeResource::collection($experiences_types);

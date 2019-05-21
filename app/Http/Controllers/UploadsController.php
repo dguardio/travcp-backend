@@ -20,7 +20,7 @@ class UploadsController extends Controller
     public function index()
     {
         // get all uploads
-        $upload = Upload::orderBy('id', 'DESC')->paginate(10);
+        $upload = Upload::orderBy('id', 'DESC')->paginate(20);
 
         // return uploads as a resource
         return UploadsResource::collection($upload);

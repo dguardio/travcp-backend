@@ -29,7 +29,7 @@ class MerchantExtrasStoreRequest extends FormRequest
             "upload_id" => "integer",
             "bio" => "string",
             "phone" => "string",
-            "merchant_id" => "integer|required|unique:merchant_extras",
+            "user_id" => "integer|required|unique:merchant_extras",
         ];
     }
 }

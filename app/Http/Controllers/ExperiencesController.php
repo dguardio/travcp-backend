@@ -24,7 +24,8 @@ class ExperiencesController extends Controller
     {
         // get experiences
         $experiences = Experience::getBySearch($request)
-            ->paginate(10)
+            ->orderBy('id', 'DESC')
+            ->paginate(20)
             ->appends($request->query());
 
         // return collection of experiences as a resource
@@ -43,27 +44,32 @@ class ExperiencesController extends Controller
         $validated = $request->validated();
 
         // store file and get filename
-        $uploads_ids = $this->multipleImagesUpload($request, 'images');
+        if(app('request')->exists('images')){
+            $uploads_ids = $this->multipleImagesUpload($request, 'images');
+        }
 
         // create new merchant extras based of the validated data
-        unset($validated['images']);
+//        unset($validated['images']);
 
         // create new experience object and add other user payments object properties
         $experience =  new Experience($validated);
 
         // save experience if transaction goes well
         if($experience->save()){
-            foreach($uploads_ids as $upload_id){
-                if($upload_id !== -1){
-                    $upload = Upload::findOrFail($upload_id);
-                    $upload->experience_id = $experience->id;
-                    $upload->save();
+            if (isset($uploads_ids)) {
+                foreach($uploads_ids as $upload_id){
+                    if($upload_id !== -1){
+                        $upload = Upload::findOrFail($upload_id);
+                        $upload->experience_id = $experience->id;
+                        $upload->save();
+                    }
                 }
             }
             return new ExperienceResource($experience);
         }
 
-        return new ExperienceResource(null);
+        $errors = ["error while creating experience"];
+        return response(['errors'=> $errors], 500);
     }
 
     /**

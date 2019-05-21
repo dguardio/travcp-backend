@@ -17,7 +17,7 @@ class FoodMenusController extends Controller
     public function index()
     {
         // get all food menus
-        $food_menu = FoodMenu::orderBy('id', 'DESC')->paginate(10);
+        $food_menu = FoodMenu::orderBy('id', 'DESC')->paginate(20);
 
         // return food menu as a resource
         return FoodMenuResource::collection($food_menu);
