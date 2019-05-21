@@ -13,6 +13,11 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @yield('css')
+    <style>
+        .chatter_sidebar li a{
+            color: #f81894;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -30,7 +35,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        <img src="{{ asset('images/travv-logo.png') }}" alt="TravvLogo">
                     </a>
                 </div>
 
@@ -53,6 +58,9 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ url('forums') }}">Visit Forum</a>
+                                    </li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
