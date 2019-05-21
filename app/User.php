@@ -65,4 +65,8 @@ class User extends Authenticatable implements JWTSubject
     public function upload(){
         return $this->hasOne("App\Upload");
     }
+
+    public function merchant_extra(){
+        return $this->hasOne("App\MerchantExtra");
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Uploads\UploadsStoreRequest;
 use App\Http\Requests\Uploads\UploadsUpdateRequest;
+use App\Http\Resources\FullUpload;
 use App\Traits\Uploads;
 use App\Upload;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -23,7 +24,7 @@ class UploadsController extends Controller
         $upload = Upload::orderBy('id', 'DESC')->paginate(20);
 
         // return uploads as a resource
-        return UploadsResource::collection($upload);
+        return FullUpload::collection($upload);
     }
 
     /**
@@ -57,7 +58,7 @@ class UploadsController extends Controller
     /**
      * store a new upload
      * @param UploadsStoreRequest $request
-     * @return UploadsResource | \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @return FullUpload
      */
     public function store(UploadsStoreRequest $request){
 
@@ -75,7 +76,7 @@ class UploadsController extends Controller
             $errors = ["error while storing upload"];
             return response(['errors'=> $errors], 500);
         }else{
-            return new UploadsResource(Upload::find($upload_id));
+            return new FullUpload(Upload::find($upload_id));
         }
 
     }
@@ -84,7 +85,7 @@ class UploadsController extends Controller
      * update upload with a specified id
      * @param UploadsUpdateRequest $request
      * @param $id
-     * @return UploadsResource|\Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @return FullUpload
      */
     public function update(UploadsUpdateRequest $request, $id){
 
@@ -102,14 +103,14 @@ class UploadsController extends Controller
             $errors = ["error while storing upload"];
             return response(['errors'=> $errors], 500);
         }else{
-            return new UploadsResource(Upload::find($upload_id));
+            return new FullUpload(Upload::find($upload_id));
         }
     }
 
     /**
      * delete specified image from database
      * @param $id
-     * @return UploadsResource|\Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @return FullUpload
      */
     public function destroy($id){
 
@@ -131,7 +132,7 @@ class UploadsController extends Controller
 
         // delete upload
         if($upload->delete()){
-            return new UploadsResource($upload);
+            return new FullUpload($upload);
         }
 
         $errors = ['unknown error occurred while trying to delete upload'];
