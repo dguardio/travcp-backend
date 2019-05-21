@@ -114,7 +114,7 @@ class ReviewsController extends Controller
      */
     public function getReviewsByMerchantId($id){
         // get reviews based on user id
-        $reviews = User::findOrFail($id)->experiences()->reviews()->paginate(20);
+        $reviews = User::findOrFail($id)->experiences()->reviews()->orderBy('id', 'DESC')->paginate(20);
 
         // return reviews as collection
         return ReviewResource::collection($reviews);
@@ -127,7 +127,7 @@ class ReviewsController extends Controller
      */
     public function getReviewsByExperienceId($id){
         // all experience reviews
-        $reviews = Review::where('experience_id', $id)->paginate(20);
+        $reviews = Review::where('experience_id', $id)->orderBy('id', 'DESC')->paginate(20);
 
         // as a result
         return new ReviewCollection($reviews);
@@ -142,6 +142,7 @@ class ReviewsController extends Controller
         // get reviews
         $reviews = Review::where('experience_id', $experience_id)
             ->where('rating', $rating)
+            ->orderBy('id', 'DESC')
             ->paginate(10);
 
         // return reviews as collection

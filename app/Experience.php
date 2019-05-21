@@ -32,8 +32,8 @@ class Experience extends Model
             return $query->where('naira_price', '>=', $request->min_price);
         })->when($request->max_price, function($query)  use($request){
             return $query->where('naira_price', '<=', $request->max_price);
-        })->when($request->type, function($query)  use($request){
-            return $query->where('type', '=', $request->type);
+        })->when($request->experiences_type_id, function($query)  use($request){
+            return $query->where('experiences_type_id', '=', $request->experiences_type_id);
         })->when($request->rating, function($query)  use($request){
             return $query->where('rating', '>=', $request->rating);
         })->when($request->cities, function($query)  use($request){
