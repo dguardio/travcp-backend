@@ -199,7 +199,7 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     /** Merchant Extras **/
     Route::post('merchant/extras/', 'MerchantExtrasController@store'); // store a new merchant extras entry
     Route::put('merchant/extras/{id}', 'MerchantExtrasController@update'); // store a new merchant extras entry
-    Route::delete('merchant/extras/{id}', 'MerchantExtrasController@delete'); // delete a new merchant extras entry
+    Route::delete('merchant/extras/{id}', 'MerchantExtrasController@delete'); // delete merchant extras entry
 
     /** User Payments **/
     Route::post('payments/users/', 'UserPaymentsController@store'); // create new user payment

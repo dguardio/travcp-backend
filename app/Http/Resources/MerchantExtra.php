@@ -20,6 +20,7 @@ class MerchantExtra extends Resource
         // add extra data
         $result["identity_document"] = new Upload($this->upload);
 
+        $result["user_data"] = new User($this->user);
         // remove unnecessary data
         unset($result['upload_id']);
 
