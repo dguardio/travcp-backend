@@ -7,18 +7,22 @@ use App\Http\Requests\UserPayments\UserPaymentsUpdateRequest;
 use App\UserPayment;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\UserPayment as UserPaymentsResource;
+use Illuminate\Http\Request;
 
 class UserPaymentsController extends Controller
 {
     /**
      * Display a listing of the all user payments.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
         // get user payments
-        $user_payments = UserPayment::orderBy('id', 'DESC')->paginate(20);
+        $user_payments = UserPayment::getBySearch($request)
+            ->orderBy('id', 'DESC')
+            ->paginate(20);
 
         // return collection of user payments as a resource
         return UserPaymentsResource::collection($user_payments);
