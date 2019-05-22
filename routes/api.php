@@ -39,6 +39,12 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     Route::get('merchants/{id}/reviews', 'ReviewsController@getReviewsByMerchantId'); // get all merchant reviews
     Route::get('merchants/{id}/bookings', 'BookingsController@getBookingsByMerchantId'); // get all merchant bookings
 
+     /*Merchant Data */
+     Route::get('merchants/', 'MerchantController@index'); // get merchant experiences
+     Route::post('merchants/', 'MerchantController@register'); // get merchant by id
+     Route::put('merchants/{id}', 'MerchantController@update'); // get all merchant 
+     Route::delete('merchants', 'MerchantController@deletemerchant'); //delete merchants
+ 
     /** Users **/
     Route::get('users/', 'UsersController@index'); // get all users
     Route::get('users/{id}', 'UsersController@show'); // get a single user
@@ -102,6 +108,12 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     Route::put('bookings/{id}', 'BookingsController@update'); // update an existing booking
     Route::delete('bookings/{id}', 'BookingsController@destroy'); // delete a particular booking
 
+       /*Articles  */
+       Route::get('articles/', 'ArticleController@index'); // get articles related
+       Route::post('articles/', 'ArticleController@newarticle'); // get article by id
+       Route::put('articles/{id}', 'ArticleController@update'); // get all article 
+       Route::delete('articles', 'ArticleController@deletearticle'); //delete article 
+   
     /** User Payments **/
     Route::get('payments/users/', 'UserPaymentsController@index'); // get all user payment entries
     Route::get('payments/users/{id}', 'UserPaymentsController@show'); // get a single user payment entry
@@ -110,12 +122,7 @@ Route::group(['middleware' => ['api', 'auth:api']], function(){
     Route::delete('payments/users/{id}', 'UserPaymentsController@destroy'); // delete a particular user payment
 
     
-   /*Merchant Data */
-    Route::get('merchants/', 'MerchantController@index'); // get merchant experiences
-    Route::post('merchants/', 'MerchantController@register'); // get merchant by id
-    Route::put('merchants/{id}', 'MerchantController@update'); // get all merchant reviews
-    Route::delete('merchants', 'MerchantController@deletemerchant'); //delete merchants
-
+  
 
     /** Users **/
     Route::get('users/', 'UsersController@index'); // get all users
