@@ -115,6 +115,7 @@ Route::get('restaurants/{id}/menus', "FoodMenuController@list");
 /** User Payments **/
 Route::get('payments/users/', 'UserPaymentsController@index'); // get all user payment entries
 Route::get('payments/users/{id}', 'UserPaymentsController@show'); // get a single user payment entry
+Route::get('payments/users/transactions/{id}', 'UserPaymentsController@getUserPaymentByTransactionId'); // get a single user payment entry by transaction id
 
 ///**Misc - not yet sorted**/
 //Route::get('events', "EventController@list");
@@ -122,7 +123,7 @@ Route::get('payments/users/{id}', 'UserPaymentsController@show'); // get a singl
 //Route::get('restaurants/{id}', "RestaurantController@show");
 
 
-Route::group(['middleware' => ['api', 'auth:api']], function(){
+Route::group(['middleware' => ['api', 'auth:api', 'forceJson']], function(){
 
     /** Cart **/
     Route::post('cart/add/', 'OrderController@addToCart'); // add booking to cart

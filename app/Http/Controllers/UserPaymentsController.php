@@ -25,6 +25,23 @@ class UserPaymentsController extends Controller
     }
 
     /**
+     * get user payments by transaction id
+     * @param $id
+     * @return UserPaymentsResource
+     */
+    public function getUserPaymentByTransactionId($id){
+        try{
+            // try to get a single user payments by transaction id
+            $user_payments = UserPayment::where('transaction_id', '$id')->firstOrFail();
+        }catch (ModelNotFoundException $e){
+            $errors = ["user payment with transaction id ".$id." not found"];
+            return response(['errors'=> $errors], 404);
+        }
+
+        // return collection of user payments as a resource
+        return new UserPaymentsResource($user_payments);
+    }
+    /**
      * Store a newly created user payment entry in storage.
      *
      * @param UserPaymentsStoreRequest $request
