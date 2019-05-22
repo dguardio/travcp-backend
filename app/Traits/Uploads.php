@@ -32,7 +32,7 @@ trait Uploads
             $extension = $request->file($file_field_name)->getClientOriginalExtension();
 
             // convert file to longtext
-            $base64 = 'data:image/' . $extension . ';base64,' . base64_encode(file_get_contents($request->file($file_field_name)->pat‌​h()));
+            $base64 = 'data:image/' . $extension . ';base64,' . base64_encode(file_get_contents($request->file($file_field_name)));
 
             // create new upload object
             $upload = new Upload();
@@ -78,7 +78,7 @@ trait Uploads
             $extension = $request->file($file_field_name)->getClientOriginalExtension();
 
             // convert file to longtext
-            $base64 = 'data:image/' . $extension . ';base64,' . base64_encode(file_get_contents($request->file($file_field_name)->pat‌​h()));
+            $base64 = 'data:image/' . $extension . ';base64,' . base64_encode(file_get_contents($request->file($file_field_name)));
 
             // update upload
             $upload->upload_data = $base64;
