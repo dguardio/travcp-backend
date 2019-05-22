@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Order as OrderResource;
 use App\Http\Resources\CartItem as CartItemResource;
 use Sdkcodes\LaraPaystack\PaystackService;
-
+use App\Http\Resources\Cart as CartResource;
 class OrderController extends Controller
 {
     use Payments;
@@ -116,5 +116,26 @@ class OrderController extends Controller
         }
         $errors = [" Transaction not valid "];
         return response(['errors'=> $errors], 406);
+    }
+
+    /**
+     * get cart of current user
+     * @return CartResource|\Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function getCurrentUserCart(){
+        // get user
+        $user = Auth::user();
+
+        if(is_null($user)){
+            $errors = [" authenticated user not found"];
+            return response(['errors'=> $errors], 404);
+        }
+
+        if(is_null($user->cart)){
+            $errors = [" authenticated user has no cart"];
+            return response(['errors'=> $errors], 404);
+        }
+
+        return new CartResource($user->cart);
     }
 }

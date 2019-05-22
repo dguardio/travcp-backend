@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Http\Request;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -18,6 +19,26 @@ class User extends Authenticatable implements JWTSubject
     // protected $fillable = [
     //     'name', 'email', 'password',
     // ];
+
+    /**
+     * get users list by adding specific parameters
+     * @param Request $request
+     * @return mixed
+     */
+    public static function getBySearch(Request $request){
+        return self::when($request->city, function($query) use($request){
+            return $query->where('city', "LIKE", "%{$request->city}%");
+        })->when($request->country, function($query) use($request){
+            return $query->where('country', "LIKE", "%{$request->country}%");
+        })->when($request->address, function($query) use($request){
+            return $query->where('address', "LIKE", "%{$request->address}%");
+        })->when($request->subscribed_to_newsletter, function($query)  use($request){
+            $subscribed_to_newsletter = $request->subscribed_to_newsletter ? true: false;
+            return $query->where('subscribed_to_newsletter', '=', $subscribed_to_newsletter);
+        })->when($request->cities, function($query)  use($request){
+            return $query->whereIn('city', $request->cities);
+        });
+    }
 
     protected $guarded = [];
 

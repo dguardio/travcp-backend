@@ -7,18 +7,22 @@ use App\Http\Requests\CartItems\CartItemsStoreRequest;
 use App\Http\Requests\CartItems\CartItemsUpdateRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\CartItem as CartItemsResources;
+use Illuminate\Http\Request;
 
 class CartItemsController extends Controller
 {
     /**
      * Display a listing of cart items.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
         // get all cart items
-        $cart_items = CartItem::orderBy('id', 'DESC')->paginate(20);
+        $cart_items = CartItem::getBySearch($request)
+            ->orderBy('id', 'DESC')
+            ->paginate(20);
 
         // return cart items as a collection
         return CartItemsResources::collection($cart_items);

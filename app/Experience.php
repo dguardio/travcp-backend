@@ -29,9 +29,37 @@ class Experience extends Model
                 ->orWhere('city', "LIKE", "%{$request->location}%")
                 ->orWhere('state', 'LIKE', "%{$request->location}%");
         })->when($request->min_price, function($query) use($request){
-            return $query->where('naira_price', '>=', $request->min_price);
-        })->when($request->max_price, function($query)  use($request){
-            return $query->where('naira_price', '<=', $request->max_price);
+            if(!isset($request->currency)){
+                return $query->where('naira_price', '>=', $request->min_price);
+            }else{
+                switch ($request->currency){
+                    case "dollars":
+                        return $query->where('dollar_price', '>=', $request->min_price);
+                        break;
+                    case "pounds":
+                        return $query->where('pounds_price', '>=', $request->min_price);
+                        break;
+                    case "naira":
+                        return $query->where('naira_price', '>=', $request->min_price);
+                        break;
+                }
+            }
+        })->when($request->max_price, function($query) use($request){
+            if(!isset($request->currency)){
+                return $query->where('naira_price', '<=', $request->max_price);
+            }else{
+                switch ($request->currency){
+                    case "dollars":
+                        return $query->where('dollar_price', '<=', $request->max_price);
+                        break;
+                    case "pounds":
+                        return $query->where('pounds_price', '<=', $request->max_price);
+                        break;
+                    case "naira":
+                        return $query->where('naira_price', '<=', $request->max_price);
+                        break;
+                }
+            }
         })->when($request->experiences_type_id, function($query)  use($request){
             return $query->where('experiences_type_id', '=', $request->experiences_type_id);
         })->when($request->rating, function($query)  use($request){

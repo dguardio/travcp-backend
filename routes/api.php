@@ -65,6 +65,10 @@ Route::get('orders/{id}', 'OrdersController@show'); // get single order
 Route::get('order_items', 'OrderItemsController@index'); // get all order items
 Route::get('order_items/{id}', 'OrderItemsController@show'); // get single order items
 
+/** Cart **/
+Route::middleware('auth:api')->get('/cart','OrderController@getCurrentUserCart' );
+//Route::get('cart', 'OrderController@getCurrentUserCart'); //
+
 /** Carts **/
 Route::get('carts/', 'CartsController@index'); // get all carts
 Route::get('carts/{id}', 'CartsController@show'); // get single cart
@@ -87,7 +91,7 @@ Route::get('experience_types_categories/{id}', 'ExperienceTypesCategoriesControl
 Route::get('reviews/', 'ReviewsController@index'); // get all reviews
 Route::get('experiences/{experience_id}/reviews/rating/{rating}', 'ReviewsController@getExperienceReviewByRating'); // get all an experience reviews with a specific rating
 Route::get('reviews/{id}', 'ReviewsController@show'); // get a single reviews
-Route::get('experiences/{id}/reviews', 'ReviewsController@getReviewsByExperienceId'); // get a single reviews
+Route::get('experiences/{id}/reviews', 'ReviewsController@getReviewsByExperienceId'); // get all reviews with particular experience id
 
 /** Merchant Extras**/
 Route::get('merchant/extras/', 'MerchantExtrasController@index'); // get all merchant extras
