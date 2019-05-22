@@ -31,7 +31,7 @@ class UploadsController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return UploadsResource
+     * @return FullUpload
      */
     public function show($id)
     {
