@@ -52,7 +52,7 @@ class UploadsController extends Controller
         }
 
         //return single booking as a resource
-        return new UploadsResource($upload);
+        return new FullUpload($upload);
     }
 
     /**

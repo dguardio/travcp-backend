@@ -24,14 +24,14 @@ class BookingsStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'merchant_id' => 'integer|required',
-            'price' => 'integer|required',
-            'currency' => 'string',
-            'user_id' => 'integer|required',
-            'start_date' => 'date',
-            'end_date' => 'date',
-            'quantity' => 'integer',
-            'food_menu_ids' => 'string',
+            'merchant_id' => 'integer|nullable',
+            'price' => 'integer|nullable',
+            'currency' => 'string|nullable',
+            'user_id' => 'integer|nullable',
+            'start_date' => 'date|nullable',
+            'end_date' => 'date|nullable',
+            'quantity' => 'integer|nullable',
+            'food_menu_ids' => 'string|nullable',
             'experience_id' => 'integer|required',
         ];
     }
