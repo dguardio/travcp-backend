@@ -74,7 +74,31 @@ class MerchantExtrasController extends Controller
         return response(['errors'=>$errors], 500);
     }
 
+    /**
+     * get merchant extras by user id
+     * @param $id
+     * @return MerchantExtraResource|\Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function getMerchantExtraByUserId($id){
+        //validate data before putting in
+        $id = trim(htmlspecialchars($id));
 
+        if(!is_numeric($id)){
+            $errors = ["id is not a number"];
+            return response(['errors'=> $errors], 422);
+        }
+
+        //try to get a single merchant extra
+        try{
+            $merchant_extra = MerchantExtra::where('user_id',$id)->firstOrFail();
+        }catch (ModelNotFoundException $e){
+            $errors = ["merchant extra with user id ".$id." not found"];
+            return response(['errors'=> $errors], 404);
+        }
+
+        // return single merchant extra as a resource
+        return new MerchantExtraResource($merchant_extra);
+    }
     /**
      * Display the specified merchant extra by id.
      *

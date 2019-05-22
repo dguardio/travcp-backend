@@ -92,6 +92,7 @@ Route::get('experiences/{id}/reviews', 'ReviewsController@getReviewsByExperience
 /** Merchant Extras**/
 Route::get('merchant/extras/', 'MerchantExtrasController@index'); // get all merchant extras
 Route::get('merchant/extras/{id}', 'MerchantExtrasController@show'); // get a single merchant extras entry by id
+Route::get('merchant/extras/users/{id}', 'MerchantExtrasController@getMerchantExtraByUserId'); // get a single merchant extras entry by its user id
 
 /** Bookings **/
 Route::get('bookings/', 'BookingsController@index'); // get all bookings
