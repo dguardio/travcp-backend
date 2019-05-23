@@ -195,7 +195,8 @@ Route::group(['middleware' => ['api', 'auth:api', 'forceJson']], function(){
     /** Reviews **/
     Route::put('reviews/{id}', 'ReviewsController@update'); // update an existing review
     Route::delete('reviews/{id}', 'ReviewsController@destroy'); // delete a particular review
-    Route::post('reviews/', 'ReviewsController@store'); // create new review
+//    Route::post('reviews/', 'ReviewsController@store'); // create new review
+    Route::post('reviews/', 'ReviewsController@storeOrUpdate'); // create new review or update old one
 
     /** Bookings **/
     Route::post('bookings/', 'BookingsController@store'); // create new booking

@@ -30,6 +30,27 @@ class ReviewsController extends Controller
     }
 
     /**
+     * store or update a review.
+     * @param ReviewsStoreRequest $request
+     * @return ReviewResource
+     */
+    public function storeOrUpdate(ReviewsStoreRequest $request){
+        $validated = $request->validated();
+
+        try{
+            $review = Review::where('user_id', $validated['user_id'])
+                ->where('experience_id', $validated['experience_id'])
+                ->firstOrFail();
+            $review->update($validated);
+
+        }catch (ModelNotFoundException $e){
+            $review = new Review($validated);
+            $review->save();
+        }
+
+        return new ReviewResource($review);
+    }
+    /**
      * Store a newly created review in storage.
      *
      * @param ReviewsStoreRequest $request
