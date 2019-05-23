@@ -28,11 +28,11 @@ trait Uploads
 
         // handle file upload
         if($request->hasFile($file_field_name)){
-            // Get just extension
+            // get file extension
             $extension = $request->file($file_field_name)->getClientOriginalExtension();
 
             // convert file to longtext
-            $base64 = 'data:image/' . $extension . ';base64,' . base64_encode($request->file($file_field_name));
+            $base64 = 'data:image/' . $extension . ';base64,' . base64_encode(file_get_contents($request->file($file_field_name)));
 
             // create new upload object
             $upload = new Upload();
@@ -74,11 +74,11 @@ trait Uploads
 
         // handle file upload
         if($request->hasFile($file_field_name)){
-            // Get just extension
+            // get file extension
             $extension = $request->file($file_field_name)->getClientOriginalExtension();
 
             // convert file to longtext
-            $base64 = 'data:image/' . $extension . ';base64,' . base64_encode($request->file($file_field_name));
+            $base64 = 'data:image/' . $extension . ';base64,' . base64_encode(file_get_contents($request->file($file_field_name)));
 
             // update upload
             $upload->upload_data = $base64;
@@ -111,7 +111,7 @@ trait Uploads
                 $extension = $file->getClientOriginalExtension();
 
                 // convert file to longtext
-                $base64 = 'data:image/' . $extension . ';base64,' . base64_encode($file);
+                $base64 = 'data:image/' . $extension . ';base64,' . base64_encode(file_get_contents($file));
 
                 // save file in db
                 // create new upload object
@@ -134,3 +134,5 @@ trait Uploads
     }
 
 }
+//
+//            $base64 = base64_encode(file_get_contents($request->file($file_field_name)->pat‌​h()));

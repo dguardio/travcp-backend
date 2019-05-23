@@ -31,7 +31,7 @@ class UploadsController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return UploadsResource
+     * @return FullUpload
      */
     public function show($id)
     {
@@ -52,7 +52,7 @@ class UploadsController extends Controller
         }
 
         //return single booking as a resource
-        return new UploadsResource($upload);
+        return new FullUpload($upload);
     }
 
     /**

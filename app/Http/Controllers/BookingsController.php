@@ -16,12 +16,15 @@ class BookingsController extends Controller
     /**
      * Display a listing of the all bookings with pagination.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
         // get all bookings from latest to oldest
-        $bookings = Booking::orderBy('id', 'DESC')->paginate(20);
+        $bookings = Booking::getBySearch($request)
+            ->orderBy('id', 'DESC')
+            ->paginate(20);
 
         // return bookings as a resource
         return BookingResource::collection($bookings);
@@ -84,12 +87,16 @@ class BookingsController extends Controller
 
     /**
      * get all bookings owned by a merchant using the id
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function getBookingsByMerchantId($id){
+    public function getBookingsByMerchantId(Request $request, $id){
         // get all bookings owned by merchant with that id
-        $bookings = Booking::where('merchant_id', $id)->orderBy('id', 'DESC')->paginate(10);
+        $bookings = Booking::getBySearch($request)
+            ->where('merchant_id', $id)
+            ->orderBy('id', 'DESC')
+            ->paginate(20);
 
         // return booking as a resource
         return BookingResource::collection($bookings);
@@ -149,12 +156,16 @@ class BookingsController extends Controller
 
     /**
      * get all bookings made by user with id $id
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    function getBookingByUserId($id){
+    function getBookingByUserId(Request $request, $id){
         // get all bookings from latest to oldest
-        $bookings = Booking::where('user_id', $id)->orderBy('id', 'DESC')->paginate(10);
+        $bookings = Booking::getBySearch($request)
+            ->where('user_id', $id)
+            ->orderBy('id', 'DESC')
+            ->paginate(20);
 
         // return bookings as a resource
         return BookingResource::collection($bookings);

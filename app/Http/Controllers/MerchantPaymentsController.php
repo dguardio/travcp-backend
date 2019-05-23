@@ -7,18 +7,23 @@ use App\Http\Requests\MerchantPayments\MerchantPaymentsUpdateRequest;
 use App\MerchantPayment;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\MerchantPayment as MerchantPaymentResource;
+use Illuminate\Http\Request;
+
 class MerchantPaymentsController extends Controller
 {
 
     /**
      * Display a listing of the all merchant payments with paginate.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
         //get merchant payments
-        $merchant_payment = MerchantPayment::orderBy('id', 'DESC')->paginate(20);
+        $merchant_payment = MerchantPayment::getBySearch($request)
+            ->orderBy('id', 'DESC')
+            ->paginate(20);
 
         //return collection of merchant payments as a resource
         return MerchantPaymentResource::collection($merchant_payment);
@@ -106,12 +111,14 @@ class MerchantPaymentsController extends Controller
 
     /**
      * get all payments paid to a particular merchant using the merchant id
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function getMerchantPaymentsByMerchantId($id){
+    public function getMerchantPaymentsByMerchantId(Request $request, $id){
         // get merchant payment by merchant id
-        $merchant_payment = MerchantPayment::where('merchant_id', $id)->orderBy('id', 'DESC')->paginate(10);
+        $merchant_payment = MerchantPayment::getBySearch($request)
+            ->where('merchant_id', $id)->orderBy('id', 'DESC')->paginate(10);
 
         // return collection of merchant payment as a resource
         return MerchantPaymentResource::collection($merchant_payment);

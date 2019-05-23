@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
-
+use App\Http\Resources\User as UserResource;
 class AuthController extends Controller
 {
     public function __construct(){
@@ -30,7 +30,7 @@ class AuthController extends Controller
             // return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return $this->respondWithToken($token, auth()->user());
+        return $this->respondWithToken($token, new UserResource(auth()->user()));
     }
    
     public function register(){
@@ -41,7 +41,7 @@ class AuthController extends Controller
         ]);
         $data = request()->all();
         $data['password'] = \bcrypt(request()->password);
-        $data['name'] = $data['first_name'." ".'surname'];
+        $data['name'] = $data['first_name']." ".$data['surname'];
         $user = User::create($data);
         $credentials = request(['email', 'password']);
         // $credentials = ['email' => $user->email, 'password' => $user->password];

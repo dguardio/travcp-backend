@@ -6,21 +6,24 @@ use App\Http\Requests\Reviews\ReviewsStoreRequest;
 use App\Http\Requests\Reviews\ReviewsUpdateRequest;
 use App\Http\Resources\ReviewCollection;
 use App\Review;
-use App\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\Review as ReviewResource;
+use Illuminate\Http\Request;
 
 class ReviewsController extends Controller
 {
     /**
      * Display a listing of the all reviews in the db.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
         // get reviews
-        $reviews = Review::orderBy('id', 'DESC')->paginate(20);
+        $reviews = Review::getBySearch($request)
+            ->orderBy('id', 'DESC')
+            ->paginate(20);
 
         // return collection of reviews as a resource
         return ReviewResource::collection($reviews);
@@ -109,12 +112,16 @@ class ReviewsController extends Controller
 
     /**
      * get all reviews from all the experiences of a particular merchant using id
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function getReviewsByMerchantId($id){
+    public function getReviewsByMerchantId(Request $request, $id){
         // get reviews based on user id
-        $reviews = User::findOrFail($id)->experiences()->reviews()->orderBy('id', 'DESC')->paginate(20);
+        $reviews = Review::getBySearch($request)
+            ->where('user_id', $id)
+            ->orderBy('id', 'DESC')
+            ->paginate(20);
 
         // return reviews as collection
         return ReviewResource::collection($reviews);
@@ -122,25 +129,32 @@ class ReviewsController extends Controller
 
     /**
      * get al reviews from an experience
+     * @param Request $request
      * @param $id
      * @return ReviewCollection
      */
-    public function getReviewsByExperienceId($id){
+    public function getReviewsByExperienceId(Request $request, $id){
         // all experience reviews
-        $reviews = Review::where('experience_id', $id)->orderBy('id', 'DESC')->paginate(20);
+        $reviews = Review::getBySearch($request)
+            ->where('experience_id', $id)
+            ->orderBy('id', 'DESC')
+            ->paginate(20);
 
         // as a result
         return new ReviewCollection($reviews);
     }
+
     /**
      *  get experience reviews by rating id
+     * @param Request $request
      * @param $experience_id
      * @param $rating
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function getExperienceReviewByRating($experience_id, $rating){
+    public function getExperienceReviewByRating(Request $request, $experience_id, $rating){
         // get reviews
-        $reviews = Review::where('experience_id', $experience_id)
+        $reviews = Review::getBySearch($request)
+            ->where('experience_id', $experience_id)
             ->where('rating', $rating)
             ->orderBy('id', 'DESC')
             ->paginate(10);

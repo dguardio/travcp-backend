@@ -7,18 +7,24 @@ use App\Traits\Uploads;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\User as UserResource;
 use App\User;
+use Illuminate\Http\Request;
+
 class UsersController extends Controller
 {
     use Uploads;
+
     /**
      * Display a listing of all users, pagination data included.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
         // get all users
-        $users = User::orderBy('id', 'DESC')->paginate(20);
+        $users = User::getBySearch($request)
+            ->orderBy('id', 'DESC')
+            ->paginate(20);
 
         // return users as a collection
         return UserResource::collection($users);
@@ -54,12 +60,16 @@ class UsersController extends Controller
 
     /**
      * get all users with a particular role
+     * @param Request $request
      * @param $role
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function getUsersByRole($role){
+    public function getUsersByRole(Request $request, $role){
         // get all users with a particular role
-        $users = User::where('role', $role)->orderBy('id', 'DESC')->paginate(10);
+        $users = User::getBySearch($request)
+            ->where('role', $role)
+            ->orderBy('id', 'DESC')
+            ->paginate(10);
 
         // return users as a collection
         return UserResource::collection($users);
