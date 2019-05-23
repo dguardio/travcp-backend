@@ -25,6 +25,7 @@ class UsersUpdateRequest extends FormRequest
     {
         return [
             'first_name' => 'string',
+            'signed_in' => 'boolean',
             'surname' => 'string',
             'email' => 'string',
             'subscribed_to_newsletter' => 'boolean',

@@ -172,7 +172,9 @@ class ExperiencesController extends Controller
             return new ExperienceResource($experience);
         }
 
-        return new ExperienceResource(null);
+        // return error if transaction not successful
+        $errors = ['unknown error occurred while trying to update experience'];
+        return response(['errors'=> $errors], 500);
     }
 
     /**
