@@ -15,7 +15,7 @@ class Review extends Resource
     public function toArray($request)
     {
         $result =  parent::toArray($request);
-        $result["user_name"] = $this->user->first_name." ".$this->user->surname;
+        $result["user"] = new User($this->user);
         return $result;
     }
 }
