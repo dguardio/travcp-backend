@@ -16,6 +16,8 @@ class Review extends Resource
     {
         $result =  parent::toArray($request);
         $result["user_name"] = $this->user->first_name." ".$this->user->surname;
+        $result["user"] = new User($this->user);
+
         return $result;
     }
 }

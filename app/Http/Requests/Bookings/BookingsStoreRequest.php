@@ -33,6 +33,7 @@ class BookingsStoreRequest extends FormRequest
             'quantity' => 'integer|nullable',
             'food_menu_ids' => 'string|nullable',
             'experience_id' => 'integer|required',
+            'address' => 'string',
         ];
     }
 }

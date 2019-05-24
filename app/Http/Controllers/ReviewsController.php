@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Experience;
 use App\Http\Requests\Reviews\ReviewsStoreRequest;
 use App\Http\Requests\Reviews\ReviewsUpdateRequest;
 use App\Http\Resources\ReviewCollection;
@@ -29,6 +30,75 @@ class ReviewsController extends Controller
         return ReviewResource::collection($reviews);
     }
 
+    /**
+     * store or update a review.
+     * @param ReviewsStoreRequest $request
+     * @return ReviewResource
+     */
+    public function storeOrUpdate(ReviewsStoreRequest $request){
+        // get validated request data, throw error if applicable
+        $validated = $request->validated();
+
+        // get old experience
+        $experience = Experience::find($validated['experience_id']);
+
+        // get old experience average rating for calculation of new rating
+        $old_avg = $experience->rating;
+
+        // get old security average
+        $old_security_avg = $experience->security_rating;
+
+        try{
+            // check if review has been stored before and update it
+            $review = Review::where('user_id', $validated['user_id'])
+                ->where('experience_id', $validated['experience_id'])
+                ->firstOrFail();
+
+            // get old review rating
+            $old_rating = $review->rating;
+
+            // get old security rating
+            $old_security_rating = $review->security_rating;
+
+
+            // calculate and update experience rating
+            $rating = $validated["rating"];
+            $pre_rating =  ( ($old_avg*($experience->rating_count)) - $old_rating ) / ($experience->rating_count - 1);
+            $new_rating = (($pre_rating*($experience->rating_count - 1)) + $rating) / $experience->rating_count;
+            $experience->rating = $new_rating;
+
+            if(isset($validated["security_rating"]) && !is_null($validated["security_rating"])){
+                // calculate and update security rating
+                $security_rating = $validated["security_rating"];
+                $pre_security_rating = (($old_security_avg*($experience->security_rating_count - 1)) - $old_security_rating) / ($experience->security_rating_count - 1) ;
+                $experience->security_rating = ($pre_security_rating + $security_rating) / $experience->security_rating_count;
+            }
+
+            // update review
+            $review->update($validated);
+
+        }catch (ModelNotFoundException $e) {
+            // create new review from array data
+            $review = new Review($validated);
+            $review->save();
+
+            // add experience rating
+            $experience->rating = (($experience->rating*$experience->rating_count) + $review->rating) / ++$experience->rating_count;
+
+            // add experience security rating
+            if (isset($validated["security_rating"]) && !is_null($validated["security_rating"])) {
+                $experience->security_rating = (($experience->security_rating*$experience->security_rating_count) + $review->security_rating) / ++$experience->security_rating_count;
+            }
+        }
+        // just to make the return json return an int not a string
+        $review->rating += 0;
+
+        // update experience
+        $experience->save();
+
+        // return review as a resource;
+        return new ReviewResource($review);
+    }
     /**
      * Store a newly created review in storage.
      *

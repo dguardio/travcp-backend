@@ -35,8 +35,8 @@ $factory->define(App\Experience::class, function (Faker $faker) {
         'tourist_expected_items' => $faker->realText(10),
         'number_admittable' => $faker->randomNumber(2),
         'experiences_type_id' => $experiences_type->id,
-        'rating' => $faker->numberBetween(0,5),
-        'rating_count' => $faker->randomNumber(3),
+        'rating' => 0,
+        'rating_count' => 0,
         'history' => $faker->sentence." ".$faker->sentence,
     ];
 });

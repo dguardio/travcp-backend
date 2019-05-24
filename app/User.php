@@ -37,6 +37,9 @@ class User extends Authenticatable implements JWTSubject
             return $query->where('subscribed_to_newsletter', '=', $subscribed_to_newsletter);
         })->when($request->cities, function($query)  use($request){
             return $query->whereIn('city', $request->cities);
+        })->when($request->signed_in, function($query)  use($request){
+            $signed_in = $request->signed_in ? true: false;
+            return $query->where('signed_in', '=', $signed_in);
         });
     }
 

@@ -138,12 +138,14 @@ class ExperiencesController extends Controller
 
     /**
      *  get random experiences
+     * @param Request $request
      * @param $limit
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function getRandom($limit){
+    public function getRandom(Request $request, $limit){
         // get 5 random experiences
-        $experience = Experience::inRandomOrder()->take($limit)->get();
+        $experience = Experience::getBySearch($request)
+            ->inRandomOrder()->take($limit || 20)->get();
 
         // return as experience resource
         return ExperienceResource::collection($experience);
@@ -172,7 +174,9 @@ class ExperiencesController extends Controller
             return new ExperienceResource($experience);
         }
 
-        return new ExperienceResource(null);
+        // return error if transaction not successful
+        $errors = ['unknown error occurred while trying to update experience'];
+        return response(['errors'=> $errors], 500);
     }
 
     /**
