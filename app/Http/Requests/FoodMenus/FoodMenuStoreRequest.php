@@ -27,7 +27,7 @@ class FoodMenuStoreRequest extends FormRequest
             "restaurant_id" => "integer|required",
             "category_id" => "integer",
             "description" => "string|required",
-            "price" => "integer|required"
+            "price" => "numeric|required"
         ];
     }
 }
