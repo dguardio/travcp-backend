@@ -63,15 +63,23 @@ class ReviewsController extends Controller
 
             // calculate and update experience rating
             $rating = $validated["rating"];
-            $pre_rating =  ( ($old_avg*($experience->rating_count)) - $old_rating ) / ($experience->rating_count - 1);
+            if(($experience->rating_count - 1) == 0){
+                $pre_rating = 0;
+            }else{
+                $pre_rating =  ( ($old_avg*($experience->rating_count)) - $old_rating ) / ($experience->rating_count - 1);
+            }
             $new_rating = (($pre_rating*($experience->rating_count - 1)) + $rating) / $experience->rating_count;
             $experience->rating = $new_rating;
 
             if(isset($validated["security_rating"]) && !is_null($validated["security_rating"])){
                 // calculate and update security rating
                 $security_rating = $validated["security_rating"];
-                $pre_security_rating = (($old_security_avg*($experience->security_rating_count - 1)) - $old_security_rating) / ($experience->security_rating_count - 1) ;
-                $experience->security_rating = ($pre_security_rating + $security_rating) / $experience->security_rating_count;
+                if(($experience->security_rating_count - 1) == 0){
+                    $pre_security_rating = 0;
+                }else{
+                    $pre_security_rating = (($old_security_avg*($experience->security_rating_count - 1)) - $old_security_rating) / ($experience->security_rating_count - 1) ;
+                }
+                $experience->security_rating = (($pre_security_rating*($experience->security_rating_count - 1)) + $security_rating) / $experience->security_rating_count;
             }
 
             // update review
