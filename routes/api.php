@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +33,25 @@ Route::group(['middleware' => 'api'], function($router){
     // if (auth()->user()){
         
     // }
-    Route::get('forums', function(){
+    
+    Route::get('forums', function(Request $request){
+        
+        
+        try {
+            JWTAuth::parseToken();
+            $token = JWTAuth::getToken();
+        } catch (\Throwable $th) {
+            abort("No valid token");
+        }
+        try {
+            $request->user = JWTAuth::authenticate($token);
+            Auth::guard('web')->login($request->user, true);
+            
+            return redirect(url('forums'));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        
         return redirect(url('forums'));
     });
     
