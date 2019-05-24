@@ -7,18 +7,22 @@ use App\Http\Requests\Orders\OrdersUpdateRequest;
 use App\Order;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\Order as OrdersResource;
+use Illuminate\Http\Request;
 
 class OrdersController extends Controller
 {
     /**
      * Display a listing of all orders.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
         // get all orders
-        $orders = Order::orderBy('id', 'DESC')->paginate(20);
+        $orders = Order::getBySearch($request)
+            ->orderBy('id', 'DESC')
+            ->paginate(20);
 
         // return orders as a collection
         return OrdersResource::collection($orders);
