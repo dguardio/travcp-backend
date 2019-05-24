@@ -52,8 +52,8 @@ class ExperiencesController extends Controller
 //        unset($validated['images']);
 
         // create new experience object and add other user payments object properties
-        $experience =  new Experience($validated);
-
+        $experience =  new Experience;
+        $experience->fill($validated);
         // save experience if transaction goes well
         if($experience->save()){
             if (isset($uploads_ids)) {
@@ -65,7 +65,7 @@ class ExperiencesController extends Controller
                     }
                 }
             }
-            return new ExperienceResource($experience);
+            return new ExperienceResource(Experience::find($experience->id));
         }
 
         $errors = ["error while creating experience"];
