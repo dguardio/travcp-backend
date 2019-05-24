@@ -52,8 +52,6 @@ class ExperiencesUpdateRequest extends FormRequest
             'tourist_expected_items' => 'string|nullable',
             'number_admittable' => 'integer|nullable',
             'experiences_type_id' => 'integer|nullable',
-            'rating' => 'integer|nullable',
-            'rating_count' => 'integer|nullable',
             'history' => 'string|nullable',
             'start_date' => 'date|nullable',
             'end_date' => 'date|nullable',

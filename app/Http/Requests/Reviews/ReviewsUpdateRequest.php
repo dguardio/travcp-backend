@@ -29,6 +29,7 @@ class ReviewsUpdateRequest extends FormRequest
             'review_body' => 'string',
             'video_url' => 'string',
             'rating' => 'integer',
+            'security_rating' => 'integer',
         ];
     }
 }

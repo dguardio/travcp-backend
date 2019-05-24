@@ -33,6 +33,7 @@ class BookingsUpdateRequest extends FormRequest
             'quantity' => 'integer',
             'food_menu_ids' => 'string|',
             'experience_id' => 'integer',
+            'address' => 'string',
         ];
     }
 }
