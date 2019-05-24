@@ -16,7 +16,8 @@
         "sdkcodes/lara-paystack": "^1.0",
         "spatie/laravel-sluggable": "^2.1",
         "tymon/jwt-auth": "^1.0.0-rc.2",
-        "willvincent/laravel-rateable": "^1.07"
+        "willvincent/laravel-rateable": "^1.07",
+        "guzzlehttp/guzzle": "^6.0.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
@@ -60,5 +61,11 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "optimize-autoloader": true
+    },
+    "repositories": {
+        "packagist.org": {
+            "type": "composer",
+            "url": "https://packagist.org"
+        }
     }
 }
