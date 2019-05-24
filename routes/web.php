@@ -1,5 +1,8 @@
 <?php
 
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,3 +21,27 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('travvforum', function(){
+
+});
+    
+Route::get('travvforum', function(Request $request){
+    
+    try {
+        JWTAuth::parseToken();
+        $token = JWTAuth::getToken();
+    } catch (\Throwable $th) {
+        // abort(419, "No valid token");
+    }
+    try {
+        $request->user = JWTAuth::authenticate($token);
+        Auth::login($request->user, true);
+        
+        return redirect(url('forums'));
+    } catch (\Throwable $th) {
+        //throw $th;
+    }
+    
+    return redirect(url('forums'));
+});
+    
