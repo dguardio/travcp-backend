@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Resources\User as UserResource;
 class AuthController extends Controller
@@ -30,6 +31,12 @@ class AuthController extends Controller
             // return response()->json(['error' => 'Unauthorized'], 401);
         }
 
+        $id = auth()->user()->id;
+
+        $user = User::findOrFail($id);
+        $user->signed_in = true;
+        $user->save();
+
         return $this->respondWithToken($token, new UserResource(auth()->user()));
     }
    
@@ -51,6 +58,8 @@ class AuthController extends Controller
             // return response()->json(['error' => 'Unauthorized'], 401);
         }
 
+        $user->signed_in = true;
+        $user->save();
         return $this->respondWithToken($token, $user);
     }
 
@@ -71,7 +80,13 @@ class AuthController extends Controller
      */
     public function logout()
     {
+        $id = auth()->user()->id;
+
         auth()->logout();
+
+        $user = User::findOrFail($id);
+        $user->signed_in = false;
+        $user->save();
 
         return response()->json(['message' => 'Successfully logged out']);
     }

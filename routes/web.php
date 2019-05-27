@@ -45,3 +45,6 @@ Route::get('travvforum', function(Request $request){
     return redirect(url('forums'));
 });
     
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
