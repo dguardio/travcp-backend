@@ -21,10 +21,12 @@ class BookingsController extends Controller
      */
     public function index(Request $request)
     {
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get all bookings from latest to oldest
         $bookings = Booking::getBySearch($request)
             ->orderBy('id', 'DESC')
-            ->paginate(20);
+            ->paginate($limit);
 
         // return bookings as a resource
         return BookingResource::collection($bookings);
@@ -92,11 +94,13 @@ class BookingsController extends Controller
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function getBookingsByMerchantId(Request $request, $id){
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get all bookings owned by merchant with that id
         $bookings = Booking::getBySearch($request)
             ->where('merchant_id', $id)
             ->orderBy('id', 'DESC')
-            ->paginate(20);
+            ->paginate($limit);
 
         // return booking as a resource
         return BookingResource::collection($bookings);
@@ -161,11 +165,13 @@ class BookingsController extends Controller
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     function getBookingByUserId(Request $request, $id){
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get all bookings from latest to oldest
         $bookings = Booking::getBySearch($request)
             ->where('user_id', $id)
             ->orderBy('id', 'DESC')
-            ->paginate(20);
+            ->paginate($limit);
 
         // return bookings as a resource
         return BookingResource::collection($bookings);

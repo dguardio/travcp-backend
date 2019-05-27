@@ -13,12 +13,15 @@ class CartsController extends Controller
     /**
      * Display a listing of all carts.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get all carts
-        $cart = Cart::orderBy('id', 'DESC')->paginate(20);
+        $cart = Cart::orderBy('id', 'DESC')->paginate($limit);
 
         // return cart as a collection
         return CartsResource::collection($cart);
@@ -27,7 +30,7 @@ class CartsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param CartsStoreRequest $request
      * @return CartsResource
      */
     public function store(CartsStoreRequest $request)

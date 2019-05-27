@@ -7,18 +7,22 @@ use App\Http\Requests\Notifications\NotificationsUpdateRequest;
 use App\Notification;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\Notification as NotificationResource;
+use Illuminate\Http\Request;
 
 class NotificationsController extends Controller
 {
     /**
      * Display a listing of all db notifications with pagination.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get notifications
-        $notifications = Notification::orderBy('id', 'DESC')->paginate(20);
+        $notifications = Notification::orderBy('id', 'DESC')->paginate($limit);
 
         // return collection of notifications as a resource
         return NotificationResource::collection($notifications);

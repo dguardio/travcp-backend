@@ -9,19 +9,24 @@ use App\Traits\Uploads;
 use App\Upload;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\Upload as UploadsResource;
+use Illuminate\Http\Request;
 
 class UploadsController extends Controller
 {
     use Uploads;
+
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get all uploads
-        $upload = Upload::orderBy('id', 'DESC')->paginate(20);
+        $upload = Upload::orderBy('id', 'DESC')->paginate($limit);
 
         // return uploads as a resource
         return FullUpload::collection($upload);

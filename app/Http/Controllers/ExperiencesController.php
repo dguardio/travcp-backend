@@ -22,10 +22,12 @@ class ExperiencesController extends Controller
      */
     public function index(Request $request)
     {
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get experiences
         $experiences = Experience::getBySearch($request)
             ->orderBy('id', 'DESC')
-            ->paginate(20)
+            ->paginate($limit)
             ->appends($request->query());
 
         // return collection of experiences as a resource
@@ -107,11 +109,13 @@ class ExperiencesController extends Controller
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function getExperienceByMerchantId($id, Request $request){
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get experiences by merchant id
         $experiences = Experience::getBySearch($request)
             ->where('merchant_id', $id)
             ->orderBy('id', 'DESC')
-            ->paginate(10)
+            ->paginate($limit)
             ->appends($request->query());
 
         // return collection of experiences as a resource
@@ -125,11 +129,13 @@ class ExperiencesController extends Controller
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function getExperiencesByTypesId($id, Request $request){
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get experiences by experience types id
         $experiences = Experience::getBySearch($request)
             ->where('experiences_type_id', $id)
             ->orderBy('id', 'DESC')
-            ->paginate(10)
+            ->paginate($limit)
             ->appends($request->query());
 
         // return collection of experiences as a resource

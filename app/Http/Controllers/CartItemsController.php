@@ -19,10 +19,12 @@ class CartItemsController extends Controller
      */
     public function index(Request $request)
     {
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get all cart items
         $cart_items = CartItem::getBySearch($request)
             ->orderBy('id', 'DESC')
-            ->paginate(20);
+            ->paginate($limit);
 
         // return cart items as a collection
         return CartItemsResources::collection($cart_items);

@@ -7,18 +7,22 @@ use App\Http\Requests\ExperienceTypesCategories\ExperienceTypesCategoriesStoreRe
 use App\Http\Requests\ExperienceTypesCategories\ExperienceTypesCategoriesUpdateRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\ExperienceTypesCategory as ExperienceTypeCategoryResource;
+use Illuminate\Http\Request;
 
 class ExperienceTypesCategoriesController extends Controller
 {
     /**
      * Display a listing of the all experience types categories.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get all experience type categories
-        $experiences_type_categories = ExperienceTypesCategory::orderBy('id', 'DESC')->paginate(20);
+        $experiences_type_categories = ExperienceTypesCategory::orderBy('id', 'DESC')->paginate($limit);
 
         // return experience type categories as a collection
         return ExperienceTypeCategoryResource::collection($experiences_type_categories);
@@ -78,12 +82,15 @@ class ExperienceTypesCategoriesController extends Controller
 
     /**
      * get all categories belonging to a particular experience type using id
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function getCategoryByExperienceTypeId($id){
+    public function getCategoryByExperienceTypeId(Request $request, $id){
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get categories using experience type id
-        $experience_categories = ExperienceTypesCategory::where('experiences_type_id', $id)->paginate(10);
+        $experience_categories = ExperienceTypesCategory::where('experiences_type_id', $id)->paginate($limit);
 
         return ExperienceTypeCategoryResource::collection($experience_categories);
     }

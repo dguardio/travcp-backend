@@ -21,10 +21,12 @@ class ReviewsController extends Controller
      */
     public function index(Request $request)
     {
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get reviews
         $reviews = Review::getBySearch($request)
             ->orderBy('id', 'DESC')
-            ->paginate(20);
+            ->paginate($limit);
 
         // return collection of reviews as a resource
         return ReviewResource::collection($reviews);
@@ -195,11 +197,13 @@ class ReviewsController extends Controller
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function getReviewsByMerchantId(Request $request, $id){
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get reviews based on user id
         $reviews = Review::getBySearch($request)
             ->where('user_id', $id)
             ->orderBy('id', 'DESC')
-            ->paginate(20);
+            ->paginate($limit);
 
         // return reviews as collection
         return ReviewResource::collection($reviews);
@@ -212,11 +216,13 @@ class ReviewsController extends Controller
      * @return ReviewCollection
      */
     public function getReviewsByExperienceId(Request $request, $id){
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // all experience reviews
         $reviews = Review::getBySearch($request)
             ->where('experience_id', $id)
             ->orderBy('id', 'DESC')
-            ->paginate(20);
+            ->paginate($limit);
 
         // as a result
         return new ReviewCollection($reviews);
@@ -230,12 +236,14 @@ class ReviewsController extends Controller
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function getExperienceReviewByRating(Request $request, $experience_id, $rating){
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get reviews
         $reviews = Review::getBySearch($request)
             ->where('experience_id', $experience_id)
             ->where('rating', $rating)
             ->orderBy('id', 'DESC')
-            ->paginate(10);
+            ->paginate($limit);
 
         // return reviews as collection
         return ReviewResource::collection($reviews);

@@ -13,12 +13,17 @@ class OrderItemsController extends Controller
     /**
      * Display a listing of the all order items.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get all order items
-        $order_items = OrderItem::orderBy('id', 'DESC')->paginate(20);
+        $order_items = OrderItem::getBySearch($request)
+            ->orderBy('id', 'DESC')
+            ->paginate($limit);
 
         // return order items as a collection
         return OrderItemsResource::collection($order_items);
@@ -104,6 +109,23 @@ class OrderItemsController extends Controller
         // return error if transaction not successful
         $errors = ['unknown error occurred while trying to update order item'];
         return response(['errors'=> $errors], 500);
+    }
+
+    /**
+     * get all order items from an order
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function getOrderItemsByOrderId(Request $request, $id){
+
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
+        $order_items = OrderItem::where('order_id', $id)
+            ->orderBy('id', 'DESC')
+            ->paginate($limit);
+
+        return OrderItemsResource::collection($order_items);
     }
 
     /**

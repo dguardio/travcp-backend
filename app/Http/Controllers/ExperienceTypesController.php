@@ -7,18 +7,22 @@ use App\Http\Requests\ExperienceTypes\ExperienceTypesStoreRequest;
 use App\Http\Requests\ExperienceTypes\ExperienceTypesUpdateRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\ExperienceType as ExperienceTypeResource;
+use Illuminate\Http\Request;
 
 class ExperienceTypesController extends Controller
 {
     /**
      * Display a listing of all experience types.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get all experiences types
-        $experiences_types = ExperienceType::orderBy('id', 'DESC')->paginate(20);
+        $experiences_types = ExperienceType::orderBy('id', 'DESC')->paginate($limit);
 
         // return experience types as a collection
         return ExperienceTypeResource::collection($experiences_types);
@@ -31,7 +35,7 @@ class ExperienceTypesController extends Controller
     public function getExperienceTypeByName($name)
     {
         // get experiences types by name
-        $experiences_type = ExperienceType::where('name', $name)->orderBy('id', 'DESC')->get();
+        $experiences_type = ExperienceType::where('name', $name)->orderBy('id', 'DESC')->firstOrFail();
 
         // return experience types as a collection
         return new ExperienceTypeResource($experiences_type);

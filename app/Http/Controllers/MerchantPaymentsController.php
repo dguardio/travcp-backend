@@ -20,10 +20,12 @@ class MerchantPaymentsController extends Controller
      */
     public function index(Request $request)
     {
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         //get merchant payments
         $merchant_payment = MerchantPayment::getBySearch($request)
             ->orderBy('id', 'DESC')
-            ->paginate(20);
+            ->paginate($limit);
 
         //return collection of merchant payments as a resource
         return MerchantPaymentResource::collection($merchant_payment);
@@ -116,9 +118,11 @@ class MerchantPaymentsController extends Controller
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function getMerchantPaymentsByMerchantId(Request $request, $id){
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get merchant payment by merchant id
         $merchant_payment = MerchantPayment::getBySearch($request)
-            ->where('merchant_id', $id)->orderBy('id', 'DESC')->paginate(10);
+            ->where('merchant_id', $id)->orderBy('id', 'DESC')->paginate($limit);
 
         // return collection of merchant payment as a resource
         return MerchantPaymentResource::collection($merchant_payment);

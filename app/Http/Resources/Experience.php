@@ -27,11 +27,11 @@ class Experience extends Resource
         $result["security"] = ($result["security_rating"] > 3 )? "secure": "not secure";
         $result["rating"] = number_format((float)$result["rating"] , 1, '.', '');
 
-//        unset($result['rating_count']);
+        unset($result['rating_count']);
         unset($result['security_rating_count']);
         unset($result['security_rating']);
 
-        $result["experience_type"] = $this->experience_type->name;
+        $result["experience_type"] = $this->experience_type['name'];
         $result["reviews"] = Review::collection($this->reviews->take(5));
         $result["images"] = Upload::collection($this->uploads);
 

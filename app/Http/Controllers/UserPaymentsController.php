@@ -19,10 +19,12 @@ class UserPaymentsController extends Controller
      */
     public function index(Request $request)
     {
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get user payments
         $user_payments = UserPayment::getBySearch($request)
             ->orderBy('id', 'DESC')
-            ->paginate(20);
+            ->paginate($limit);
 
         // return collection of user payments as a resource
         return UserPaymentsResource::collection($user_payments);

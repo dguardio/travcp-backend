@@ -12,12 +12,15 @@ class FoodMenusController extends Controller
     /**
      * Display a listing of the all food menus.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get all food menus
-        $food_menu = FoodMenu::orderBy('id', 'DESC')->paginate(20);
+        $food_menu = FoodMenu::orderBy('id', 'DESC')->paginate($limit);
 
         // return food menu as a resource
         return FoodMenuResource::collection($food_menu);

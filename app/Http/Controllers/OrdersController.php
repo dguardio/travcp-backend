@@ -19,10 +19,12 @@ class OrdersController extends Controller
      */
     public function index(Request $request)
     {
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get all orders
         $orders = Order::getBySearch($request)
             ->orderBy('id', 'DESC')
-            ->paginate(20);
+            ->paginate($limit);
 
         // return orders as a collection
         return OrdersResource::collection($orders);
@@ -108,6 +110,24 @@ class OrdersController extends Controller
         return response(['errors'=> $errors], 500);
     }
 
+    /**
+     * get all orders by made by a particular user using its id
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function getAllOrdersByUserId(Request $request, $id){
+
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
+        // get orders
+        $orders = Order::getBySearch($request)
+            ->where('user_id', $id)
+            ->orderBy('id', 'DESC')
+            ->paginate($limit);
+
+        return OrdersResource::collection($orders);
+    }
     /**
      * Remove the specified resource from storage.
      *

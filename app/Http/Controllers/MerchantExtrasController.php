@@ -10,19 +10,24 @@ use App\Upload;
 use App\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\MerchantExtra as MerchantExtraResource;
+use Illuminate\Http\Request;
 
 class MerchantExtrasController extends Controller
 {
     use Uploads;
+
     /**
      * Display a listing of the all merchant extras.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request)
     {
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get all merchant extras from the db
-        $merchant_extras = MerchantExtra::orderBy('id', 'DESC')->paginate(20);
+        $merchant_extras = MerchantExtra::orderBy('id', 'DESC')->paginate($limit);
 
         // return the merchant extras as a resource
         return MerchantExtraResource::collection($merchant_extras);

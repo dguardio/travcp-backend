@@ -21,10 +21,12 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get all users
         $users = User::getBySearch($request)
             ->orderBy('id', 'DESC')
-            ->paginate(20);
+            ->paginate($limit);
 
         // return users as a collection
         return UserResource::collection($users);
@@ -65,11 +67,13 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function getUsersByRole(Request $request, $role){
+        $limit = $request->has('_limit')? $request->_limit : 20;
+
         // get all users with a particular role
         $users = User::getBySearch($request)
             ->where('role', $role)
             ->orderBy('id', 'DESC')
-            ->paginate(10);
+            ->paginate($limit);
 
         // return users as a collection
         return UserResource::collection($users);
