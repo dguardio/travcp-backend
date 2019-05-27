@@ -94,7 +94,7 @@ Route::get('orders/{id}', 'OrdersController@show'); // get single order
 /** Order Items **/
 Route::get('order_items', 'OrderItemsController@index'); // get all order items
 Route::get('order_items/{id}', 'OrderItemsController@show'); // get single order items
-Route::get('orders/{id}/items', 'OrdersItemsController@getOrderItemsByOrderId'); // get all items in a single order
+Route::get('orders/{id}/items', 'OrderItemsController@getOrderItemsByOrderId'); // get all items in a single order
 
 /** Cart **/
 Route::middleware('auth:api')->get('/cart','OrderController@getCurrentUserCart' );
