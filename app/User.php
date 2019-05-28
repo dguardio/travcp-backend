@@ -6,9 +6,8 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class User extends Authenticatable implements JWTSubject, MustVerifyEmail
+class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
