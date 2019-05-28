@@ -4,11 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Merchants;
 use App\Http\Resources\User as UserResource;
+use App\Http\Resources\MerchantResource;
 use Auth;
 
 class  MerchantController extends Controller
 {
+    public function index()
+    {
+        
+        $merchant = Merchants::orderBy('id', 'DESC')->paginate(10);
+
+        // return bookings as a resource
+        return MerchantResource::collection($merchant);
+    }
     public function touroperator()
     {
    
@@ -66,7 +76,17 @@ class  MerchantController extends Controller
         ];
 
         // return user as a resource
-        $user = User::where('id',$id)->update($data);
-        return new UserResource($user);
+        $u = User::where('id',$id)->update($data);
+        return $u;
+        // return $data;
+    }
+    public function deletemerchant()
+    {
+        $id= request()->id;
+       $q= User::where('id',$id)->delete();
+        Merchants::where('user_id',$id)->delete();
+        // if ($q) {
+         return $q;
+        // }
     }
 }

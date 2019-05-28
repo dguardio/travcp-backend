@@ -20,11 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 });
 
-Route::get('/toeken', function (Request $request) {
-    return bin2hex(openssl_random_pseudo_bytes(100));
-
-});
-
 /**Authentication**/
 
 Route::group(['middleware' => 'api',
@@ -35,6 +30,7 @@ Route::group(['middleware' => 'api',
     Route::post('refresh', 'AuthController@refresh');
     Route::get('me', 'AuthController@me');
 });
+
 Route::group(['middleware' => 'api'], function($router){
     // if (auth()->user()){
         
@@ -63,6 +59,8 @@ Route::group(['middleware' => 'api'], function($router){
     
 });
 Route::post('auth/forgot', "PasswordResetController@forgot");
+
+// Route::post('auth/forgot', "PasswordResetController@forgot");
 
 /** Merchants **/
 Route::get('merchants/{id}/experiences', 'ExperiencesController@getExperienceByMerchantId'); // get merchant experiences
@@ -194,6 +192,12 @@ Route::group(['middleware' => ['api', 'auth:api', 'forceJson']], function(){
     /** Merchants **/
     Route::put('merchants/{id}/extras', 'MerchantExtrasController@updateByMerchantId'); // update merchant extras using merchant id
 
+     /*Merchant Data */
+     Route::get('merchants/', 'MerchantController@index'); // get merchant experiences
+     Route::post('merchants/', 'MerchantController@register'); // get merchant by id
+     Route::put('merchants/{id}', 'MerchantController@update'); // get all merchant 
+     Route::delete('merchants', 'MerchantController@deletemerchant'); //delete merchants
+ 
     /** Users **/
     Route::put('users/{id}', 'UsersController@update'); // update an existing user
 
@@ -245,16 +249,28 @@ Route::group(['middleware' => ['api', 'auth:api', 'forceJson']], function(){
     Route::put('merchant/extras/{id}', 'MerchantExtrasController@update'); // store a new merchant extras entry
     Route::delete('merchant/extras/{id}', 'MerchantExtrasController@delete'); // delete merchant extras entry
 
+       /*Articles  */
+       Route::get('articles/', 'ArticleController@index'); // get articles related
+       Route::post('articles/', 'ArticleController@newarticle'); // get article by id
+       Route::put('articles/{id}', 'ArticleController@update'); // get all article 
+       Route::delete('articles', 'ArticleController@deletearticle'); //delete article 
+   
     /** User Payments **/
     Route::post('payments/users/', 'UserPaymentsController@store'); // create new user payment
     Route::put('payments/users/{id}', 'UserPaymentsController@update'); // update an existing user payment entry
 //    Route::delete('payments/users/{id}', 'UserPaymentsController@destroy'); // delete a particular user payment
+
+    /** Users **/
+    Route::get('users/', 'UsersController@index'); // get all users
+    Route::get('users/{id}', 'UsersController@show'); // get a single user
+    Route::put('users/{id}', 'UsersController@update'); // update an existing user
 
     /**Misc - not yet sorted**/
     Route::post('bookings/experiences/{id}', "BookingController@bookExperience");
     Route::post('bookings/events/{id}', "BookingController@bookEvent");
 
 });
+Route::post('auth/forgot', "PasswordResetController@forgot");
 
 Route::get('food_classifications', "FoodClassificationController@index");
 Route::get('food_classifications/{id}', "FoodClassificationController@show");
