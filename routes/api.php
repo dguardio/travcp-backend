@@ -17,6 +17,12 @@ use Illuminate\Support\Facades\Auth;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+
+});
+
+Route::get('/toeken', function (Request $request) {
+    return bin2hex(openssl_random_pseudo_bytes(100));
+
 });
 
 /**Authentication**/

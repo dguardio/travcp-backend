@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\VerifyEmail;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Resources\User as UserResource;
 class AuthController extends Controller
@@ -59,7 +59,11 @@ class AuthController extends Controller
         }
 
         $user->signed_in = true;
+        $user->token = bin2hex(openssl_random_pseudo_bytes(100));
         $user->save();
+
+        $this->sendVerificationMail($user);
+
         return $this->respondWithToken($token, $user);
     }
 
@@ -115,5 +119,73 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'user' => $user
         ]);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Email Verification Methods
+    |--------------------------------------------------------------------------
+    |
+    | This value is the name of your application. This value is used when the
+    | framework needs to place the application's name in a notification or
+    | any other location as required by the application or its packages.
+    |
+    */
+
+    /**
+     * send verification email to the user
+     * @param User|null $user
+     */
+    private function sendVerificationMail(User $user = null){
+        if(is_null($user) || !isset($user)){
+            $user = auth()->user();
+        }
+
+        $token = $user->token;
+        $user_id = $user->id;
+
+        $user->notify(new VerifyEmail($token, $user_id));
+    }
+
+    /**
+     * verify the user, return error if need be an persist to storage
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function verifyUser(Request $request){
+        $user_id = $request->input('user_id');
+        $token = $request->input('token');
+
+        $user = User::findOrFail($user_id);
+
+        if($user->token == $token){
+
+            $user->verified = true;
+            $user->save();
+
+            $response = ['congratulations! verification successful'];
+            return response(['message'=> $response], 200);
+        }
+
+        $error = ['invalid token, resend verification mail ?'];
+        return response(['error'=> $error], 500);
+    }
+
+    /**
+     * if verification went wrong, resend verification mail
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function resendVerificationMail(Request $request){
+        $user_id = $request->input('user_id');
+
+        $user = User::findOrFail($user_id);
+        $user->token = bin2hex(openssl_random_pseudo_bytes(100));
+        $user->save();
+
+        $this->sendVerificationMail($user);
+
+        $response = ['verification email sent successfully'];
+        return response(['message'=> $response], 200);
     }
 }

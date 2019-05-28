@@ -110,6 +110,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Custom Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Here is the configuration for various custom functionality added to the app
+    |
+    |
+    |
+    |
+    |
+    */
+
+    'frontend' => env('DEVELOPMENT_FRONTEND_ROUTE', 'https://travvapp.heroku.com'),
+    /*
+    |--------------------------------------------------------------------------
     | Logging Configuration
     |--------------------------------------------------------------------------
     |
@@ -175,9 +189,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-        Lunaweb\EmailVerification\Providers\EmailVerificationServiceProvider::class,
-
+        App\Providers\RouteServiceProvider::class
     ],
 
     /*
