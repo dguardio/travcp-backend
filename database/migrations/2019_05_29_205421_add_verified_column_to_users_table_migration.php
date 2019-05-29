@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class RenameSignedIdToSignedInInUsersTableMigration extends Migration
+class AddVerifiedColumnToUsersTableMigration extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class RenameSignedIdToSignedInInUsersTableMigration extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->renameColumn("signed_id", "signed_in");
-            $table->renameColumn("token", "verify_token");
+            $table->boolean("verified")->default(false)->nullable();
         });
     }
 
@@ -27,8 +26,7 @@ class RenameSignedIdToSignedInInUsersTableMigration extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->renameColumn("signed_in", "signed_id");
-            $table->renameColumn("verify_token", "token");
+            $table->dropColumn("verified");
         });
     }
 }
