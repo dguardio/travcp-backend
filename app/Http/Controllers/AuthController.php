@@ -59,12 +59,12 @@ class AuthController extends Controller
         }
 
         $user->signed_in = true;
-        $user->token = bin2hex(openssl_random_pseudo_bytes(100));
+        $user->verify_token = bin2hex(openssl_random_pseudo_bytes(50));
         $user->save();
 
         $this->sendVerificationMail($user);
 
-        return $this->respondWithToken($token, $user);
+        return $this->respondWithToken($token, User::find($user->id));
     }
 
     /**
@@ -141,7 +141,7 @@ class AuthController extends Controller
             $user = auth()->user();
         }
 
-        $token = $user->token;
+        $token = $user->verify_token;
         $user_id = $user->id;
 
         $user->notify(new VerifyEmail($token, $user_id));
@@ -158,7 +158,7 @@ class AuthController extends Controller
 
         $user = User::findOrFail($user_id);
 
-        if($user->token == $token){
+        if($user->verify_token == $token){
 
             $user->verified = true;
             $user->save();
@@ -180,7 +180,7 @@ class AuthController extends Controller
         $user_id = $request->input('user_id');
 
         $user = User::findOrFail($user_id);
-        $user->token = bin2hex(openssl_random_pseudo_bytes(100));
+        $user->verify_token = bin2hex(openssl_random_pseudo_bytes(100));
         $user->save();
 
         $this->sendVerificationMail($user);
