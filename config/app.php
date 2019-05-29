@@ -121,7 +121,7 @@ return [
     |
     */
 
-    'frontend' => env('DEVELOPMENT_FRONTEND_ROUTE', 'https://travvapp.heroku.com'),
+    'frontend' => env('FRONTEND_ROUTE', 'https://travvapp.heroku.com'),
     /*
     |--------------------------------------------------------------------------
     | Logging Configuration

@@ -8,10 +8,11 @@ use Illuminate\Auth\Events\PasswordReset;
 
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Support\Facades\Password;
 
 class PasswordResetController extends Controller
 {
-    use SendsPasswordResetEmails;
+    use SendsPasswordResetEmails, ResetsPasswords;
     // use ResetsPassword;
 
     public function forgot(Request $request){
@@ -43,5 +44,10 @@ class PasswordResetController extends Controller
 
     protected function sendResetFailedResponse(Request $request, $response){
         return $this->errorResponse(401, "Unauthorized");
+    }
+
+    public function broker()
+    {
+        return Password::broker();
     }
 }

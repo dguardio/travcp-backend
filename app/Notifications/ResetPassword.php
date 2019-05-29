@@ -7,23 +7,18 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class VerifyEmail extends Notification
+class ResetPassword extends \Illuminate\Auth\Notifications\ResetPassword
 {
     use Queueable;
-
-    private $user_id;
-    private $token;
     private $url;
     /**
      * Create a new notification instance.
      *
-     * @param $token
-     * @param $user_id
+     * @return void
      */
-    public function __construct($token, $user_id)
+    public function __construct($token)
     {
-        $this->token = $token;
-        $this->user_id = $user_id;
+        parent::__construct($token);
         $this->url = config('app.frontend');
     }
 
@@ -47,9 +42,10 @@ class VerifyEmail extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Welcome To Travcp, you need to verify your email address')
-                    ->action('Verify Email', url($this->url.'/verify?token='.$this->token.'&user_id='.$this->user_id))
-                    ->line('Thank you for your cooperation!');
+            ->subject(config("app.name")." password reset")
+            ->line('You are receiving this email because we received a password reset request for your account.')
+            ->action('Reset Password', url($this->url.'/reset?token='. $this->token))
+            ->line('If you did not request a password reset, no further action is required.');
     }
 
     /**
@@ -61,9 +57,7 @@ class VerifyEmail extends Notification
     public function toArray($notifiable)
     {
         return [
-            "message" => 'Welcome To Travcp, you need to verify your email address',
-            'action_link' => $this->url.'/verify?token='.$this->token.'&user_id='.$this->user_id,
-            'ending' => 'Thank you for your cooperation!'
+            //
         ];
     }
 }

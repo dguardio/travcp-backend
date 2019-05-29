@@ -15,6 +15,10 @@ class User extends Resource
     public function toArray($request)
     {
         $result =  parent::toArray($request);
+
+        $result['signed_in'] = (boolean)$result['signed_in'];
+        $result['verified'] = (boolean)$result['verified'];
+
         $result["profile_image"] = new Upload($this->upload);
         unset($result["upload_id"]);
         return $result;

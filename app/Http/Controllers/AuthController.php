@@ -10,7 +10,7 @@ use App\Http\Resources\User as UserResource;
 class AuthController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'verifyUser', 'resendVerificationMail']]);
     }
 
     /**
@@ -64,7 +64,7 @@ class AuthController extends Controller
 
         $this->sendVerificationMail($user);
 
-        return $this->respondWithToken($token, User::find($user->id));
+        return $this->respondWithToken($token, new UserResource(User::find($user->id)));
     }
 
     /**

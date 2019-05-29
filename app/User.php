@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\ResetPassword;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
@@ -73,6 +74,12 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPassword($token));
+    }
+
 
     public function experiences(){
         return $this->hasMany('App\Experience', 'merchant_id');

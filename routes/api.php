@@ -22,20 +22,24 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 /**Authentication**/
 
-Route::group(['middleware' => 'api',
+Route::group(['middleware' => ['api', 'forceJson'],
     'prefix' => 'auth'], function ($router) {
     Route::post('login', 'AuthController@login');
     Route::post('register', "AuthController@register");
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
+
+    Route::post('forgot', "PasswordResetController@forgot");
+    Route::post('reset', "PasswordResetController@doReset");
+
+    Route::post('verify', 'AuthController@verifyUser');
+    Route::post('resend_verification', 'AuthController@resendVerificationMail');
+
     Route::get('me', 'AuthController@me');
 });
 
 Route::group(['middleware' => 'api'], function($router){
-    // if (auth()->user()){
-        
-    // }
-    
+
     Route::get('forums', function(Request $request){
         
         
@@ -58,100 +62,100 @@ Route::group(['middleware' => 'api'], function($router){
     });
     
 });
-Route::post('auth/forgot', "PasswordResetController@forgot");
 
 // Route::post('auth/forgot', "PasswordResetController@forgot");
+Route::group(['middleware' => ['api', 'forceJson']], function(){
 
-/** Merchants **/
-Route::get('merchants/{id}/experiences', 'ExperiencesController@getExperienceByMerchantId'); // get merchant experiences
-Route::get('merchants/{id}/payments', 'MerchantPaymentsController@getMerchantPaymentsByMerchantId'); // get merchant payments
-Route::get('merchants/{id}/reviews', 'ReviewsController@getReviewsByMerchantId'); // get all merchant reviews
-Route::get('merchants/{id}/bookings', 'BookingsController@getBookingsByMerchantId'); // get all merchant bookings
-Route::get('merchants/{id}/extras', 'MerchantExtrasController@getMerchantExtrasByMerchantId'); // get merchant extras
+    /** Merchants **/
+    Route::get('merchants/{id}/experiences', 'ExperiencesController@getExperienceByMerchantId'); // get merchant experiences
+    Route::get('merchants/{id}/payments', 'MerchantPaymentsController@getMerchantPaymentsByMerchantId'); // get merchant payments
+    Route::get('merchants/{id}/reviews', 'ReviewsController@getReviewsByMerchantId'); // get all merchant reviews
+    Route::get('merchants/{id}/bookings', 'BookingsController@getBookingsByMerchantId'); // get all merchant bookings
+    Route::get('merchants/{id}/extras', 'MerchantExtrasController@getMerchantExtrasByMerchantId'); // get merchant extras
 
-/** Users **/
-Route::get('users/', 'UsersController@index'); // get all users
-Route::get('users/{id}', 'UsersController@show'); // get a single user
-Route::get('users/role/{role}', 'UsersController@getUsersByRole'); // get a single user by role
-Route::get('users/{id}/bookings', 'BookingsController@getBookingByUserId'); // get all bookings made by a particular user
-Route::get('users/{id}/cart', 'CartsController@getUserCart'); // get the cart of a particular user
-Route::get('users/{id}/orders', 'OrdersController@getAllOrdersByUserId'); // get all orders of a particular user
+    /** Users **/
+    Route::get('users/', 'UsersController@index'); // get all users
+    Route::get('users/{id}', 'UsersController@show'); // get a single user
+    Route::get('users/role/{role}', 'UsersController@getUsersByRole'); // get a single user by role
+    Route::get('users/{id}/bookings', 'BookingsController@getBookingByUserId'); // get all bookings made by a particular user
+    Route::get('users/{id}/cart', 'CartsController@getUserCart'); // get the cart of a particular user
+    Route::get('users/{id}/orders', 'OrdersController@getAllOrdersByUserId'); // get all orders of a particular user
 
-/** Experiences **/
-Route::get('experiences/', 'ExperiencesController@index'); // get all experiences
-Route::get('experiences/random/{limit}', 'ExperiencesController@getRandom'); // get all experiences
-Route::get('experiences/{id}', 'ExperiencesController@show'); // get a single experience
-Route::get('experience_types/{id}/experiences', 'ExperiencesController@getExperiencesByTypesId');
+    /** Experiences **/
+    Route::get('experiences/', 'ExperiencesController@index'); // get all experiences
+    Route::get('experiences/random/{limit}', 'ExperiencesController@getRandom'); // get all experiences
+    Route::get('experiences/{id}', 'ExperiencesController@show'); // get a single experience
+    Route::get('experience_types/{id}/experiences', 'ExperiencesController@getExperiencesByTypesId');
 
-/** Merchant Payments**/
-Route::get('payments/merchants/', 'MerchantPaymentsController@index'); // get all merchant payments
-Route::get('payments/merchants/{id}', 'MerchantPaymentsController@show'); // get a single merchant payment
+    /** Merchant Payments**/
+    Route::get('payments/merchants/', 'MerchantPaymentsController@index'); // get all merchant payments
+    Route::get('payments/merchants/{id}', 'MerchantPaymentsController@show'); // get a single merchant payment
 
-/** Notifications **/
-Route::get('notifications/', 'NotificationsController@index'); // get all notifications
-Route::get('notifications/{id}', 'NotificationsController@show'); // get a single notification
+    /** Notifications **/
+    Route::get('notifications/', 'NotificationsController@index'); // get all notifications
+    Route::get('notifications/{id}', 'NotificationsController@show'); // get a single notification
 
-/** Orders **/
-Route::get('orders/', 'OrdersController@index'); // get all order
-Route::get('orders/{id}', 'OrdersController@show'); // get single order
+    /** Orders **/
+    Route::get('orders/', 'OrdersController@index'); // get all order
+    Route::get('orders/{id}', 'OrdersController@show'); // get single order
 
-/** Order Items **/
-Route::get('order_items', 'OrderItemsController@index'); // get all order items
-Route::get('order_items/{id}', 'OrderItemsController@show'); // get single order items
-Route::get('orders/{id}/items', 'OrderItemsController@getOrderItemsByOrderId'); // get all items in a single order
+    /** Order Items **/
+    Route::get('order_items', 'OrderItemsController@index'); // get all order items
+    Route::get('order_items/{id}', 'OrderItemsController@show'); // get single order items
+    Route::get('orders/{id}/items', 'OrderItemsController@getOrderItemsByOrderId'); // get all items in a single order
 
-/** Cart **/
-Route::middleware('auth:api')->get('/cart','OrderController@getCurrentUserCart' );
-//Route::get('cart', 'OrderController@getCurrentUserCart'); //
+    /** Cart **/
+    Route::middleware('auth:api')->get('/cart','OrderController@getCurrentUserCart' );
 
-/** Carts **/
-Route::get('carts/', 'CartsController@index'); // get all carts
-Route::get('carts/{id}', 'CartsController@show'); // get single cart
+    /** Carts **/
+    Route::get('carts/', 'CartsController@index'); // get all carts
+    Route::get('carts/{id}', 'CartsController@show'); // get single cart
 
-/** Cart Items **/
-Route::get('cart_items', 'CartItemsController@index'); // get all cart items
-Route::get('cart_items/{id}', 'CartItemsController@show'); // get single cart item
+    /** Cart Items **/
+    Route::get('cart_items', 'CartItemsController@index'); // get all cart items
+    Route::get('cart_items/{id}', 'CartItemsController@show'); // get single cart item
 
-/** Experience Types **/
-Route::get('experience_types/{id}', 'ExperienceTypesController@show'); // get a single experience type
-Route::get('experience_types/', 'ExperienceTypesController@index'); // get all experiences types
-Route::get('experience_types/name/{name}', 'ExperienceTypesController@getExperienceTypeByName'); // get a single experience type by its name
+    /** Experience Types **/
+    Route::get('experience_types/{id}', 'ExperienceTypesController@show'); // get a single experience type
+    Route::get('experience_types/', 'ExperienceTypesController@index'); // get all experiences types
+    Route::get('experience_types/name/{name}', 'ExperienceTypesController@getExperienceTypeByName'); // get a single experience type by its name
 
-/** Experience Type Categories **/
-Route::get('experience_types_categories', 'ExperienceTypesCategoriesController@index'); // get all categories
-Route::get('experience_types/{id}/categories', 'ExperienceTypesCategoriesController@getCategoryByExperienceTypeId'); // get categories by experience type id
-Route::get('experience_types_categories/{id}', 'ExperienceTypesCategoriesController@show'); // get a single category
+    /** Experience Type Categories **/
+    Route::get('experience_types_categories', 'ExperienceTypesCategoriesController@index'); // get all categories
+    Route::get('experience_types/{id}/categories', 'ExperienceTypesCategoriesController@getCategoryByExperienceTypeId'); // get categories by experience type id
+    Route::get('experience_types_categories/{id}', 'ExperienceTypesCategoriesController@show'); // get a single category
 
-/** Reviews **/
-Route::get('reviews/', 'ReviewsController@index'); // get all reviews
-Route::get('experiences/{experience_id}/reviews/rating/{rating}', 'ReviewsController@getExperienceReviewByRating'); // get all an experience reviews with a specific rating
-Route::get('reviews/{id}', 'ReviewsController@show'); // get a single reviews
-Route::get('experiences/{id}/reviews', 'ReviewsController@getReviewsByExperienceId'); // get all reviews with particular experience id
+    /** Reviews **/
+    Route::get('reviews/', 'ReviewsController@index'); // get all reviews
+    Route::get('experiences/{experience_id}/reviews/rating/{rating}', 'ReviewsController@getExperienceReviewByRating'); // get all an experience reviews with a specific rating
+    Route::get('reviews/{id}', 'ReviewsController@show'); // get a single reviews
+    Route::get('experiences/{id}/reviews', 'ReviewsController@getReviewsByExperienceId'); // get all reviews with particular experience id
 
-/** Merchant Extras**/
-Route::get('merchant/extras/', 'MerchantExtrasController@index'); // get all merchant extras
-Route::get('merchant/extras/{id}', 'MerchantExtrasController@show'); // get a single merchant extras entry by id
-Route::get('merchant/extras/users/{id}', 'MerchantExtrasController@getMerchantExtraByUserId'); // get a single merchant extras entry by its user id
+    /** Merchant Extras**/
+    Route::get('merchant/extras/', 'MerchantExtrasController@index'); // get all merchant extras
+    Route::get('merchant/extras/{id}', 'MerchantExtrasController@show'); // get a single merchant extras entry by id
+    Route::get('merchant/extras/users/{id}', 'MerchantExtrasController@getMerchantExtraByUserId'); // get a single merchant extras entry by its user id
 
-/** Bookings **/
-Route::get('bookings/', 'BookingsController@index'); // get all bookings
-Route::post('bookings/exists', 'BookingsController@checkIfPreviousBookingExists'); // check if booking exists
-Route::get('bookings/{id}', 'BookingsController@show'); // get a single booking
+    /** Bookings **/
+    Route::get('bookings/', 'BookingsController@index'); // get all bookings
+    Route::post('bookings/exists', 'BookingsController@checkIfPreviousBookingExists'); // check if booking exists
+    Route::get('bookings/{id}', 'BookingsController@show'); // get a single booking
 
-/** Uploads **/
-Route::get('uploads/', 'UploadsController@index'); // get all uploads
-Route::get('uploads/{id}', 'UploadsController@show'); // get a single upload
+    /** Uploads **/
+    Route::get('uploads/', 'UploadsController@index'); // get all uploads
+    Route::get('uploads/{id}', 'UploadsController@show'); // get a single upload
 
-/** Food Menu **/
-Route::get('food/menus/', 'FoodMenusController@index'); // get all food menus
-Route::get('food/menus/{id}', 'FoodMenusController@show'); // get a single food menu
-Route::get('restaurants/{id}/menus', "FoodMenuController@list");
+    /** Food Menu **/
+    Route::get('food/menus/', 'FoodMenusController@index'); // get all food menus
+    Route::get('food/menus/{id}', 'FoodMenusController@show'); // get a single food menu
+    Route::get('restaurants/{id}/menus', "FoodMenuController@list");
 
-/** User Payments **/
-Route::get('payments/users/', 'UserPaymentsController@index'); // get all user payment entries
-Route::get('payments/users/{id}', 'UserPaymentsController@show'); // get a single user payment entry
-Route::get('payments/users/transactions/{id}', 'UserPaymentsController@getUserPaymentByTransactionId'); // get a single user payment entry by transaction id
+    /** User Payments **/
+    Route::get('payments/users/', 'UserPaymentsController@index'); // get all user payment entries
+    Route::get('payments/users/{id}', 'UserPaymentsController@show'); // get a single user payment entry
+    Route::get('payments/users/transactions/{id}', 'UserPaymentsController@getUserPaymentByTransactionId'); // get a single user payment entry by transaction id
 
+});
 ///**Misc - not yet sorted**/
 //Route::get('events', "EventController@list");
 //Route::get('restaurants', "RestaurantController@list");
@@ -249,21 +253,10 @@ Route::group(['middleware' => ['api', 'auth:api', 'forceJson']], function(){
     Route::put('merchant/extras/{id}', 'MerchantExtrasController@update'); // store a new merchant extras entry
     Route::delete('merchant/extras/{id}', 'MerchantExtrasController@delete'); // delete merchant extras entry
 
-       /*Articles  */
-       Route::get('articles/', 'ArticleController@index'); // get articles related
-       Route::post('articles/', 'ArticleController@newarticle'); // get article by id
-       Route::put('articles/{id}', 'ArticleController@update'); // get all article 
-       Route::delete('articles', 'ArticleController@deletearticle'); //delete article 
-   
     /** User Payments **/
     Route::post('payments/users/', 'UserPaymentsController@store'); // create new user payment
     Route::put('payments/users/{id}', 'UserPaymentsController@update'); // update an existing user payment entry
 //    Route::delete('payments/users/{id}', 'UserPaymentsController@destroy'); // delete a particular user payment
-
-    /** Users **/
-    Route::get('users/', 'UsersController@index'); // get all users
-    Route::get('users/{id}', 'UsersController@show'); // get a single user
-    Route::put('users/{id}', 'UsersController@update'); // update an existing user
 
     /**Misc - not yet sorted**/
     Route::post('bookings/experiences/{id}', "BookingController@bookExperience");
