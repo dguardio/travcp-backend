@@ -11,6 +11,7 @@ use App\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\MerchantExtra as MerchantExtraResource;
 use Illuminate\Http\Request;
+use TCG\Voyager\Models\Role;
 
 class MerchantExtrasController extends Controller
 {
@@ -57,12 +58,21 @@ class MerchantExtrasController extends Controller
         // make user role merchant
         try{
             $user = User::findOrFail($merchant_extra->user_id);
-            $user->role = "merchant";
-            $user->save();
         }catch (ModelNotFoundException $e){
             $errors = ["no user with id ".$merchant_extra->user_id." found"];
             return response(['errors'=> $errors], 404);
         }
+
+        // make user role merchant
+        try{
+            $role = Role::where("name", "merchant")->firstOrFail();
+            $user->role_id = $role->id;
+        }catch (ModelNotFoundException $e){
+            $errors = ["no merchant role found"];
+            return response(['errors'=> $errors], 404);
+        }
+
+        $user->save();
 
         // save merchant extra
         if($merchant_extra->save()){

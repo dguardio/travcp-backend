@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\User as UserResource;
 use App\User;
 use Illuminate\Http\Request;
+use TCG\Voyager\Models\Role;
 
 class UsersController extends Controller
 {
@@ -69,9 +70,15 @@ class UsersController extends Controller
     public function getUsersByRole(Request $request, $role){
         $limit = $request->has('_limit')? $request->_limit : 20;
 
+        try{
+            $role_obj = Role::where('name', $role)->firstOrFail();
+        }catch (ModelNotFoundException $e){
+            $errors = ["role with name ".$role." not found"];
+            return response(['errors'=> $errors], 404);
+        }
         // get all users with a particular role
         $users = User::getBySearch($request)
-            ->where('role', $role)
+            ->where('role_id', $role_obj->id)
             ->orderBy('id', 'DESC')
             ->paginate($limit);
 
