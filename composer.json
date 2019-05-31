@@ -23,7 +23,7 @@
         "tcg/voyager": "^1.2",
         "tymon/jwt-auth": "^1.0.0-rc.2",
         "willvincent/laravel-rateable": "^1.07",
-        "gd": "*"
+        "ext-gd": "*"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
