@@ -17,7 +17,7 @@ class CreateMerchantExtrasTableMigration extends Migration
             $table->increments('id');
             $table->string("business_name")->nullable();
             $table->string("business_email")->nullable();
-            $table->string("identity_document_file")->nullble();
+            $table->string("identity_document_file")->nullable();
             $table->string("bio")->nullable();
             $table->string("phone")->nullable();
             $table->integer("merchant_id");
