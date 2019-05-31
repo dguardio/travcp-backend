@@ -15,7 +15,10 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return redirect("http://travvapp.herokuapp.com");
+    if (config('app.env') != 'local'){
+        return redirect("http://travvapp.herokuapp.com");
+    }
+    return view('welcome');
 });
 
 Auth::routes();
