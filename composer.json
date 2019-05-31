@@ -1,11 +1,15 @@
 {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "ext-openssl": "*",
         "barryvdh/laravel-cors": "^0.11.3",
         "devdojo/chatter": "0.2.*",
         "doctrine/dbal": "^2.9",
@@ -16,9 +20,9 @@
         "laravel/tinker": "~1.0",
         "sdkcodes/lara-paystack": "^1.0",
         "spatie/laravel-sluggable": "^2.1",
+        "tcg/voyager": "^1.2",
         "tymon/jwt-auth": "^1.0.0-rc.2",
-        "willvincent/laravel-rateable": "^1.07",
-      "ext-openssl": "*"
+        "willvincent/laravel-rateable": "^1.07"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
@@ -42,8 +46,7 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": [
-            ]
+            "dont-discover": []
         }
     },
     "scripts": {
@@ -67,6 +70,10 @@
         "packagist.org": {
             "type": "composer",
             "url": "https://packagist.org"
+        },
+        "hooks": {
+            "type": "composer",
+            "url": "https://larapack.io"
         }
     }
 }

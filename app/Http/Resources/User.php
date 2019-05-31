@@ -20,7 +20,10 @@ class User extends Resource
         $result['verified'] = (boolean)$result['verified'];
 
         $result["profile_image"] = new Upload($this->upload);
+        $result["role"] = $this->role->name;
+
         unset($result["upload_id"]);
+        unset($result["role_id"]);
         return $result;
     }
 }
