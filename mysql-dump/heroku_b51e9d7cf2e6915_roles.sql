@@ -1,0 +1,4 @@
+INSERT INTO heroku_b51e9d7cf2e6915.roles (id, name, display_name, created_at, updated_at) VALUES (2, 'developer', 'Developer', '2019-05-31 14:32:26', '2019-05-31 15:22:24');
+INSERT INTO heroku_b51e9d7cf2e6915.roles (id, name, display_name, created_at, updated_at) VALUES (12, 'user', 'User', '2019-05-31 14:32:26', '2019-05-31 15:22:36');
+INSERT INTO heroku_b51e9d7cf2e6915.roles (id, name, display_name, created_at, updated_at) VALUES (22, 'merchant', 'Merchant', '2019-05-31 15:11:11', '2019-05-31 15:11:11');
+INSERT INTO heroku_b51e9d7cf2e6915.roles (id, name, display_name, created_at, updated_at) VALUES (32, 'admin', 'Admin', '2019-05-31 15:23:48', '2019-05-31 15:23:48');

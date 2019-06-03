@@ -1,0 +1,1 @@
+INSERT INTO heroku_b51e9d7cf2e6915.menus (id, name, created_at, updated_at) VALUES (2, 'admin', '2019-05-31 14:32:26', '2019-05-31 14:32:26');

@@ -1,0 +1,10 @@
+INSERT INTO heroku_b51e9d7cf2e6915.settings (id, `key`, display_name, value, details, type, `order`, `group`) VALUES (2, 'site.title', 'Site Title', 'Site Title', '', 'text', 1, 'Site');
+INSERT INTO heroku_b51e9d7cf2e6915.settings (id, `key`, display_name, value, details, type, `order`, `group`) VALUES (12, 'site.description', 'Site Description', 'Site Description', '', 'text', 2, 'Site');
+INSERT INTO heroku_b51e9d7cf2e6915.settings (id, `key`, display_name, value, details, type, `order`, `group`) VALUES (22, 'site.logo', 'Site Logo', '', '', 'image', 3, 'Site');
+INSERT INTO heroku_b51e9d7cf2e6915.settings (id, `key`, display_name, value, details, type, `order`, `group`) VALUES (32, 'site.google_analytics_tracking_id', 'Google Analytics Tracking ID', null, '', 'text', 4, 'Site');
+INSERT INTO heroku_b51e9d7cf2e6915.settings (id, `key`, display_name, value, details, type, `order`, `group`) VALUES (42, 'admin.bg_image', 'Admin Background Image', 'images/signin_hero_image.jpg', '', 'image', 5, 'Admin');
+INSERT INTO heroku_b51e9d7cf2e6915.settings (id, `key`, display_name, value, details, type, `order`, `group`) VALUES (52, 'admin.title', 'Admin Title', 'TravCp', '', 'text', 1, 'Admin');
+INSERT INTO heroku_b51e9d7cf2e6915.settings (id, `key`, display_name, value, details, type, `order`, `group`) VALUES (62, 'admin.description', 'Admin Description', 'Admin Board', '', 'text', 2, 'Admin');
+INSERT INTO heroku_b51e9d7cf2e6915.settings (id, `key`, display_name, value, details, type, `order`, `group`) VALUES (72, 'admin.loader', 'Admin Loader', 'images/travv_sign.png', '', 'image', 3, 'Admin');
+INSERT INTO heroku_b51e9d7cf2e6915.settings (id, `key`, display_name, value, details, type, `order`, `group`) VALUES (82, 'admin.icon_image', 'Admin Icon Image', 'images/travv_sign.png', '', 'image', 4, 'Admin');
+INSERT INTO heroku_b51e9d7cf2e6915.settings (id, `key`, display_name, value, details, type, `order`, `group`) VALUES (92, 'admin.google_analytics_client_id', 'Google Analytics Client ID (used for admin dashboard)', null, '', 'text', 1, 'Admin');
