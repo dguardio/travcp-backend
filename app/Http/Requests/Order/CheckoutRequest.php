@@ -26,7 +26,8 @@ class CheckoutRequest extends FormRequest
         return [
             "price" => "integer|required",
             "transaction_id" => "string|required|unique:orders",
-            "cart_id" => "integer|required"
+            "cart_id" => "integer|required",
+            "currency" => "string|required"
         ];
     }
 }

@@ -10,6 +10,7 @@ use App\Http\Requests\Order\CheckoutRequest;
 use App\Order;
 use App\OrderItem;
 use App\Traits\Payments;
+use App\UserPayment;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Order as OrderResource;
 use App\Http\Resources\CartItem as CartItemResource;
@@ -88,11 +89,23 @@ class OrderController extends Controller
             $order->user_id = $user->id;
             $order->transaction_id = $validated['transaction_id'];
             $order->price = $validated['price'];
+            $order->currency = $validated['currency'];
             $order->save();
 
             // get cart items
             $cart = Cart::findOrFail($validated['cart_id']);
             $cart_items = $cart->items;
+
+            // add to user payments
+            $user_payment = new UserPayment;
+            $user_payment->transaction_id = $validated['transaction_id'];
+            $user_payment->amount = $validated['price'];
+            $user_payment->description = "Payment for order with order id: ".$order->id;
+            $user_payment->user_id = $user->id;
+            $user_payment->currency = $validated['currency'];
+            $user_payment->order_id = $order->id;
+
+            $user_payment->save();
 
             // loop through and create order items from cart items
             foreach ($cart_items as $cart_item){
