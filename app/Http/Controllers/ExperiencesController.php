@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Experiences\ExperiencesStoreRequest;
 use App\Http\Requests\Experiences\ExperiencesUpdateRequest;
+use App\MerchantExtra;
 use App\Traits\Uploads;
 use App\Upload;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -50,12 +51,21 @@ class ExperiencesController extends Controller
             $uploads_ids = $this->multipleImagesUpload($request, 'images');
         }
 
-        // create new merchant extras based of the validated data
-//        unset($validated['images']);
+        unset($validated['images']);
 
         // create new experience object and add other user payments object properties
         $experience =  new Experience;
         $experience->fill($validated);
+
+        // try to get merchant extra of the user and add its id to experiences
+        try{
+            $merchant_extras = MerchantExtra::where("user_id", $experience->merchant_id)->firstOrFail();
+            $experience->merchant_extra_id = $merchant_extras->id;
+        }catch (ModelNotFoundException $e){
+            $errors = ["merchant entry for user not found"];
+            return response(['errors'=> $errors], 404);
+        }
+
         // save experience if transaction goes well
         if($experience->save()){
             if (isset($uploads_ids)) {
