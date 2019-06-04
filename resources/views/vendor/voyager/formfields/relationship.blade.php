@@ -1,1 +1,0 @@
-@php $relationshipField = (@$options->type=="belongsToMany" ? $row->field : @$options->column) @endphp
