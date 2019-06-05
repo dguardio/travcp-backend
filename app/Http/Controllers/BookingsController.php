@@ -148,7 +148,7 @@ class BookingsController extends Controller
         //add other booking object properties
         $booking->update($validated);
 
-        //save merchant payment if transaction goes well
+        //save booking if transaction goes well
         if($booking->save()){
             return new BookingResource($booking);
         }
@@ -197,7 +197,7 @@ class BookingsController extends Controller
         try{
             $booking = Booking::findOrFail($id);
         }catch (ModelNotFoundException $e){
-            $errors = ["merchant payment entry not found"];
+            $errors = ["booking entry not found"];
             return response(['errors'=> $errors], 404);
         }
 

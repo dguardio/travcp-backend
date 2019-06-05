@@ -48,7 +48,6 @@ class AuthController extends Controller
         ]);
         $data = request()->all();
         $data['password'] = \bcrypt(request()->password);
-        $data['name'] = $data['first_name']." ".$data['surname'];
         $user = User::create($data);
         $credentials = request(['email', 'password']);
         // $credentials = ['email' => $user->email, 'password' => $user->password];
@@ -62,7 +61,7 @@ class AuthController extends Controller
         $user->verify_token = bin2hex(openssl_random_pseudo_bytes(50));
         $user->save();
 
-        $this->sendVerificationMail($user);
+//        $this->sendVerificationMail($user);
 
         return $this->respondWithToken($token, new UserResource(User::find($user->id)));
     }

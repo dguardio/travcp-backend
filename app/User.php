@@ -12,14 +12,15 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    // protected $fillable = [
-    //     'name', 'email', 'password',
-    // ];
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($model)
+        {
+            $model->name = $model->first_name . ' ' . $model->surname;
+        });
+    }
 
     /**
      * get users list by adding specific parameters
@@ -44,10 +45,6 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         });
     }
 
-    public function setNameAttribute($value)
-    {
-        $this->attributes['name'] =  $this->attributes['first_name']." ".$this->attributes['first_name'];
-    }
 
     protected $guarded = [];
 
@@ -104,5 +101,9 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
 
     public function merchant_extra(){
         return $this->hasOne("App\MerchantExtra");
+    }
+
+    public function favourite(){
+        return $this->hasMany(Favourite::class, 'user_id');
     }
 }

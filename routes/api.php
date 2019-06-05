@@ -155,6 +155,11 @@ Route::group(['middleware' => ['api', 'forceJson']], function(){
     Route::get('payments/users/{id}', 'UserPaymentsController@show'); // get a single user payment entry
     Route::get('payments/users/transactions/{id}', 'UserPaymentsController@getUserPaymentByTransactionId'); // get a single user payment entry by transaction id
 
+    /** Medals **/
+    Route::get('medals/', 'MedalController@index'); // get all medals
+
+    /** Favourites **/
+    Route::get('favourites/', 'FavouriteController@index'); // get all favourites
 });
 ///**Misc - not yet sorted**/
 //Route::get('events', "EventController@list");
@@ -251,7 +256,7 @@ Route::group(['middleware' => ['api', 'auth:api', 'forceJson']], function(){
     /** Merchant Extras **/
     Route::post('merchant/extras/', 'MerchantExtrasController@store'); // store a new merchant extras entry
     Route::put('merchant/extras/{id}', 'MerchantExtrasController@update'); // store a new merchant extras entry
-    Route::delete('merchant/extras/{id}', 'MerchantExtrasController@delete'); // delete merchant extras entry
+    Route::delete('merchant/extras/{id}', 'MerchantExtrasController@destroy'); // delete merchant extras entry
 
     /** User Payments **/
     Route::post('payments/users/', 'UserPaymentsController@store'); // create new user payment
@@ -262,6 +267,15 @@ Route::group(['middleware' => ['api', 'auth:api', 'forceJson']], function(){
     Route::post('bookings/experiences/{id}', "BookingController@bookExperience");
     Route::post('bookings/events/{id}', "BookingController@bookEvent");
 
+    /** Medals **/
+    Route::post('medals/', 'MedalController@store'); // store a new medal entry
+    Route::put('medals/{id}', 'MedalController@update'); // store a new medal entry
+    Route::delete('medals/{id}', 'MedalController@destroy'); // delete medal entry
+
+    /** Favourites **/
+    Route::post('favourites/', 'FavouriteController@store'); // store a new favourite entry
+    Route::put('favourites/{id}', 'FavouriteController@update'); // store a new favourite entry
+    Route::delete('favourites/{id}', 'FavouriteController@destroy'); // delete favourite entry
 });
 Route::post('auth/forgot', "PasswordResetController@forgot");
 
