@@ -20,6 +20,11 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         {
             $model->name = $model->first_name . ' ' . $model->surname;
         });
+
+        static::updating (function($model)
+        {
+            $model->name = $model->first_name . ' ' . $model->surname;
+        });
     }
 
     /**
