@@ -37,7 +37,7 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
      */
     public function getMerchantNameAttribute()
     {
-        return $this->merchant_extra()->business_name;
+        return $this->merchant_extra->business_name;
     }
 
     /**
