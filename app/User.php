@@ -37,7 +37,8 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
      */
     public function getMerchantNameAttribute()
     {
-        $business_name = "Not a merchant";
+//        $business_name = "Not a merchant";
+        $business_name = null;
         if(!is_null($this->merchant_extra)){
             $business_name = $this->merchant_extra->business_name;
         }
