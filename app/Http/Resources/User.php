@@ -22,6 +22,17 @@ class User extends Resource
         $result["profile_image"] = new Upload($this->upload);
         $result["role"] = $this->role->name;
 
+        $result["written_reviews"] = $this->reviews->count();
+
+        $medals = \App\Medal::all();
+
+        if($medals->count() > 0){
+            foreach ($medals as $medal){
+                if($result["reviews"] < $medal->review_threshold) break;
+                $result["user_medal"] = $medal->name;
+            }
+        }
+
         unset($result["upload_id"]);
         unset($result["role_id"]);
         return $result;

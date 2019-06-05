@@ -12,6 +12,11 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
 {
     use Notifiable;
 
+    public $additional_attributes = ['merchant_name'];
+
+    /**
+     * listed with events listeners for each time a model is created or saved.
+     */
     public static function boot()
     {
         parent::boot();
@@ -25,6 +30,14 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         {
             $model->name = $model->first_name . ' ' . $model->surname;
         });
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMerchantNameAttribute()
+    {
+        return $this->merchant_extra()->business_name;
     }
 
     /**
@@ -82,33 +95,61 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
         return [];
     }
 
+    /**
+     * send password reset notification to user
+     * @param string $token
+     */
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPassword($token));
     }
 
 
+    /**
+     * get experiences relation
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function experiences(){
         return $this->hasMany('App\Experience', 'merchant_id');
     }
 
+    /**
+     * get reviews relation
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function reviews(){
         return $this->hasMany('App\Review', 'user_id');
     }
 
+    /**
+     * get cart relation
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function cart(){
         return $this->hasOne("App\Cart");
     }
 
+    /**
+     * get upload relation
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function upload(){
         return $this->hasOne("App\Upload");
     }
 
+    /**
+     * get merchant extra relation
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function merchant_extra(){
         return $this->hasOne("App\MerchantExtra");
     }
 
-    public function favourite(){
+    /**
+     *  get favourite relation
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function favourites(){
         return $this->hasMany(Favourite::class, 'user_id');
     }
 }
