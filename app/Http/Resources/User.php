@@ -24,7 +24,7 @@ class User extends Resource
 
         $result["written_reviews"] = $this->reviews->count();
 
-        $medals = \App\Medal::all()->orderBy('review_threshold', 'ASC');
+        $medals = \App\Medal::orderBy('review_threshold', 'ASC')->all();
 
         if($medals->count() > 0){
             foreach ($medals as $medal){
