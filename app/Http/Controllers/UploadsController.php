@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Uploads\UploadsStoreRequest;
 use App\Http\Requests\Uploads\UploadsUpdateRequest;
-use App\Http\Resources\FullUpload;
+use App\Http\Resources\Plain;
 use App\Traits\Uploads;
 use App\Upload;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -29,14 +29,14 @@ class UploadsController extends Controller
         $upload = Upload::orderBy('id', 'DESC')->paginate($limit);
 
         // return uploads as a resource
-        return FullUpload::collection($upload);
+        return Plain::collection($upload);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return FullUpload
+     * @return Plain
      */
     public function show($id)
     {
@@ -57,13 +57,13 @@ class UploadsController extends Controller
         }
 
         //return single booking as a resource
-        return new FullUpload($upload);
+        return new Plain($upload);
     }
 
     /**
      * store a new upload
      * @param UploadsStoreRequest $request
-     * @return FullUpload
+     * @return Plain
      */
     public function store(UploadsStoreRequest $request){
 
@@ -81,7 +81,7 @@ class UploadsController extends Controller
             $errors = ["error while storing upload"];
             return response(['errors'=> $errors], 500);
         }else{
-            return new FullUpload(Upload::find($upload_id));
+            return new Plain(Upload::find($upload_id));
         }
 
     }
@@ -90,7 +90,7 @@ class UploadsController extends Controller
      * update upload with a specified id
      * @param UploadsUpdateRequest $request
      * @param $id
-     * @return FullUpload
+     * @return Plain
      */
     public function update(UploadsUpdateRequest $request, $id){
 
@@ -108,14 +108,14 @@ class UploadsController extends Controller
             $errors = ["error while storing upload"];
             return response(['errors'=> $errors], 500);
         }else{
-            return new FullUpload(Upload::find($upload_id));
+            return new Plain(Upload::find($upload_id));
         }
     }
 
     /**
      * delete specified image from database
      * @param $id
-     * @return FullUpload
+     * @return Plain
      */
     public function destroy($id){
 
@@ -137,7 +137,7 @@ class UploadsController extends Controller
 
         // delete upload
         if($upload->delete()){
-            return new FullUpload($upload);
+            return new Plain($upload);
         }
 
         $errors = ['unknown error occurred while trying to delete upload'];

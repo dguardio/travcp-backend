@@ -63,7 +63,6 @@ Route::group(['middleware' => 'api'], function($router){
     
 });
 
-// Route::post('auth/forgot', "PasswordResetController@forgot");
 Route::group(['middleware' => ['api', 'forceJson']], function(){
 
     /** Merchants **/
@@ -150,6 +149,10 @@ Route::group(['middleware' => ['api', 'forceJson']], function(){
     Route::get('food/menus/{id}', 'FoodMenusController@show'); // get a single food menu
     Route::get('restaurants/{id}/menus', "FoodMenuController@list");
 
+    /** Food Classifications **/
+    Route::get('food_classifications', "FoodClassificationController@index");
+    Route::get('food_classifications/{id}', "FoodClassificationController@show");
+
     /** User Payments **/
     Route::get('payments/users/', 'UserPaymentsController@index'); // get all user payment entries
     Route::get('payments/users/{id}', 'UserPaymentsController@show'); // get a single user payment entry
@@ -160,12 +163,13 @@ Route::group(['middleware' => ['api', 'forceJson']], function(){
 
     /** Favourites **/
     Route::get('favourites/', 'FavouriteController@index'); // get all favourites
-});
-///**Misc - not yet sorted**/
-//Route::get('events', "EventController@list");
-//Route::get('restaurants', "RestaurantController@list");
-//Route::get('restaurants/{id}', "RestaurantController@show");
 
+    /** Videos **/
+    Route::get('videos/', 'VideoController@index'); // get all videos
+
+    /** Video Categories **/
+    Route::get('video_categories/', 'VideoCategoryController@index'); // get all video categories
+});
 
 Route::group(['middleware' => ['api', 'auth:api', 'forceJson']], function(){
 
@@ -263,21 +267,31 @@ Route::group(['middleware' => ['api', 'auth:api', 'forceJson']], function(){
     Route::put('payments/users/{id}', 'UserPaymentsController@update'); // update an existing user payment entry
 //    Route::delete('payments/users/{id}', 'UserPaymentsController@destroy'); // delete a particular user payment
 
-    /**Misc - not yet sorted**/
-    Route::post('bookings/experiences/{id}', "BookingController@bookExperience");
-    Route::post('bookings/events/{id}', "BookingController@bookEvent");
-
     /** Medals **/
     Route::post('medals/', 'MedalController@store'); // store a new medal entry
-    Route::put('medals/{id}', 'MedalController@update'); // store a new medal entry
+    Route::put('medals/{id}', 'MedalController@update'); // update an existing medal entry
     Route::delete('medals/{id}', 'MedalController@destroy'); // delete medal entry
 
     /** Favourites **/
     Route::post('favourites/', 'FavouriteController@store'); // store a new favourite entry
-    Route::put('favourites/{id}', 'FavouriteController@update'); // store a new favourite entry
+    Route::put('favourites/{id}', 'FavouriteController@update'); // update an existing favourite entry
     Route::delete('favourites/{id}', 'FavouriteController@destroy'); // delete favourite entry
-});
-Route::post('auth/forgot', "PasswordResetController@forgot");
 
-Route::get('food_classifications', "FoodClassificationController@index");
-Route::get('food_classifications/{id}', "FoodClassificationController@show");
+    /** Videos **/
+    Route::post('videos/', 'VideoController@store'); // store a new video entry
+    Route::put('videos/{id}', 'VideoController@update'); // update an existing video entry
+    Route::delete('videos/{id}', 'VideoController@destroy'); // delete a video entry
+
+    /** Video Categories **/
+    Route::post('video_categories/', 'VideoCategoryController@store'); // store a new video category entry
+    Route::put('video_categories/{id}', 'VideoCategoryController@update'); // update an existing video category entry
+    Route::delete('video_categories/{id}', 'VideoCategoryController@destroy'); // delete a video category entry
+
+});
+
+///**Misc - not yet sorted**/
+//Route::get('events', "EventController@list");
+//Route::get('restaurants', "RestaurantController@list");
+//Route::get('restaurants/{id}', "RestaurantController@show");
+//Route::post('bookings/experiences/{id}', "BookingController@bookExperience");
+//Route::post('bookings/events/{id}', "BookingController@bookEvent");

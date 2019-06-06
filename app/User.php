@@ -14,6 +14,17 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
 
     public $additional_attributes = ['merchant_name'];
 
+    protected $guarded = [];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
     /**
      * listed with events listeners for each time a model is created or saved.
      */
@@ -33,16 +44,15 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
     }
 
     /**
+     * merchant name accessor
      * @return mixed
      */
     public function getMerchantNameAttribute()
     {
-//        $business_name = "Not a merchant";
         $business_name = null;
         if(!is_null($this->merchant_extra)){
             $business_name = $this->merchant_extra->business_name;
         }
-
         return $business_name;
     }
 
@@ -68,18 +78,6 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
             return $query->where('signed_in', '=', $signed_in);
         });
     }
-
-
-    protected $guarded = [];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

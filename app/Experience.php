@@ -92,4 +92,8 @@ class Experience extends Model
     public function experience_type(){
         return $this->belongsTo("App\ExperienceType", 'experiences_type_id');
     }
+
+    public function favourites(){
+        return $this->hasMany(Favourite::class);
+    }
 }

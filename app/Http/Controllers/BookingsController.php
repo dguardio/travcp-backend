@@ -78,7 +78,7 @@ class BookingsController extends Controller
         try{
             $booking = Booking::findOrFail($id);
         }catch (ModelNotFoundException $e){
-            $errors = ["merchant payment not found"];
+            $errors = ["booking entry not found"];
             return response(['errors'=> $errors], 404);
         }
 

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class FullUpload extends Resource
+class Video extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +14,10 @@ class FullUpload extends Resource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $result = array();
+        $result +=  parent::toArray($request);
+        $result["video_category"] = new VideoCategory($this->category);
+        unset($result["video_category_id"]);
+        return $result;
     }
 }

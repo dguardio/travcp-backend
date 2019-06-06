@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class Favourite extends Resource
+class VideoCategory extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -14,11 +14,9 @@ class Favourite extends Resource
      */
     public function toArray($request)
     {
-        $result["id"] = $this->id;
-        $result["user"] = new Plain($this->user);
-        $result["experience"] = new Plain($this->experience);
-        $result["created_at"] = $this->created_at;
-        $result["updated_at"] = $this->updated_at;
+        $result = parent::toArray($request);
+        unset($result["created_at"]);
+        unset($result["updated_at"]);
 
         return $result;
     }

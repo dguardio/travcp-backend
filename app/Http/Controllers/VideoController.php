@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Favourite;
-use App\Http\Requests\Favourite\FavouriteStoreRequest;
-use App\Http\Requests\Favourite\FavouriteUpdateRequest;
+use App\Http\Requests\Videos\VideosStoreRequest;
+use App\Http\Requests\Videos\VideosUpdateRequest;
+use App\Video;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use App\Http\Resources\Favourite as FavouriteResource;
-
-class FavouriteController extends Controller
+use App\Http\Resources\Video as VideoResource;
+class VideoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,36 +20,37 @@ class FavouriteController extends Controller
     {
         $limit = $request->has('_limit')? $request->_limit : 20;
 
-        // get all favourites from latest to oldest
-        $favourites = Favourite::getBySearch($request)
+        // get all videos from latest to oldest
+        $videos = Video::getBySearch($request)
             ->orderBy('id', 'DESC')
             ->paginate($limit);
 
-        // return favourites as a resource collection
-        return FavouriteResource::collection($favourites);
+        // return videos as a resource
+        return VideoResource::collection($videos);
     }
+
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param FavouriteStoreRequest $request
-     * @return FavouriteResource
+     * @param VideosStoreRequest $request
+     * @return VideoResource
      */
-    public function store(FavouriteStoreRequest $request)
+    public function store(VideosStoreRequest $request)
     {
         // return validated data and throw error if there is one
         $validated = $request->validated();
 
-        // create new favourite object from validated data
-        $favourite = Favourite::firstOrNew($validated);
+        // create new video object from validated data
+        $video = new Video($validated);
 
-        // save favourite if all is well
-        if($favourite->save()){
-            return new FavouriteResource($favourite);
+        // save video if all is well
+        if($video->save()){
+            return new VideoResource($video);
         }
 
         // return error if transaction not successful
-        $errors = ['unknown error occurred while trying to create favourite'];
+        $errors = ['unknown error occurred while trying to create video entry'];
         return response(['errors'=> $errors], 500);
     }
 
@@ -58,7 +58,7 @@ class FavouriteController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return FavouriteResource
+     * @return VideoResource
      */
     public function show($id)
     {
@@ -70,43 +70,43 @@ class FavouriteController extends Controller
             return response(['errors'=> $errors], 422);
         }
 
-        //try to get a single favourite
+        //try to get a single video
         try{
-            $favourite = Favourite::findOrFail($id);
+            $video = Video::findOrFail($id);
         }catch (ModelNotFoundException $e){
-            $errors = ["favourite not found"];
+            $errors = ["video entry not found"];
             return response(['errors'=> $errors], 404);
         }
 
-        //return single favourite as a resource
-        return new FavouriteResource($favourite);
+        //return single video as a resource
+        return new VideoResource($video);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param FavouriteUpdateRequest $request
+     * @param VideosUpdateRequest $request
      * @param  int $id
-     * @return FavouriteResource
+     * @return VideoResource
      */
-    public function update(FavouriteUpdateRequest $request, $id)
+    public function update(VideosUpdateRequest $request, $id)
     {
-        // create favourite object
-        $favourite =  Favourite::findOrFail($id);
+        // create video object
+        $video =  Video::findOrFail($id);
 
         // validate request and return validated data
         $validated = $request->validated();
 
-        //add other favourite object properties
-        $favourite->update($validated);
+        //add other video object properties
+        $video->update($validated);
 
-        //save favourite if transaction goes well
-        if($favourite->save()){
-            return new FavouriteResource($favourite);
+        //save video if transaction goes well
+        if($video->save()){
+            return new VideoResource($video);
         }
 
         // return error if transaction not successful
-        $errors = ['unknown error occurred while trying to update favourite'];
+        $errors = ['unknown error occurred while trying to update video entry'];
         return response(['errors'=> $errors], 500);
     }
 
@@ -114,7 +114,7 @@ class FavouriteController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return FavouriteResource
+     * @return VideoResource
      */
     public function destroy($id)
     {
@@ -126,20 +126,20 @@ class FavouriteController extends Controller
             return response(['errors'=> $errors], 422);
         }
 
-        //try to get a single favourite
+        //try to get a single video
         try{
-            $favourite = Favourite::findOrFail($id);
+            $video = Video::findOrFail($id);
         }catch (ModelNotFoundException $e){
-            $errors = ["favourite entry not found"];
+            $errors = ["video entry not found"];
             return response(['errors'=> $errors], 404);
         }
 
-        // delete favourite
-        if($favourite->delete()){
-            return new FavouriteResource($favourite);
+        // delete video
+        if($video->delete()){
+            return new VideoResource($video);
         }
 
-        $errors = ['unknown error occurred while trying to delete favourite'];
+        $errors = ['unknown error occurred while trying to delete video entry'];
         return response(['errors'=> $errors], 500);
     }
 }

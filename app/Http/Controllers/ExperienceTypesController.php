@@ -54,7 +54,7 @@ class ExperienceTypesController extends Controller
         $validated = $request->validated();
 
         // create experience type object and add other notification object properties
-        $experience_type =  new ExperienceType($validated);
+        $experience_type =  ExperienceType::firstOrNew($validated);
 
         // save experience type if transaction goes well
         if($experience_type->save()){

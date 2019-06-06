@@ -15,6 +15,9 @@ class Favourite extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function experience(){
+        return $this->belongsTo(Experience::class);
+    }
 
     public static function getBySearch(Request $request){
         return self::when($request->user_id, function($query)  use($request){
