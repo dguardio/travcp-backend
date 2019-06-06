@@ -28,7 +28,7 @@ class User extends Resource
 
         if($medals->count() > 0){
             foreach ($medals as $medal){
-                if($result["reviews"] < $medal->review_threshold) break;
+                if($result["written_reviews"] < $medal->review_threshold) break;
                 $result["user_medal"] = $medal->name;
             }
         }
