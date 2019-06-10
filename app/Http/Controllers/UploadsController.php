@@ -10,6 +10,7 @@ use App\Upload;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\Upload as UploadsResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UploadsController extends Controller
 {
@@ -137,6 +138,7 @@ class UploadsController extends Controller
 
         // delete upload
         if($upload->delete()){
+            $this->deleteFile($upload->upload_data);
             return new Plain($upload);
         }
 

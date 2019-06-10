@@ -19,9 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 
 });
-Route::get('/time', function (Request $request) {
-    return \App\User::generateReferralId();
-});
+
 
 /**Authentication**/
 
