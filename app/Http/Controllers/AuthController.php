@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Notifications\VerifyEmail;
 use App\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Resources\User as UserResource;
 class AuthController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'verifyUser', 'resendVerificationMail']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'verifyUser', 'resendVerificationMail', "createReferralToken"]]);
     }
 
     /**
@@ -39,7 +40,11 @@ class AuthController extends Controller
 
         return $this->respondWithToken($token, new UserResource(auth()->user()));
     }
-   
+
+    /**
+     * register a user
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function register(){
         $this->validate(request(),[
             'email' => 'required|min:6|email|unique:users',
@@ -48,22 +53,54 @@ class AuthController extends Controller
         ]);
         $data = request()->all();
         $data['password'] = \bcrypt(request()->password);
+
+
+        if(isset($data["referrer_token"])){
+            try{
+                $referrer = User::where('referral_token', $data["referrer_token"])->firstOrFail();
+                $data['referrer_id'] = $referrer->id;
+
+                unset($data["referrer_token"]);
+            }catch (ModelNotFoundException $e){}
+        }
+
         $user = User::create($data);
         $credentials = request(['email', 'password']);
-        // $credentials = ['email' => $user->email, 'password' => $user->password];
 
         if (! $token = JWTAuth::attempt($credentials)) {
             return $this->errorResponse(401, "You have provided an invalid registration credentials", "RegistrationError");
-            // return response()->json(['error' => 'Unauthorized'], 401);
         }
 
+
+        $user->referral_token = User::generateReferralId();
         $user->signed_in = true;
         $user->verify_token = bin2hex(openssl_random_pseudo_bytes(50));
         $user->save();
 
-//        $this->sendVerificationMail($user);
+        $this->sendVerificationMail($user);
 
         return $this->respondWithToken($token, new UserResource(User::find($user->id)));
+    }
+
+    /**
+     * return user with newly created referral token
+     * @return UserResource|\Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function createReferralToken(){
+        $id = \request()->user_id;
+
+        try{
+            $user = User::findOrFail($id);
+            if(is_null($user->referral_token)){
+                $user->referral_token = User::generateReferralId();
+            }
+            $user->save();
+        }catch (ModelNotFoundException $e){
+            $errors = ["user with id ".$id." not found"];
+            return response(['errors'=> $errors], 404);
+        }
+
+        return new UserResource($user);
     }
 
     /**

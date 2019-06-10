@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Users\UsersUpdateRequest;
+use App\Http\Resources\FullUser;
 use App\Traits\Uploads;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\User as UserResource;
@@ -37,7 +38,7 @@ class UsersController extends Controller
      * Display the specified user's data.
      *
      * @param  int  $id
-     * @return UserResource
+     * @return FullUser
      */
     public function show($id)
     {
@@ -58,7 +59,7 @@ class UsersController extends Controller
         }
 
         // return single user as a resource
-        return new UserResource($user);
+        return new FullUser($user);
     }
 
     /**

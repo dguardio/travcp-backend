@@ -80,6 +80,28 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
     }
 
     /**
+     * generate referral id of user
+     * @return string
+     */
+    public static function generateReferralId(){
+
+        $chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $res = "";
+        $len = strlen($chars)-1;
+
+        $time = time();
+        $strtime = strlen($time);
+
+        for ($i = 0; $i < $len+$strtime-1; $i++) {
+            $res .= $chars[mt_rand(0, $len)];
+            if($i<$strtime){
+                $res .= $time[$i];
+            }
+        }
+
+        return $res;
+    }
+    /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
      * @return mixed
@@ -155,5 +177,21 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
      */
     public function favourites(){
         return $this->hasMany(Favourite::class, 'user_id');
+    }
+
+    /**
+     * get referrer relation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function referrer(){
+        return $this->belongsTo(User::class, "referrer_id");
+    }
+
+    /**
+     * get referred relation
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function referred(){
+        return $this->hasMany(User::class, "referrer_id");
     }
 }
