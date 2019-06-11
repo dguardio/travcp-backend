@@ -7,12 +7,16 @@ use App\Http\Requests\Reviews\ReviewsStoreRequest;
 use App\Http\Requests\Reviews\ReviewsUpdateRequest;
 use App\Http\Resources\ReviewCollection;
 use App\Review;
+use App\Traits\Uploads;
+use App\Upload;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\Review as ReviewResource;
 use Illuminate\Http\Request;
 
 class ReviewsController extends Controller
 {
+    use Uploads;
+
     /**
      * Display a listing of the all reviews in the db.
      *
@@ -50,11 +54,23 @@ class ReviewsController extends Controller
         // get old security average
         $old_security_avg = $experience->security_rating;
 
+
         try{
             // check if review has been stored before and update it
             $review = Review::where('user_id', $validated['user_id'])
                 ->where('experience_id', $validated['experience_id'])
                 ->firstOrFail();
+
+            $extras = ["review_id" => $review->id];
+
+            // store file and get file upload id
+            if($review->upload_id != -1){
+                $review->upload_id = $this->updateFile($request, $review->upload_id, 'video', $extras);
+            }else{
+                $review->upload_id = $this->storeFile($request, 'video', $extras);
+            }
+
+            unset($validated['video']);
 
             // get old review rating
             $old_rating = $review->rating;
@@ -88,8 +104,16 @@ class ReviewsController extends Controller
             $review->update($validated);
 
         }catch (ModelNotFoundException $e) {
+            $upload_id = $this->storeFile($request, 'video', $extras);
+            unset($validated['video']);
+
             // create new review from array data
             $review = new Review($validated);
+            $review->save();
+
+            // add video file
+            $extras = ["review_id" => $review->id];
+            $review->upload_id = $upload_id;
             $review->save();
 
             // add experience rating
@@ -120,11 +144,21 @@ class ReviewsController extends Controller
         // validate request and return validated data
         $validated = $request->validated();
 
+        // quickly upload
+        $validated["upload_id"] = $this->storeFile($request, 'video');
+
+        unset($validated["video"]);
+
         // create review object and add other review object properties
         $review =  new Review($validated);
 
         // save review if transaction goes well
         if($review->save()){
+            if($review->upload_id !== -1){
+                $upload = Upload::findOrFail($review->upload_id);
+                $upload->review_id = $review->id;
+                $upload->save();
+            }
             return new ReviewResource($review);
         }
 
@@ -175,6 +209,18 @@ class ReviewsController extends Controller
 
         // validate request and return validated data
         $validated = $request->validated();
+
+        $extras = ["review_id" => $review->id];
+
+        // store file and get file upload id
+        if($review->upload_id != -1){
+            $review->upload_id = $this->updateFile($request, $review->upload_id, 'video', $extras);
+        }else{
+            $review->upload_id = $this->storeFile($request, 'video', $extras);
+        }
+
+        unset($validated['video']);
+
 
         // add other review object properties
         $review->update($validated);
@@ -275,6 +321,7 @@ class ReviewsController extends Controller
 
         // delete reviews
         if($review->delete()){
+
             return new ReviewResource($review);
         }
 

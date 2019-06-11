@@ -175,7 +175,7 @@ class MerchantExtrasController extends Controller
 
         // store file and get file upload id
         if($merchant_extra->upload_id !== -1){
-            $upload_id = $this->updateFile($request, $merchant_extra->upload_id, 'identity_document');
+            $upload_id = $this->updateFile($request, $merchant_extra->upload_id, 'identity_document', $extras);
         }else{
             $upload_id = $this->storeFile($request, 'identity_document', $extras);
         }

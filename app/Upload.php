@@ -21,4 +21,8 @@ class Upload extends Model
     public function user(){
         return $this->belongsTo("App\User");
     }
+
+    public function review(){
+        return $this->belongsTo(Review::class);
+    }
 }

@@ -138,7 +138,7 @@ class UploadsController extends Controller
 
         // delete upload
         if($upload->delete()){
-            $this->deleteFile($upload->upload_data);
+            $this->removeFile($upload->upload_data);
             return new Plain($upload);
         }
 

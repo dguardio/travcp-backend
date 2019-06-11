@@ -26,51 +26,6 @@ trait Uploads
     |
     */
 
-    /**
-     * wrapper method for storing a file
-     * @param Request $request
-     * @param string $file_field_name
-     * @param null $extras
-     * @return \Illuminate\Http\Response|int|mixed
-     */
-    public function storeFile(Request $request, $file_field_name='image', $extras=null){
-        if(config('app.env') != "production"){
-            return $this->devStoreFile($request, $file_field_name, $extras);
-        }else{
-            return $this->prodStoreFile($request, $file_field_name, $extras);
-        }
-    }
-
-    /**
-     * wrapper method for updating a file
-     * @param Request $request
-     * @param $id
-     * @param string $file_field_name
-     * @param null $extras
-     * @return \Illuminate\Http\Response|mixed
-     */
-    public function updateFile(Request $request, $id, $file_field_name='image', $extras=null){
-        if(config('app.env') != "production"){
-            return $this->devUpdateFile($request, $id, $file_field_name, $extras);
-        }else{
-            return $this->prodUpdateFile($request, $id, $file_field_name, $extras);
-        }
-    }
-
-    /**
-     * wrapper method for multiple image uploads
-     * @param Request $request
-     * @param string $multi_field_name
-     * @param null $extras
-     * @return array
-     */
-    public function multipleImagesUpload(Request $request, $multi_field_name='images', $extras=null){
-        if(config('app.env') != "production"){
-            return $this->devMultipleImagesUpload($request, $multi_field_name, $extras);
-        }else{
-            return $this->prodMultipleImagesUpload($request, $multi_field_name, $extras);
-        }
-    }
 
 
     /*
@@ -82,14 +37,14 @@ trait Uploads
     */
 
     /**
-     * Store a newly created file in database.
+     * Store a newly created file as base64 encoded text in database.
      *
      * @param  \Illuminate\Http\Request $request
      * @param string $file_field_name
      * @param null $extras [optional]
      * @return \Illuminate\Http\Response
      */
-    private function devStoreFile(Request $request, $file_field_name='image', $extras=null)
+    private function storeFileAsLongText(Request $request, $file_field_name='image', $extras=null)
     {
         $uploadsId = -1;
 
@@ -120,13 +75,13 @@ trait Uploads
     }
 
     /**
-     * Store a newly created file in production database
+     * Store a newly created file in database
      * @param Request $request
      * @param string $file_field_name
      * @param null $extras
      * @return int|mixed
      */
-    private function prodStoreFile(Request $request, $file_field_name='image', $extras=null)
+    private function storeFile(Request $request, $file_field_name='image', $extras=null)
     {
         $uploadsId = -1;
 
@@ -164,7 +119,7 @@ trait Uploads
     */
 
     /**
-     * Update the specified file in database in development environment.
+     * Update the specified file in database as a base64 encoded text.
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int $id
@@ -172,7 +127,7 @@ trait Uploads
      * @param null $extras [optional]
      * @return \Illuminate\Http\Response
      */
-    private function devUpdateFile(Request $request, $id, $file_field_name='image', $extras=null)
+    private function updateFileToLongText(Request $request, $id, $file_field_name='image', $extras=null)
     {
         // create upload object
         $upload =  Upload::findOrFail($id);
@@ -206,7 +161,7 @@ trait Uploads
     }
 
     /**
-     * Update the specified file in database in production environment.
+     * Update the specified file in database.
      *
      * @param Request $request
      * @param $id
@@ -214,7 +169,7 @@ trait Uploads
      * @param null $extras
      * @return mixed
      */
-    private function prodUpdateFile(Request $request, $id, $file_field_name='image', $extras=null)
+    private function updateFile(Request $request, $id, $file_field_name='image', $extras=null)
     {
         // create upload object
         $upload =  Upload::findOrFail($id);
@@ -259,14 +214,14 @@ trait Uploads
     */
 
     /**
-     * multiple file upload for production
+     * multiple file upload as base64 encoded text
      * @param Request $request
      * @param string $multi_field_name
      * @param null $extras
      * @return array
      */
 
-    private function devMultipleImagesUpload(Request $request, $multi_field_name='images', $extras=null){
+    private function multipleImagesUploadAsLongText(Request $request, $multi_field_name='images', $extras=null){
         $saved_files = array();
         if($files=$request->file($multi_field_name)){
             foreach($files as $file){
@@ -298,13 +253,13 @@ trait Uploads
     }
 
     /**
-     * multiple image upload for production
+     * multiple image upload
      * @param Request $request
      * @param string $multi_field_name
      * @param null $extras
      * @return array
      */
-    private function prodMultipleImagesUpload(Request $request, $multi_field_name='images', $extras=null){
+    private function multipleImagesUpload(Request $request, $multi_field_name='images', $extras=null){
         $saved_files = array();
         if($files=$request->file($multi_field_name)){
             foreach($files as $file){
@@ -342,7 +297,7 @@ trait Uploads
      * delete file
      * @param $file_path
      */
-    public function deleteFile($file_path){
+    public function removeFile($file_path){
         if(config('app.env') == "production"){
             Storage::delete($file_path);
         }
