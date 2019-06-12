@@ -12,7 +12,6 @@
         "ext-gd": "*",
         "ext-openssl": "*",
         "barryvdh/laravel-cors": "^0.11.3",
-        "carlosocarvalho/storage-cloudinary-laravel": "^1.0",
         "devdojo/chatter": "0.2.*",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "~3.3",
@@ -24,7 +23,10 @@
         "spatie/laravel-sluggable": "^2.1",
         "tcg/voyager": "^1.2",
         "tymon/jwt-auth": "^1.0.0-rc.2",
-        "willvincent/laravel-rateable": "^1.07"
+        "willvincent/laravel-rateable": "^1.07",
+        "carlosocarvalho/flysystem-cloudinary": "*@dev",
+        "carlosocarvalho/storage-cloudinary-laravel": "*@dev"
+
     },
     "require-dev": {
         "filp/whoops": "~2.0",
@@ -72,6 +74,14 @@
         "packagist.org": {
             "type": "composer",
             "url": "https://packagist.org"
+        },
+        "carlosocarvalho/storage-cloudinary-laravel":{
+            "type": "vcs",
+            "url": "https://github.com/laryhoFolaranmi/laravel-storage-cloudinary"
+        },
+        "carlosocarvalho/flysystem-cloudinary":{
+            "type": "vcs",
+            "url": "https://github.com/laryhoFolaranmi/flysystem-cloudinary"
         },
         "hooks": {
             "type": "composer",

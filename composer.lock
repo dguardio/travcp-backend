@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5857dc5a7d44b1ee2bd4f40b536b9e08",
+    "content-hash": "3366d5e7ec03a7cab1e91a60ed203262",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -184,16 +184,16 @@
         },
         {
             "name": "carlosocarvalho/flysystem-cloudinary",
-            "version": "1.0.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/carlosocarvalho/flysystem-cloudinary.git",
-                "reference": "a68fa388d200c2dd9e7e268140d544eda7490e49"
+                "url": "https://github.com/laryhoFolaranmi/flysystem-cloudinary.git",
+                "reference": "0d129de74b68b969958e5ec6331eb42cdbea2bb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/carlosocarvalho/flysystem-cloudinary/zipball/a68fa388d200c2dd9e7e268140d544eda7490e49",
-                "reference": "a68fa388d200c2dd9e7e268140d544eda7490e49",
+                "url": "https://api.github.com/repos/laryhoFolaranmi/flysystem-cloudinary/zipball/0d129de74b68b969958e5ec6331eb42cdbea2bb4",
+                "reference": "0d129de74b68b969958e5ec6331eb42cdbea2bb4",
                 "shasum": ""
             },
             "require": {
@@ -212,7 +212,6 @@
                     "CarlosOCarvalho\\Flysystem\\Cloudinary\\Test\\": "tests/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -222,25 +221,28 @@
                     "email": "carlosocarvalho.com.br@gmail.com"
                 }
             ],
-            "description": "Flysystem adapter for Cloudinary",
-            "time": "2019-01-29T19:58:35+00:00"
+            "description": "Flysystem adapter for Cloudinary modified by laryhoFolaranmi",
+            "support": {
+                "source": "https://github.com/laryhoFolaranmi/flysystem-cloudinary/tree/master"
+            },
+            "time": "2019-06-12T12:05:48+00:00"
         },
         {
             "name": "carlosocarvalho/storage-cloudinary-laravel",
-            "version": "1.0.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/carlosocarvalho/laravel-storage-cloudinary.git",
-                "reference": "4cd918168f0aa6c4889c892a5c6a1a3dfa77a93f"
+                "url": "https://github.com/laryhoFolaranmi/laravel-storage-cloudinary.git",
+                "reference": "c7d78c92ff59cfcc12400d244c17a522bab40397"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/carlosocarvalho/laravel-storage-cloudinary/zipball/4cd918168f0aa6c4889c892a5c6a1a3dfa77a93f",
-                "reference": "4cd918168f0aa6c4889c892a5c6a1a3dfa77a93f",
+                "url": "https://api.github.com/repos/laryhoFolaranmi/laravel-storage-cloudinary/zipball/c7d78c92ff59cfcc12400d244c17a522bab40397",
+                "reference": "c7d78c92ff59cfcc12400d244c17a522bab40397",
                 "shasum": ""
             },
             "require": {
-                "carlosocarvalho/flysystem-cloudinary": "^1.0"
+                "carlosocarvalho/flysystem-cloudinary": "*@dev"
             },
             "type": "library",
             "autoload": {
@@ -248,7 +250,6 @@
                     "CarlosOCarvalho\\Providers\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -258,8 +259,11 @@
                     "email": "quenduk@yahoo.com.br"
                 }
             ],
-            "description": "Provider for laravel for Cloudinary",
-            "time": "2016-02-02T21:26:38+00:00"
+            "description": "Provider for laravel for Cloudinary modified by laryhoFolaranmi",
+            "support": {
+                "source": "https://github.com/laryhoFolaranmi/laravel-storage-cloudinary/tree/master"
+            },
+            "time": "2019-06-12T12:58:09+00:00"
         },
         {
             "name": "cloudinary/cloudinary_php",
@@ -371,16 +375,16 @@
         },
         {
             "name": "composer/composer",
-            "version": "1.8.5",
+            "version": "1.8.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "949b116f9e7d98d8d276594fed74b580d125c0e6"
+                "reference": "19b5f66a0e233eb944f134df34091fe1c5dfcc11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/949b116f9e7d98d8d276594fed74b580d125c0e6",
-                "reference": "949b116f9e7d98d8d276594fed74b580d125c0e6",
+                "url": "https://api.github.com/repos/composer/composer/zipball/19b5f66a0e233eb944f134df34091fe1c5dfcc11",
+                "reference": "19b5f66a0e233eb944f134df34091fe1c5dfcc11",
                 "shasum": ""
             },
             "require": {
@@ -447,7 +451,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2019-04-09T15:46:48+00:00"
+            "time": "2019-06-11T13:03:06+00:00"
         },
         {
             "name": "composer/semver",
@@ -994,20 +998,23 @@
         },
         {
             "name": "doctrine/lexer",
-            "version": "v1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/lexer.git",
-                "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c"
+                "reference": "1febd6c3ef84253d7c815bed85fc622ad207a9f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/lexer/zipball/83893c552fd2045dd78aef794c31e694c37c0b8c",
-                "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c",
+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/1febd6c3ef84253d7c815bed85fc622ad207a9f8",
+                "reference": "1febd6c3ef84253d7c815bed85fc622ad207a9f8",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.5"
             },
             "type": "library",
             "extra": {
@@ -1016,8 +1023,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Doctrine\\Common\\Lexer\\": "lib/"
+                "psr-4": {
+                    "Doctrine\\Common\\Lexer\\": "lib/Doctrine/Common/Lexer"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1038,13 +1045,16 @@
                     "email": "schmittjoh@gmail.com"
                 }
             ],
-            "description": "Base library for a lexer that can be used in Top-Down, Recursive Descent Parsers.",
-            "homepage": "http://www.doctrine-project.org",
+            "description": "PHP Doctrine Lexer parser library that can be used in Top-Down, Recursive Descent Parsers.",
+            "homepage": "https://www.doctrine-project.org/projects/lexer.html",
             "keywords": [
+                "annotations",
+                "docblock",
                 "lexer",
-                "parser"
+                "parser",
+                "php"
             ],
-            "time": "2014-09-09T13:34:57+00:00"
+            "time": "2019-06-08T11:03:04+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -1709,16 +1719,16 @@
         },
         {
             "name": "kylekatarnls/update-helper",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kylekatarnls/update-helper.git",
-                "reference": "fbfa94c0f196d4718ce3c1032e9c4b34140e69d3"
+                "reference": "b34a46d7f5ec1795b4a15ac9d46b884377262df9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kylekatarnls/update-helper/zipball/fbfa94c0f196d4718ce3c1032e9c4b34140e69d3",
-                "reference": "fbfa94c0f196d4718ce3c1032e9c4b34140e69d3",
+                "url": "https://api.github.com/repos/kylekatarnls/update-helper/zipball/b34a46d7f5ec1795b4a15ac9d46b884377262df9",
+                "reference": "b34a46d7f5ec1795b4a15ac9d46b884377262df9",
                 "shasum": ""
             },
             "require": {
@@ -1750,7 +1760,7 @@
                 }
             ],
             "description": "Update helper",
-            "time": "2019-05-30T21:26:08+00:00"
+            "time": "2019-06-05T08:34:23+00:00"
         },
         {
             "name": "larapack/doctrine-support",
@@ -2488,16 +2498,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.38.2",
+            "version": "1.38.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "7621621f76c99f01318313f576baea22edd86367"
+                "reference": "8dd4172bfe1784952c4d58c4db725d183b1c23ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/7621621f76c99f01318313f576baea22edd86367",
-                "reference": "7621621f76c99f01318313f576baea22edd86367",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/8dd4172bfe1784952c4d58c4db725d183b1c23ad",
+                "reference": "8dd4172bfe1784952c4d58c4db725d183b1c23ad",
                 "shasum": ""
             },
             "require": {
@@ -2545,7 +2555,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2019-05-30T22:56:55+00:00"
+            "time": "2019-06-03T15:41:40+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -3035,19 +3045,20 @@
         },
         {
             "name": "sdkcodes/lara-paystack",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sdkcodes/lara-paystack.git",
-                "reference": "cf771dec04ad1629e40afbf24c81edfc28a6e8a1"
+                "reference": "2e6711a049e1da5a915c80e90572637f4071caa6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sdkcodes/lara-paystack/zipball/cf771dec04ad1629e40afbf24c81edfc28a6e8a1",
-                "reference": "cf771dec04ad1629e40afbf24c81edfc28a6e8a1",
+                "url": "https://api.github.com/repos/sdkcodes/lara-paystack/zipball/2e6711a049e1da5a915c80e90572637f4071caa6",
+                "reference": "2e6711a049e1da5a915c80e90572637f4071caa6",
                 "shasum": ""
             },
             "require": {
+                "guzzlehttp/guzzle": "~6.0",
                 "illuminate/support": "^5.1",
                 "laravel/framework": "^5.1"
             },
@@ -3076,7 +3087,7 @@
                 "paystack",
                 "paystack laravel"
             ],
-            "time": "2019-05-06T09:10:37+00:00"
+            "time": "2019-06-11T19:21:25+00:00"
         },
         {
             "name": "seld/jsonlint",
@@ -3356,7 +3367,7 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v4.3.0",
+            "version": "v4.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
@@ -3465,16 +3476,16 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v4.3.0",
+            "version": "v4.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "c71314cd3b9420b732e1526f33a24eff5430b5b3"
+                "reference": "4e6c670af81c4fb0b6c08b035530a9915d0b691f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/c71314cd3b9420b732e1526f33a24eff5430b5b3",
-                "reference": "c71314cd3b9420b732e1526f33a24eff5430b5b3",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/4e6c670af81c4fb0b6c08b035530a9915d0b691f",
+                "reference": "4e6c670af81c4fb0b6c08b035530a9915d0b691f",
                 "shasum": ""
             },
             "require": {
@@ -3531,7 +3542,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2019-05-28T07:50:59+00:00"
+            "time": "2019-05-30T16:10:05+00:00"
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -3593,16 +3604,16 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v4.3.0",
+            "version": "v4.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "988ab7d70c267c34efa85772ca20de3fad11c74b"
+                "reference": "bf2af40d738dec5e433faea7b00daa4431d0a4cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/988ab7d70c267c34efa85772ca20de3fad11c74b",
-                "reference": "988ab7d70c267c34efa85772ca20de3fad11c74b",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/bf2af40d738dec5e433faea7b00daa4431d0a4cf",
+                "reference": "bf2af40d738dec5e433faea7b00daa4431d0a4cf",
                 "shasum": ""
             },
             "require": {
@@ -3639,7 +3650,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2019-05-24T12:50:04+00:00"
+            "time": "2019-06-03T20:27:40+00:00"
         },
         {
             "name": "symfony/finder",
@@ -4420,16 +4431,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v4.3.0",
+            "version": "v4.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "f7e90f0f90e354f99f20aa9ead95a1b201b126f9"
+                "reference": "5dda505e5f65d759741dfaf4e54b36010a4b57aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/f7e90f0f90e354f99f20aa9ead95a1b201b126f9",
-                "reference": "f7e90f0f90e354f99f20aa9ead95a1b201b126f9",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/5dda505e5f65d759741dfaf4e54b36010a4b57aa",
+                "reference": "5dda505e5f65d759741dfaf4e54b36010a4b57aa",
                 "shasum": ""
             },
             "require": {
@@ -4492,7 +4503,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2019-05-28T09:09:27+00:00"
+            "time": "2019-06-03T20:27:40+00:00"
         },
         {
             "name": "symfony/translation-contracts",
@@ -4622,16 +4633,16 @@
         },
         {
             "name": "tcg/voyager",
-            "version": "v1.2.3",
+            "version": "v1.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/the-control-group/voyager.git",
-                "reference": "00f4191cd6d636ff24c746a1d2a9e98e29e19064"
+                "reference": "b0981fd7a5bb52e0f4f8d0627e8ff048b21651c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/the-control-group/voyager/zipball/00f4191cd6d636ff24c746a1d2a9e98e29e19064",
-                "reference": "00f4191cd6d636ff24c746a1d2a9e98e29e19064",
+                "url": "https://api.github.com/repos/the-control-group/voyager/zipball/b0981fd7a5bb52e0f4f8d0627e8ff048b21651c9",
+                "reference": "b0981fd7a5bb52e0f4f8d0627e8ff048b21651c9",
                 "shasum": ""
             },
             "require": {
@@ -4683,7 +4694,7 @@
                 "laravel",
                 "panel"
             ],
-            "time": "2019-04-05T12:24:48+00:00"
+            "time": "2019-06-06T11:16:17+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -6604,7 +6615,9 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "tymon/jwt-auth": 5
+        "tymon/jwt-auth": 5,
+        "carlosocarvalho/flysystem-cloudinary": 20,
+        "carlosocarvalho/storage-cloudinary-laravel": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

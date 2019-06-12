@@ -120,6 +120,7 @@ return [
     |
     |
     */
+    'cloudinary_url' => env('CLOUDINARY_URL', 'cloudinary://'),
 
     'frontend' => env('FRONTEND_ROUTE', 'https://travvapp.herokuapp.com'),
     /*
