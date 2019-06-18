@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3366d5e7ec03a7cab1e91a60ed203262",
+    "content-hash": "37320d022a34121a4bd24557d257edf4",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -181,89 +181,6 @@
                 "laravel"
             ],
             "time": "2019-02-26T18:08:30+00:00"
-        },
-        {
-            "name": "carlosocarvalho/flysystem-cloudinary",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laryhoFolaranmi/flysystem-cloudinary.git",
-                "reference": "56b8fbfc3ccc0492e291e38aecbb42a513669b06"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laryhoFolaranmi/flysystem-cloudinary/zipball/56b8fbfc3ccc0492e291e38aecbb42a513669b06",
-                "reference": "56b8fbfc3ccc0492e291e38aecbb42a513669b06",
-                "shasum": ""
-            },
-            "require": {
-                "cloudinary/cloudinary_php": "^1.3",
-                "league/flysystem": "^1.0",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "CarlosOCarvalho\\Flysystem\\Cloudinary\\": "src/",
-                    "CarlosOCarvalho\\Flysystem\\Cloudinary\\Test\\": "tests/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "carlosocarvalho",
-                    "email": "carlosocarvalho.com.br@gmail.com"
-                }
-            ],
-            "description": "Flysystem adapter for Cloudinary modified by laryhoFolaranmi",
-            "support": {
-                "source": "https://github.com/laryhoFolaranmi/flysystem-cloudinary/tree/master"
-            },
-            "time": "2019-06-12T13:48:39+00:00"
-        },
-        {
-            "name": "carlosocarvalho/storage-cloudinary-laravel",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laryhoFolaranmi/laravel-storage-cloudinary.git",
-                "reference": "c7d78c92ff59cfcc12400d244c17a522bab40397"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laryhoFolaranmi/laravel-storage-cloudinary/zipball/c7d78c92ff59cfcc12400d244c17a522bab40397",
-                "reference": "c7d78c92ff59cfcc12400d244c17a522bab40397",
-                "shasum": ""
-            },
-            "require": {
-                "carlosocarvalho/flysystem-cloudinary": "*@dev"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "CarlosOCarvalho\\Providers\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Carlos O Carvalho",
-                    "email": "quenduk@yahoo.com.br"
-                }
-            ],
-            "description": "Provider for laravel for Cloudinary modified by laryhoFolaranmi",
-            "support": {
-                "source": "https://github.com/laryhoFolaranmi/laravel-storage-cloudinary/tree/master"
-            },
-            "time": "2019-06-12T12:58:09+00:00"
         },
         {
             "name": "cloudinary/cloudinary_php",
@@ -4697,6 +4614,49 @@
             "time": "2019-06-06T11:16:17+00:00"
         },
         {
+            "name": "thedarkkid/cloudinary-flysystem",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laryhoFolaranmi/cloudinary-flysystem-adapter.git",
+                "reference": "d44d07c8a947757d0ec25113115e9899e5264f6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laryhoFolaranmi/cloudinary-flysystem-adapter/zipball/d44d07c8a947757d0ec25113115e9899e5264f6c",
+                "reference": "d44d07c8a947757d0ec25113115e9899e5264f6c",
+                "shasum": ""
+            },
+            "require": {
+                "cloudinary/cloudinary_php": "^1.3",
+                "league/flysystem": "^1.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TheDarkKid\\Flysystem\\Cloudinary\\": "src/",
+                    "TheDarkKid\\Flysystem\\Cloudinary\\Test\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "thedarkkid",
+                    "email": "laryho18@gmail.com"
+                }
+            ],
+            "description": "Flysystem adapter for Cloudinary",
+            "time": "2019-06-18T18:41:51+00:00"
+        },
+        {
             "name": "tijsverkoyen/css-to-inline-styles",
             "version": "2.2.1",
             "source": {
@@ -5464,16 +5424,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.8.0",
+            "version": "1.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "4ba436b55987b4bf311cb7c6ba82aa528aac0a06"
+                "reference": "1927e75f4ed19131ec9bcc3b002e07fb1173ee76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/4ba436b55987b4bf311cb7c6ba82aa528aac0a06",
-                "reference": "4ba436b55987b4bf311cb7c6ba82aa528aac0a06",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/1927e75f4ed19131ec9bcc3b002e07fb1173ee76",
+                "reference": "1927e75f4ed19131ec9bcc3b002e07fb1173ee76",
                 "shasum": ""
             },
             "require": {
@@ -5494,8 +5454,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Prophecy\\": "src/"
+                "psr-4": {
+                    "Prophecy\\": "src/Prophecy"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -5523,7 +5483,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2018-08-05T17:53:17+00:00"
+            "time": "2019-06-13T12:50:23+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -6522,16 +6482,16 @@
         },
         {
             "name": "theseer/tokenizer",
-            "version": "1.1.2",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/theseer/tokenizer.git",
-                "reference": "1c42705be2b6c1de5904f8afacef5895cab44bf8"
+                "reference": "11336f6f84e16a720dae9d8e6ed5019efa85a0f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/1c42705be2b6c1de5904f8afacef5895cab44bf8",
-                "reference": "1c42705be2b6c1de5904f8afacef5895cab44bf8",
+                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/11336f6f84e16a720dae9d8e6ed5019efa85a0f9",
+                "reference": "11336f6f84e16a720dae9d8e6ed5019efa85a0f9",
                 "shasum": ""
             },
             "require": {
@@ -6558,7 +6518,7 @@
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
-            "time": "2019-04-04T09:56:43+00:00"
+            "time": "2019-06-13T22:48:21+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -6615,15 +6575,15 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "tymon/jwt-auth": 5,
-        "carlosocarvalho/flysystem-cloudinary": 20,
-        "carlosocarvalho/storage-cloudinary-laravel": 20
+        "thedarkkid/cloudinary-flysystem": 20,
+        "tymon/jwt-auth": 5
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.0.0",
         "ext-gd": "*",
+        "ext-json": "*",
         "ext-openssl": "*"
     },
     "platform-dev": []

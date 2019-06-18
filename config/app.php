@@ -179,11 +179,11 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-
         /*
          * Package Service Providers...
          */
-        CarlosOCarvalho\Providers\CloudinaryServiceProvider::class,
+        \App\Providers\CloudinaryServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
