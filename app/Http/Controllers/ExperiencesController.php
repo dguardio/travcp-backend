@@ -48,13 +48,7 @@ class ExperiencesController extends Controller
 
         // store file and get filename
         if(app('request')->exists('images')){
-            $uploads_ids = array();
-            foreach ($request->images as $image){
-                $upload = new Upload();
-                $upload->upload_data = $image;
-                $upload->save();
-                array_push($uploads_ids, $upload->id);
-            }
+            $uploads_ids = $this->multipleImagesUpload($request, 'images');
         }
 
         unset($validated['images']);
