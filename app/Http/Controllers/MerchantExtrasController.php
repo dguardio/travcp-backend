@@ -201,7 +201,7 @@ class MerchantExtrasController extends Controller
         $validated = $request->validated();
 
         // get merchant extra
-        $merchant_extra = MerchantExtra::where('user_id', $id)->get();
+        $merchant_extra = MerchantExtra::where('user_id', $id)->first();
 
         // get upload extra data
         $extras = ["merchant_extra_id" => $merchant_extra->id];
@@ -220,7 +220,7 @@ class MerchantExtrasController extends Controller
         $merchant_extra->update($validated);
 
         // get merchant extra
-        $merchant_extra = MerchantExtra::where('user_id', $id)->get();
+        $merchant_extra = MerchantExtra::where('user_id', $id)->first();
 
         // return updated collection as a resource
         return new MerchantExtraResource($merchant_extra);
