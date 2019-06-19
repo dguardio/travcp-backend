@@ -23,8 +23,8 @@
         "sdkcodes/lara-paystack": "^1.0",
         "spatie/laravel-sluggable": "^2.1",
         "tcg/voyager": "^1.2",
-        "thedarkkid/cloudinary-flysystem": "*@dev",
         "tymon/jwt-auth": "^1.0.0-rc.2",
+        "thedarkkid/cloudinary-flysystem": "*@dev",
         "willvincent/laravel-rateable": "^1.07"
     },
     "require-dev": {

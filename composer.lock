@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "37320d022a34121a4bd24557d257edf4",
+    "content-hash": "9263365a198901f16868da487b77a966",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -2075,16 +2075,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.52",
+            "version": "1.0.53",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "c5a5097156387970e6f0ccfcdf03f752856f3391"
+                "reference": "08e12b7628f035600634a5e76d95b5eb66cea674"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/c5a5097156387970e6f0ccfcdf03f752856f3391",
-                "reference": "c5a5097156387970e6f0ccfcdf03f752856f3391",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/08e12b7628f035600634a5e76d95b5eb66cea674",
+                "reference": "08e12b7628f035600634a5e76d95b5eb66cea674",
                 "shasum": ""
             },
             "require": {
@@ -2155,7 +2155,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2019-05-20T20:21:14+00:00"
+            "time": "2019-06-18T20:09:29+00:00"
         },
         {
             "name": "luketowers/purifier",
@@ -4619,12 +4619,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laryhoFolaranmi/cloudinary-flysystem-adapter.git",
-                "reference": "98fea310a768be3024769e6b160aa647a9666d3f"
+                "reference": "d44d07c8a947757d0ec25113115e9899e5264f6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laryhoFolaranmi/cloudinary-flysystem-adapter/zipball/98fea310a768be3024769e6b160aa647a9666d3f",
-                "reference": "98fea310a768be3024769e6b160aa647a9666d3f",
+                "url": "https://api.github.com/repos/laryhoFolaranmi/cloudinary-flysystem-adapter/zipball/d44d07c8a947757d0ec25113115e9899e5264f6c",
+                "reference": "d44d07c8a947757d0ec25113115e9899e5264f6c",
                 "shasum": ""
             },
             "require": {
@@ -4654,7 +4654,7 @@
                 }
             ],
             "description": "Flysystem adapter for Cloudinary",
-            "time": "2019-06-18T19:46:28+00:00"
+            "time": "2019-06-18T18:41:51+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -6575,8 +6575,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "thedarkkid/cloudinary-flysystem": 20,
-        "tymon/jwt-auth": 5
+        "tymon/jwt-auth": 5,
+        "thedarkkid/cloudinary-flysystem": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
