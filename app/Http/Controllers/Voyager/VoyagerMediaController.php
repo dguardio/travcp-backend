@@ -248,8 +248,11 @@ class VoyagerMediaController extends BaseVoyagerMediaController
                 }
             }
 
-            $file = $request->file->storeAs($request->upload_path, $name, $this->filesystem).$extension;
-//            $file = $request->file->storeAs($request->upload_path, $name.'.'.$extension, $this->filesystem);
+            if(config('filesystems.default') == "cloudinary"){
+                $file = $request->file->storeAs($request->upload_path, $name, $this->filesystem).$extension;
+            }else{
+                $file = $request->file->storeAs($request->upload_path, $name.'.'.$extension, $this->filesystem);
+            }
 
             $imageMimeTypes = [
                 'image/jpeg',
