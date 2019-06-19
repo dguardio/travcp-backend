@@ -104,15 +104,19 @@ class ReviewsController extends Controller
             $review->update($validated);
 
         }catch (ModelNotFoundException $e) {
+            $review = new Review();
+            $review->save();
+
+            $extras = ["review_id" => $review->id];
+
             $upload_id = $this->storeFile($request, 'video', $extras);
             unset($validated['video']);
 
             // create new review from array data
-            $review = new Review($validated);
+            $review->fill($validated);
             $review->save();
 
             // add video file
-            $extras = ["review_id" => $review->id];
             $review->upload_id = $upload_id;
             $review->save();
 

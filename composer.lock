@@ -4619,12 +4619,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laryhoFolaranmi/cloudinary-flysystem-adapter.git",
-                "reference": "d44d07c8a947757d0ec25113115e9899e5264f6c"
+                "reference": "98fea310a768be3024769e6b160aa647a9666d3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laryhoFolaranmi/cloudinary-flysystem-adapter/zipball/d44d07c8a947757d0ec25113115e9899e5264f6c",
-                "reference": "d44d07c8a947757d0ec25113115e9899e5264f6c",
+                "url": "https://api.github.com/repos/laryhoFolaranmi/cloudinary-flysystem-adapter/zipball/98fea310a768be3024769e6b160aa647a9666d3f",
+                "reference": "98fea310a768be3024769e6b160aa647a9666d3f",
                 "shasum": ""
             },
             "require": {
@@ -4654,7 +4654,7 @@
                 }
             ],
             "description": "Flysystem adapter for Cloudinary",
-            "time": "2019-06-18T18:41:51+00:00"
+            "time": "2019-06-18T19:46:28+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
