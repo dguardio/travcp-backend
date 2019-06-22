@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <!--[if gt IE 7]>      
   <script type="text/javascript">
   // Let the library know where WebSocketMain.swf is:
@@ -20,16 +22,16 @@
   <script>moxie.core.utils.Env.swf_url = 'static/lib/Moxie.min.swf';</script>
   <![endif]-->
 
-  <script src="static/js/jquery-1.11.3.min.js"></script>
-  <link rel="shortcut icon" href="https://s3.amazonaws.com/sendbird-static/favicon/favicon.ico" type="image/x-icon">
+  <script src="{{ asset('static/js/jquery-1.11.3.min.js') }}"></script>
+  <!-- <link rel="shortcut icon" href="https://s3.amazonaws.com/sendbird-static/favicon/favicon.ico" type="image/x-icon"> -->
 
   <link href='https://fonts.googleapis.com/css?family=Exo+2:400,900italic,900,800italic,800,700italic,700,600italic,600,500italic,500,400italic,300italic,200italic,200,100italic,100,300'
         rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,900italic,900,800italic,800,700italic,700,600italic,600,500italic,500,400italic,300italic,200italic,200,100italic,100,300'
         rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="static/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="static/css/sample-chat.css">
+  <link rel="stylesheet" href="{{ asset('static/bootstrap/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{ asset('static/css/sample-chat.css')}}">
 
   <title>Messages | Trav CP</title>
   <style>
@@ -337,9 +339,9 @@
       </div>
     </div>
   </div>
-  <script src="static/lib/SendBird.min.js"></script>
-  <script src="static/js/util.js"></script>
-  <script src="static/js/chat.js"></script>
+  <script src="{{ asset('static/lib/SendBird.min.js') }}"></script>
+  <script src="{{ asset('static/js/util.js') }}"></script>
+  <script src="{{ asset('static/js/chat.js') }}"></script>
 
 </body>
 </html>
