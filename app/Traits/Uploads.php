@@ -98,7 +98,7 @@ trait Uploads
             if($extras !== null) $upload->fill($extras);
 
             // add upload data
-            $upload->upload_data = $path;
+            $upload->upload_data = Storage::url($path);
 
             // save to db
             if($upload->save()){
@@ -188,7 +188,7 @@ trait Uploads
             $path = $request->file($file_field_name)->store($this->path);
 
             // update upload
-            $upload->upload_data = $path;
+            $upload->upload_data = Storage::url($path);
 
             // delete old file
             Storage::delete($old_file_path);
@@ -273,7 +273,7 @@ trait Uploads
                 if($extras !== null) $upload->fill($extras);
 
                 // add upload data
-                $upload->upload_data = $path;
+                $upload->upload_data = Storage::url($path);
 
                 // save to db
                 if($upload->save()){
