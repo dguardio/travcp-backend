@@ -73,9 +73,14 @@ class UploadsController extends Controller
 
         // create upload data;
         unset($validated["image"]);
+        unset($validated["video"]);
 
         // store file and get upload id;
-        $upload_id = $this->storeFile($request, 'image', $validated);
+        if($request->has("image")){
+            $upload_id = $this->storeFile($request, 'image', $validated);
+        }else{
+            $upload_id = $this->storeFile($request, 'video', $validated);
+        }
 
         // return data || error
         if($upload_id === -1){
@@ -102,7 +107,11 @@ class UploadsController extends Controller
         unset($validated["image"]);
 
         // store file and get upload id;
-        $upload_id = $this->updateFile($request, $id, 'image', $validated);
+        if($request->has("image")){
+            $upload_id = $this->updateFile($request, $id, 'image', $validated);
+        }else{
+            $upload_id = $this->updateFile($request, $id, 'video', $validated);
+        }
 
         // return data || error
         if($upload_id === -1){

@@ -24,7 +24,7 @@ class UploadsStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "image" => "required|image|max:2048",
+            "image" => "image|max:2048",
             "merchant_extra_id" => "integer",
             "experience_id" => "integer",
             "user_id" => "integer"
