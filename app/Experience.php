@@ -24,7 +24,9 @@ class Experience extends Model
     }
 
     public static function getBySearch(Request $request){
-        return self::when($request->location, function($query) use($request){
+        return self::when($request->title, function($query)  use($request){
+            return $query->where('title', "LIKE", "%{$request->title}%");
+        })->when($request->location, function($query) use($request){
             return $query->where('location', "LIKE", "%{$request->location}%")
                 ->orWhere('city', "LIKE", "%{$request->location}%")
                 ->orWhere('state', 'LIKE', "%{$request->location}%");
