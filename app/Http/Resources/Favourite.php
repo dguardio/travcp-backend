@@ -16,7 +16,7 @@ class Favourite extends Resource
     {
         $result["id"] = $this->id;
         $result["user"] = new Plain($this->user);
-        $result["experience"] = new Plain($this->experience);
+        $result["experience"] = new Experience($this->experience);
         $result["created_at"] = $this->created_at;
         $result["updated_at"] = $this->updated_at;
 
