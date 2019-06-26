@@ -24,6 +24,7 @@
         "sdkcodes/lara-paystack": "^1.0",
         "spatie/laravel-sluggable": "^2.1",
         "tcg/voyager": "^1.2",
+        "test-hook": "^1.0",
         "thedarkkid/cloudinary-flysystem": "*@dev",
         "tymon/jwt-auth": "^1.0.0-rc.2",
         "willvincent/laravel-rateable": "^1.07"
