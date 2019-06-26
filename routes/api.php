@@ -288,6 +288,12 @@ Route::group(['middleware' => ['api', 'auth:api', 'forceJson']], function(){
     Route::put('video_categories/{id}', 'VideoCategoryController@update'); // update an existing video category entry
     Route::delete('video_categories/{id}', 'VideoCategoryController@destroy'); // delete a video category entry
 
+    /** Messaging */
+    Route::get('conversations', "ChatMessageController@getConversators");
+    Route::get('messages', "ChatMessageController@fetchmessages");
+    Route::get('/unreadmessagescount', "ChatMessageController@getUnreadMessagesCount");
+    Route::get('/last-messages', "ChatMessageController@fetchLastMessages");
+    Route::post('messages', "ChatMessageController@store");
 });
 
 ///**Misc - not yet sorted**/
