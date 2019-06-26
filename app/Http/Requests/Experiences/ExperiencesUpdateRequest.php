@@ -56,7 +56,7 @@ class ExperiencesUpdateRequest extends FormRequest
             'start_date' => 'date|nullable',
             'end_date' => 'date|nullable',
             'approved' => 'boolean|nullable',
-
+            'vr_video' => 'string|nullable',
         ];
     }
 }
