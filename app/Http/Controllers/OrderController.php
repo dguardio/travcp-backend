@@ -7,10 +7,14 @@ use App\Cart;
 use App\CartItem;
 use App\Http\Requests\Order\AddToCartRequest;
 use App\Http\Requests\Order\CheckoutRequest;
+use App\Notifications\BookExperience;
+use App\Notifications\IsBooked;
 use App\Order;
 use App\OrderItem;
 use App\Traits\Payments;
+use App\User;
 use App\UserPayment;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Order as OrderResource;
 use App\Http\Resources\CartItem as CartItemResource;
@@ -66,7 +70,7 @@ class OrderController extends Controller
     /**
      * implement cart checkout
      * @param CheckoutRequest $request
-     * @return OrderResource|\Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @return OrderResource
      */
     public function checkout(CheckoutRequest $request){
         // get data
@@ -82,6 +86,7 @@ class OrderController extends Controller
         }
 
         $paystackService =  new PaystackService;
+
         // verify transaction and checkout
         if($this->verifyTransaction($paystackService, $validated['transaction_id'], $validated['price'])){
             // create order
@@ -118,7 +123,28 @@ class OrderController extends Controller
                 // save booking as paid
                 $booking = Booking::findOrFail($order_item->booking_id);
                 $booking->paid = true;
-                $booking->save();
+
+                // get user
+                try{
+                    $user = User::findOrFail($booking->user_id);
+                }catch (ModelNotFoundException $e){
+                    $errors = ["user who made booking does not exist"];
+                    return response(['errors'=> $errors], 404);
+                }
+
+                // get merchant
+                try{
+                    $merchant = User::findOrFail($booking->merchant_id);
+                }catch (ModelNotFoundException $e){
+                    $errors = ["merchant who is being booked does not exist"];
+                    return response(['errors'=> $errors], 404);
+                }
+
+                // save booking if all is well
+                if($booking->save()){
+                    $user->notify(new BookExperience());
+                    $merchant->notify(new IsBooked());
+                }
 
                 // delete cart item
                 $cart_item->delete();

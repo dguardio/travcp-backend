@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Booking;
 use App\Http\Requests\Bookings\BookingsStoreRequest;
 use App\Http\Requests\Bookings\BookingsUpdateRequest;
+use App\Notifications\BookExperience;
+use App\Notifications\IsBooked;
+use App\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\Booking as BookingResource;
 use Illuminate\Http\Request;
@@ -47,8 +50,26 @@ class BookingsController extends Controller
         // create new booking object from validated data
         $booking = new Booking($validated);
 
+        // get user
+        try{
+            $user = User::findOrFail($booking->user_id);
+        }catch (ModelNotFoundException $e){
+            $errors = ["user who made booking does not exist"];
+            return response(['errors'=> $errors], 404);
+        }
+
+        // merchant
+        try{
+            $merchant = User::findOrFail($booking->merchant_id);
+        }catch (ModelNotFoundException $e){
+            $errors = ["merchant who is being booked does not exist"];
+            return response(['errors'=> $errors], 404);
+        }
+
         // save booking if all is well
         if($booking->save()){
+            $user->notify(new BookExperience());
+            $merchant->notify(new IsBooked());
             return new BookingResource($booking);
         }
 

@@ -45,9 +45,8 @@ class BookExperience extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('You have made a booking on TravCp!')
+                    ->action('View Booking', url('#'));
     }
 
     /**
@@ -59,7 +58,9 @@ class BookExperience extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            "message" => "you have a new booking!",
+            "call-to-action" => "view booking",
+            "url" => "#"
         ];
     }
 }
