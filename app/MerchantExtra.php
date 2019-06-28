@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class MerchantExtra extends Model
 {
-    public $additional_attributes = ['approved'];
 
     protected $table = "merchant_extras";
 
@@ -20,12 +19,4 @@ class MerchantExtra extends Model
         return $this->belongsTo("App\User");
     }
 
-    public function getApprovedAttribute()
-    {
-        $approved = false;
-        if(!is_null($this->user)){
-            $approved = $this->user->approved;
-        }
-        return $approved;
-    }
 }
