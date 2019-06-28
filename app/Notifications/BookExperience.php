@@ -7,9 +7,13 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class MakeBooking extends Notification
+class BookExperience extends Notification
 {
     use Queueable;
+
+    private $full_name;
+    private $experience_url;
+    private $user_bookings_url;
 
     /**
      * Create a new notification instance.
