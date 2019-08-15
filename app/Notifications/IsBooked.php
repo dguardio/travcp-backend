@@ -41,8 +41,9 @@ class IsBooked extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+            ->subject('Your have a New Booking From TravCp')
             ->line('You just got booked on TravCp!')
-            ->action('View Booking', url('#'));
+            ->action('View Booking', url('dashboard/my-bookings'));
     }
 
     /**
@@ -56,7 +57,7 @@ class IsBooked extends Notification
         return [
             "message" => "you have just got booked!",
             "call-to-action" => "view booking",
-            "url" => "#"
+            "url" => "dashboard/my-bookings"
         ];
     }
 }
