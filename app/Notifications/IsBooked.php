@@ -16,9 +16,10 @@ class IsBooked extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($booking)
     {
-        //
+        $this->booking = $booking;
+        $this->url = config('app.frontend');
     }
 
     /**
@@ -41,12 +42,12 @@ class IsBooked extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Your have a New Booking From TravCp')
+            ->subject('Your have a new Booking From TravCp')
             ->line('You just got booked on TravCp!')
-            ->action('View Booking', url('dashboard/my-bookings'));
+            ->action('View Booking', url($this->url.'/experience/'.$this->booking->experience->id.'/'.$this->booking->experience->slug));
     }
 
-    /**
+    /**'/experience/'+ event.id + '/' + event.title.toString().toLowerCase().replace( /\s/g, '-')"
      * Get the array representation of the notification.
      *
      * @param  mixed  $notifiable
@@ -57,7 +58,8 @@ class IsBooked extends Notification
         return [
             "message" => "you have just got booked!",
             "call-to-action" => "view booking",
-            "url" => "dashboard/my-bookings"
+            "url" => $this->url.'/experience/'.$this->booking->experience->id.'/'.$this->booking->experience->slug,
+            'action_link' => $this->url.'/experience/'.$this->booking->experience->id.'/'.$this->booking->experience->slug
         ];
     }
 }

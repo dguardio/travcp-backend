@@ -20,9 +20,10 @@ class BookExperience extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($booking)
     {
-        //
+        $this->booking = $booking;
+        $this->url = config('app.frontend');
     }
 
     /**
@@ -45,8 +46,9 @@ class BookExperience extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->subject('Your have a new Booking From TravCp')
                     ->line('You have made a booking on TravCp!')
-                    ->action('View Booking', url('#'));
+                    ->action('View Booking', url($this->url.'/experience/'.$this->booking->experience->id.'/'.$this->booking->experience->slug));
     }
 
     /**
@@ -60,7 +62,8 @@ class BookExperience extends Notification
         return [
             "message" => "you have a new booking!",
             "call-to-action" => "view booking",
-            "url" => "#"
+            "url" => $this->url.'/experience/'.$this->booking->experience->id.'/'.$this->booking->experience->slug,
+            'action_link' => $this->url.'/experience/'.$this->booking->experience->id.'/'.$this->booking->experience->slug
         ];
     }
 }

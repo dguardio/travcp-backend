@@ -68,8 +68,8 @@ class BookingsController extends Controller
 
         // save booking if all is well
         if($booking->save()){
-            $user->notify(new BookExperience());
-            $merchant->notify(new IsBooked());
+            $user->notify(new BookExperience($booking));
+            $merchant->notify(new IsBooked($booking));
             return new BookingResource($booking);
         }
 
