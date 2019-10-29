@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+Route::post('mail/career', 'CareersController@sendMail');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 
