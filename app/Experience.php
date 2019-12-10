@@ -68,6 +68,17 @@ class Experience extends Model
             return $query->where('rating', '>=', $request->rating);
         })->when($request->cities, function($query)  use($request){
             return $query->whereIn('city', $request->cities);
+        })->when($request->experience_types, function($query)  use($request){
+            $experience_types = trim($request->experience_types, "[,]" );
+            $experience_types = explode(",", $experience_types);
+            return $query->whereIn('experiences_type_id', $experience_types);
+        })->when($request->sort_option, function($query)  use($request){
+            $sort_option = $request->sort_option;
+            if ($sort_option == "highest_ranked") {
+                return $query->orderBy('rating', 'DESC');
+            } elseif ($sort_option == "most_recent") {                
+                return $query->orderBy('created_at', 'DESC');
+            }
         });
     }
 

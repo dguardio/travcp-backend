@@ -23,6 +23,7 @@ class ExperiencesController extends Controller
      */
     public function index(Request $request)
     {
+        // dd($request->all());
         $limit = $request->has('_limit')? $request->_limit : 20;
 
         // get experiences
