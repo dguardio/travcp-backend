@@ -155,6 +155,12 @@ class MerchantExtrasController extends Controller
         return new MerchantExtraResource($merchant_extra);
     }
 
+    public function getByUserId($user_id)
+    {
+        $data = MerchantExtra::where('user_id', $user_id)->firstOrFail();
+        return response()->json($data, 200);
+    }
+
     /**
      * Update the specified merchant extra in storage.
      *

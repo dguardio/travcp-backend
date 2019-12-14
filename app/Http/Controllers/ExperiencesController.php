@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Experiences\ExperiencesStoreRequest;
-use App\Http\Requests\Experiences\ExperiencesUpdateRequest;
+use App\Upload;
+use App\Experience;
 use App\MerchantExtra;
 use App\Traits\Uploads;
-use App\Upload;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use App\Experience;
-use App\Http\Resources\Experience as ExperienceResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Resources\Experience as ExperienceResource;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Http\Requests\Experiences\ExperiencesStoreRequest;
+use App\Http\Requests\Experiences\ExperiencesUpdateRequest;
 
 class ExperiencesController extends Controller
 {
@@ -217,5 +218,24 @@ class ExperiencesController extends Controller
         }
 
         return new ExperienceResource(null);
+    }
+
+    public function experienceFullyBooked(Request $request, $experience_id)
+    {
+        // Get number admittable for experience
+        $experience = Experience::findOrFail($experience_id);
+        $number_admittable = $experience->number_admittable;
+        // Get the sum of qty for that experience on the bookings table at start date
+        $total_bookings = DB::table('bookings')
+            ->where('start_date', 'LIKE', $request->start_date. "%")
+            ->where('experience_id', $experience_id)
+            ->sum('quantity');
+        
+        $is_experience_fully_booked = ( ($number_admittable == $total_bookings) || ($total_bookings > $number_admittable) ) ? true : false;
+        
+        $data = compact('experience', 'total_bookings', 'is_experience_fully_booked');
+        // If number admittable and sum value same value, event fully booked, false only if na < sv
+
+        return response()->json($data, 200);
     }
 }

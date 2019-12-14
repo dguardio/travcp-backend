@@ -74,6 +74,7 @@ Route::group(['middleware' => ['api', 'forceJson']], function(){
     Route::get('merchants/{id}/reviews', 'ReviewsController@getReviewsByMerchantId'); // get all merchant reviews
     Route::get('merchants/{id}/bookings', 'BookingsController@getBookingsByMerchantId'); // get all merchant bookings
     Route::get('merchants/{id}/extras', 'MerchantExtrasController@getMerchantExtrasByMerchantId'); // get merchant extras
+    Route::get('merchant_extras/{user_id}', 'MerchantExtrasController@getByUserId');
 
     /** Users **/
     Route::get('users/', 'UsersController@index'); // get all users
@@ -304,3 +305,8 @@ Route::group(['middleware' => ['api', 'auth:api', 'forceJson']], function(){
 //Route::get('restaurants/{id}', "RestaurantController@show");
 //Route::post('bookings/experiences/{id}', "BookingController@bookExperience");
 //Route::post('bookings/events/{id}', "BookingController@bookEvent");
+
+Route::post('/affiliate_application', 'AffiliateApplicationsController@store');
+Route::get('affiliate_application/by_user/{user_id}', 'AffiliateApplicationsController@getByUserId');
+
+Route::get('/experiences/fully_booked/{experience_id}', 'ExperiencesController@experienceFullyBooked');

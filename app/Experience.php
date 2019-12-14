@@ -79,7 +79,7 @@ class Experience extends Model
             } elseif ($sort_option == "most_recent") {                
                 return $query->orderBy('created_at', 'DESC');
             }
-        });
+        })->whereApproved(1);
     }
 
     public function menus(){
