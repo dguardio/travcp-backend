@@ -142,4 +142,12 @@ class VideoController extends Controller
         $errors = ['unknown error occurred while trying to delete video entry'];
         return response(['errors'=> $errors], 500);
     }
+
+    public function homepage_featured_videos()
+    {
+        $featured_vids = Video::where('is_homepage_featured', 1)
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+        return response()->json($featured_vids, 200);
+    }
 }

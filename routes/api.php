@@ -66,6 +66,10 @@ Route::group(['middleware' => 'api'], function($router){
     
 });
 
+// HOMEPAGE FEATURED ITEMS
+Route::get('/experiences/featured', 'ExperiencesController@homepage_featured_experiences');
+Route::get('/videos/featured', 'VideoController@homepage_featured_videos');
+
 Route::group(['middleware' => ['api', 'forceJson']], function(){
 
     /** Merchants **/
@@ -306,6 +310,7 @@ Route::group(['middleware' => ['api', 'auth:api', 'forceJson']], function(){
 //Route::post('bookings/experiences/{id}', "BookingController@bookExperience");
 //Route::post('bookings/events/{id}', "BookingController@bookEvent");
 
+// AFFILIATE APPLICATIONS
 Route::post('/affiliate_application', 'AffiliateApplicationsController@store');
 Route::get('affiliate_application/by_user/{user_id}', 'AffiliateApplicationsController@getByUserId');
 

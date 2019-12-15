@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Upload;
 use App\Experience;
 use App\MerchantExtra;
+use App\ExperienceType;
 use App\Traits\Uploads;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -115,8 +116,7 @@ class ExperiencesController extends Controller
         $limit = $request->has('_limit')? $request->_limit : 20;
 
         // get experiences by merchant id
-        $experiences = Experience::getBySearch($request)
-            ->where('merchant_id', $id)
+        $experiences = Experience::where('merchant_id', $id)
             ->orderBy('id', 'DESC')
             ->paginate($limit)
             ->appends($request->query());
@@ -237,5 +237,21 @@ class ExperiencesController extends Controller
         // If number admittable and sum value same value, event fully booked, false only if na < sv
 
         return response()->json($data, 200);
+    }
+
+    public function homepage_featured_experiences(Request $request)
+    {
+        $experience_type_name = $request->experience_type;
+        // dd($experience_type_name, $request);
+        $experience_type = ExperienceType::whereName($experience_type_name)
+            ->firstOrFail();
+        // Order by the video recently updated
+        $featured_experiences = Experience::with('experience_type:id,name')
+            ->whereApproved(1)
+            ->where('is_homepage_featured', 1)
+            ->where('experiences_type_id', $experience_type->id)
+            ->orderBy('updated_at', 'desc')
+            ->get();
+        return response()->json($featured_experiences, 200);
     }
 }
