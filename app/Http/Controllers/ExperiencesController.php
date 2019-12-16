@@ -246,12 +246,11 @@ class ExperiencesController extends Controller
         $experience_type = ExperienceType::whereName($experience_type_name)
             ->firstOrFail();
         // Order by the video recently updated
-        $featured_experiences = Experience::with('experience_type:id,name')
-            ->whereApproved(1)
+        $featured_experiences = Experience::whereApproved(1)
             ->where('is_homepage_featured', 1)
             ->where('experiences_type_id', $experience_type->id)
             ->orderBy('updated_at', 'desc')
             ->get();
-        return response()->json($featured_experiences, 200);
+        return ExperienceResource::collection($featured_experiences);
     }
 }

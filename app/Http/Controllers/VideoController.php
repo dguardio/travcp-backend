@@ -145,10 +145,10 @@ class VideoController extends Controller
 
     public function homepage_featured_videos()
     {
-        $featured_vids = Video::with('video_category')
-            ->where('is_homepage_featured', 1)
+        $featured_vids = Video::where('is_homepage_featured', 1)
             ->orderBy('updated_at', 'DESC')
             ->get();
-        return response()->json($featured_vids, 200);
+        // return response()->json($featured_vids, 200);
+        return VideoResource::collection($featured_vids);
     }
 }
