@@ -29,7 +29,7 @@ class BookingsUpdateRequest extends FormRequest
             'currency' => 'string',
             'user_id' => 'integer|required',
             'start_date' => 'date',
-            'end_date' => 'date',
+            'end_date' => 'date|nullable',
             'quantity' => 'integer',
             'food_menu_ids' => 'string|',
             'experience_id' => 'integer',
