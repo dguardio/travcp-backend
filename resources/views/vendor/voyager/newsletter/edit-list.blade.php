@@ -11,25 +11,25 @@
     <!--google font-->
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet">
     <!--style sheets-->
-    <link href="{{ asset('admin/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{ asset('admin/assets/vendor/lobicard/css/lobicard.css')}}" rel="stylesheet">
-    <link href="{{ asset('admin/assets/vendor/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('mail/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('mail/assets/vendor/lobicard/css/lobicard.css')}}" rel="stylesheet">
+    <link href="{{ asset('mail/assets/vendor/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
 
-    <link href="{{ asset('admin/assets/vendor/themify-icons/css/themify-icons.css')}}" rel="stylesheet">
+    <link href="{{ asset('mail/assets/vendor/themify-icons/css/themify-icons.css')}}" rel="stylesheet">
     <!--data table stylesheet-->
-    <link href="{{ asset('admin/assets/vendor/data-tables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
-    <link href="{{ asset('admin/assets/vendor/data-tables/select.dataTables.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('mail/assets/vendor/data-tables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('mail/assets/vendor/data-tables/select.dataTables.min.css')}}" rel="stylesheet">
     <!--sweetalert stylesheet-->
-    <link href="{{ asset('admin/assets/css/sweetalert2.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('mail/assets/css/sweetalert2.min.css')}}" rel="stylesheet">
     <!--custom css-->
-    <link href="{{ asset('admin/assets/css/main.css')}}" rel="stylesheet">
-    <link href="{{ asset('admin/assets/css/custom.css')}}" rel="stylesheet">
+    <link href="{{ asset('mail/assets/css/main.css')}}" rel="stylesheet">
+    <link href="{{ asset('mail/assets/css/custom.css')}}" rel="stylesheet">
 </head>
 <body>
 
 <header class="app-header navbar">
         <div class="navbar-brand">
-            <a class="" href="http://travvapi.herokuapp.com/admin">
+            <a class="" href="/admin">
                 <h4>TravCP</h4>
             </a>
         </div>
@@ -128,22 +128,22 @@
             </div>
         </main>
 
-        <script src="{{ asset('admin/assets/vendor/jquery/jquery.min.js')}} "></script>
-	<script src="{{ asset('admin/assets/vendor/jquery-ui-1.12.1/jquery-ui.min.js')}} "></script>
-	<script src="{{ asset('admin/assets/vendor/popper.min.js')}} "></script>
-	<script src="{{ asset('admin/assets/vendor/bootstrap/js/bootstrap.min.js ')}}"></script>
-	<script src="{{ asset('admin/assets/vendor/lobicard/js/lobicard.js')}} "></script>
-	<script class="include " type="text/javascript " src="{{ asset('admin/assets/vendor/jquery.dcjqaccordion.2.7.js')}} "></script>
+        <script src="{{ asset('mail/assets/vendor/jquery/jquery.min.js')}} "></script>
+	<script src="{{ asset('mail/assets/vendor/jquery-ui-1.12.1/jquery-ui.min.js')}} "></script>
+	<script src="{{ asset('mail/assets/vendor/popper.min.js')}} "></script>
+	<script src="{{ asset('mail/assets/vendor/bootstrap/js/bootstrap.min.js ')}}"></script>
+	<script src="{{ asset('mail/assets/vendor/lobicard/js/lobicard.js')}} "></script>
+	<script class="include " type="text/javascript " src="{{ asset('mail/assets/vendor/jquery.dcjqaccordion.2.7.js')}} "></script>
 
 <!-- Data table Js Plugin -->
-<script src="{{asset('admin/assets/vendor/data-tables/jquery.dataTables.min.js')}} "></script>
-<script src="{{asset('admin/assets/vendor/data-tables/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('mail/assets/vendor/data-tables/jquery.dataTables.min.js')}} "></script>
+<script src="{{asset('mail/assets/vendor/data-tables/dataTables.bootstrap4.min.js')}}"></script>
 
 <!-- Dsweet alert Js Plugin -->
-<script src="{{asset('admin/assets/js/sweetalert2.min.js')}}"></script>
+<script src="{{asset('mail/assets/js/sweetalert2.min.js')}}"></script>
 <!--init scripts-->
-<script src="{{asset('admin/assets/js/scripts.min.js')}} "></script>
-<script src="{{asset('admin/assets/js/custom.js')}} "></script>
+<script src="{{asset('mail/assets/js/scripts.min.js')}} "></script>
+<script src="{{asset('mail/assets/js/custom.js')}} "></script>
 <script>
 $(document).ready(function() {
     $('#bs4-table').DataTable({
