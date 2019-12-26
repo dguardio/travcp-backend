@@ -146,6 +146,7 @@ Route::group(['middleware' => ['api', 'forceJson']], function(){
     /** Bookings **/
     Route::get('bookings/', 'BookingsController@index'); // get all bookings
     Route::post('bookings/exists', 'BookingsController@checkIfPreviousBookingExists'); // check if booking exists
+    Route::post('bookings/paid_for', 'BookingsController@booking_paid_for');
     Route::get('bookings/{id}', 'BookingsController@show'); // get a single booking
 
     /** Uploads **/

@@ -230,4 +230,24 @@ class BookingsController extends Controller
         $errors = ['unknown error occurred while trying to delete booking'];
         return response(['errors'=> $errors], 500);
     }
+
+    public function booking_paid_for(Request $request){
+        // get parameters
+        $experience_id = $request->input("experience_id");
+        $user_id = $request->input("user_id");
+
+        // try if booking can be found with paid true
+        try{
+            $user = Booking::where('experience_id', $experience_id)
+                ->where('user_id', $user_id)
+                ->wherePaid(1)
+                ->firstOrFail();
+            $response = [true];
+        }catch (ModelNotFoundException $e){
+            $response = [false];
+        }
+
+        // return response
+        return response($response, 200);
+    }
 }
