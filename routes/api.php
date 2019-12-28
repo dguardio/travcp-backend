@@ -316,3 +316,8 @@ Route::post('/affiliate_application', 'AffiliateApplicationsController@store');
 Route::get('affiliate_application/by_user/{user_id}', 'AffiliateApplicationsController@getByUserId');
 
 Route::get('/experiences/fully_booked/{experience_id}', 'ExperiencesController@experienceFullyBooked');
+
+// KPIs FOR MERCHANT DASHBOARD
+Route::get('/kpi/total_experiences_per_month/{merchant_id}', 'KPIController@get_total_created_experiences_per_month');
+Route::get('/kpi/total_bookings_per_month/{merchant_id}', 'KPIController@get_total_user_bookings_per_month');
+Route::get('/kpi/total_favourites_per_month/{merchant_id}', 'KPIController@get_total_user_favourites_per_month');

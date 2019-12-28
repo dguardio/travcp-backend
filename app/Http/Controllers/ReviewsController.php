@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Medal;
+use App\Review;
+use App\Upload;
 use App\Experience;
+use App\Traits\Uploads;
+use Illuminate\Http\Request;
+use App\Http\Resources\ReviewCollection;
+use App\Http\Resources\Review as ReviewResource;
 use App\Http\Requests\Reviews\ReviewsStoreRequest;
 use App\Http\Requests\Reviews\ReviewsUpdateRequest;
-use App\Http\Resources\ReviewCollection;
-use App\Review;
-use App\Traits\Uploads;
-use App\Upload;
+use App\Notification;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use App\Http\Resources\Review as ReviewResource;
-use Illuminate\Http\Request;
 
 class ReviewsController extends Controller
 {
@@ -116,6 +119,9 @@ class ReviewsController extends Controller
             $review->fill($validated);
             $review->save();
 
+            // Handle medal awarding based on reviews
+            $this->handleMedalAwarding($validated['user_id']);
+
             // add video file
             $review->upload_id = $upload_id;
             $review->save();
@@ -137,6 +143,33 @@ class ReviewsController extends Controller
         // return review as a resource;
         return new ReviewResource($review);
     }
+
+    private function handleMedalAwarding($user_id)
+    {
+        // Get number of user reviews
+        $user_reviews = Review::where('user_id', $user_id)->count();
+        // Get medals
+        $medals = Medal::all();
+        $user = User::find($user_id);
+
+        foreach ($medals as $medal) {
+            if ($user_reviews >= $medal->review_threshold) {
+                // update user medal_id
+                $user->medal_id = $medal->id;
+            }
+        }
+
+        if ($user->isDirty('medal_id')) {
+            // Get medal name
+            $medal_name = Medal::where('id', $user->medal_id)->first()->name;
+            // Add to notification and send email
+            $notification_body = "Congratulations! You just received a medal! You've become a " . $medal_name . "!";
+            Notification::create(
+                compact('user_id', 'notification_body')
+            );          
+        }
+    }
+
     /**
      * Store a newly created review in storage.
      *
