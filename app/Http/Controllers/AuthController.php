@@ -28,7 +28,7 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (! $token = JWTAuth::attempt($credentials)) {
-            return $this->errorResponse(401, "You have provided an invalid login credentials", 'AuthenticationError');
+            return $this->errorResponse(401, "You have provided invalid login credentials", 'AuthenticationError');
             // return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -57,7 +57,7 @@ class AuthController extends Controller
 
         if(isset($data["referrer_token"])){
             try{
-                $referrer = User::where('referral_token', $data["referrer_token"])->firstOrFail();
+                $referrer = $this->getUserByReferralToken($data['referrer_token']);
                 $data['referrer_id'] = $referrer->id;
 
                 unset($data["referrer_token"]);
@@ -68,11 +68,16 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (! $token = JWTAuth::attempt($credentials)) {
-            return $this->errorResponse(401, "You have provided an invalid registration credentials", "RegistrationError");
+            return $this->errorResponse(401, "You have provided invalid registration credentials", "RegistrationError");
         }
 
+        $referral_token = "";
+        do {
+            $referral_token = User::generateReferralId();
+        } while (!$this->token_in_use($referral_token));
 
-        $user->referral_token = User::generateReferralId();
+
+        $user->referral_token = $referral_token;
         $user->signed_in = true;
         $user->verify_token = bin2hex(openssl_random_pseudo_bytes(50));
         $user->save();
@@ -80,6 +85,17 @@ class AuthController extends Controller
         $this->sendVerificationMail($user);
 
         return $this->respondWithToken($token, new UserResource(User::find($user->id)));
+    }
+
+    public function getUserByReferralToken($referrer_token)
+    {
+        return User::where('referral_token', $referrer_token)->firstOrFail();
+    }
+
+    private function token_in_use($token)
+    {
+        $user = $this->getUserByReferralToken($token);
+        return $user ? true : false; 
     }
 
     /**

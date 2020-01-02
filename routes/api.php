@@ -169,6 +169,7 @@ Route::group(['middleware' => ['api', 'forceJson']], function(){
 
     /** Medals **/
     Route::get('medals/', 'MedalController@index'); // get all medals
+    Route::get('/medals/user/{user}', 'MedalController@getUserMedal');
 
     /** Favourites **/
     Route::get('favourites/', 'FavouriteController@index'); // get all favourites
