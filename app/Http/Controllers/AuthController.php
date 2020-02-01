@@ -8,10 +8,15 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Resources\User as UserResource;
+use Illuminate\Database\DatabaseManager;
+
 class AuthController extends Controller
 {
-    public function __construct(){
+    private $database;
+
+    public function __construct(DatabaseManager $database){
         $this->middleware('auth:api', ['except' => ['login', 'register', 'verifyUser', 'resendVerificationMail', "createReferralToken"]]);
+        $this->database = $database;
     }
 
     /**
@@ -45,57 +50,60 @@ class AuthController extends Controller
      * register a user
      * @return \Illuminate\Http\JsonResponse
      */
-    public function register(){
-        $this->validate(request(),[
+    public function register(Request $request){
+        $this->validate($request, [
             'email' => 'required|min:6|email|unique:users',
             'password' => 'required|min:6',
             'first_name' => 'required|min:3'
         ]);
-        $data = request()->all();
-        $data['password'] = \bcrypt(request()->password);
-
+        $data = $request->all();
+        $data['password'] = \bcrypt($request->password);
 
         if(isset($data["referrer_token"])){
-            try{
-                $referrer = $this->getUserByReferralToken($data['referrer_token']);
+            $referrer = $this->getUserByReferralToken($data['referrer_token']);
+            if ($referrer) {
                 $data['referrer_id'] = $referrer->id;
-
-                unset($data["referrer_token"]);
-            }catch (ModelNotFoundException $e){}
+            }
+            unset($data["referrer_token"]);
         }
 
-        $user = User::create($data);
-        $credentials = request(['email', 'password']);
+        $this->database->beginTransaction();
+        try {
+            $credentials = request(['email', 'password']);
+            $user = User::create($data);
+            $referral_token = "";
+            do {
+                $referral_token = User::generateReferralCode($data["first_name"]);
+            } while ($this->token_in_use($referral_token));
+    
+    
+            $user->referral_token = $referral_token;
+            $user->signed_in = true;
+            $user->verify_token = bin2hex(openssl_random_pseudo_bytes(50));
+            $user->save();
+            $this->sendVerificationMail($user);
+            $this->database->commit();
+            
+            if (! $token = JWTAuth::attempt($credentials)) {
+                return $this->errorResponse(401, "You have provided invalid registration credentials", "RegistrationError");
+            }
 
-        if (! $token = JWTAuth::attempt($credentials)) {
-            return $this->errorResponse(401, "You have provided invalid registration credentials", "RegistrationError");
+            return $this->respondWithToken($token, new UserResource(User::find($user->id)));
+        } catch (\Exception $e) {
+            $this->database->rollBack();
+            throw $e;
         }
-
-        $referral_token = "";
-        do {
-            $referral_token = User::generateReferralId();
-        } while (!$this->token_in_use($referral_token));
-
-
-        $user->referral_token = $referral_token;
-        $user->signed_in = true;
-        $user->verify_token = bin2hex(openssl_random_pseudo_bytes(50));
-        $user->save();
-
-        $this->sendVerificationMail($user);
-
-        return $this->respondWithToken($token, new UserResource(User::find($user->id)));
     }
 
-    public function getUserByReferralToken($referrer_token)
+    public function getUserByReferralToken($referral_token)
     {
-        return User::where('referral_token', $referrer_token)->firstOrFail();
+        return User::where('referral_token', $referral_token)->first();
     }
 
     private function token_in_use($token)
     {
         $user = $this->getUserByReferralToken($token);
-        return $user ? true : false; 
+        return $user ? true : false;
     }
 
     /**

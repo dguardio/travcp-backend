@@ -101,6 +101,24 @@ class User extends \TCG\Voyager\Models\User implements JWTSubject
 
         return $res;
     }
+
+    public static function generateReferralCode(string $firstName) : string
+    {
+        // generate crypto secure byte string
+        $bytes = random_bytes(8);
+
+        // convert to alphanumeric (also with =, + and /) string
+        $encoded = base64_encode($bytes);
+
+        // remove the chars we don't want
+        $stripped = str_replace(['=', '+', '/'], '', $encoded);
+
+        // get the prefix from the user name
+        $prefix = strtolower(substr($firstName, 0, 3));
+
+        // format the final referral code
+        return ($prefix . $stripped);
+    }
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

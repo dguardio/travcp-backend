@@ -26,7 +26,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 /**Authentication**/
 
 Route::group(['middleware' => ['api', 'forceJson'],
-    'prefix' => 'auth'], function ($router) {
+    'prefix' => 'auth'], function () {
     Route::post('login', 'AuthController@login');
     Route::post('register', "AuthController@register");
     Route::post('logout', 'AuthController@logout');
@@ -41,7 +41,7 @@ Route::group(['middleware' => ['api', 'forceJson'],
     Route::get('me', 'AuthController@me');
 });
 
-Route::group(['middleware' => 'api'], function($router){
+Route::group(['middleware' => 'api'], function(){
 
     Route::get('forums', function(Request $request){
         
