@@ -20,8 +20,9 @@ class DatabaseSeeder extends Seeder
             BookingsSeeder::class,
             ReviewSeeder::class,
             FoodClassificationTableSeeder::class,
-            FoodMenuSeeder::class
+            FoodMenuSeeder::class,
             // RestaurantsTableSeeder::class,
+            MedalsSeeder::class
         ]);
     }
 }

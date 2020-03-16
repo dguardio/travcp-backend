@@ -1,0 +1,263 @@
+.brand img {
+    width: 200px;
+}
+
+.preloader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #576F7F;
+    z-index: 99999;
+    width: 100%;
+}
+
+.preloader .lines {
+    width: 100%;
+    position: absolute;
+    top: 40%;
+    left: 48%;
+    display: inline-block;
+    text-align: center;
+}
+
+.preloader .lines .line {
+    width: 80px;
+    height: 10px;
+    background-color: #ffc82e;
+    position: absolute;
+    clip: rect(0, 0, 20px, 0);
+}
+
+.preloader .lines .line.line-1 {
+    top: 0;
+    -webkit-animation: slide 2s ease 0s infinite;
+    animation: slide 2s ease 0s infinite;
+}
+
+.preloader .lines .line.line-2 {
+    top: 15px;
+    -webkit-animation: slide 2s ease 0.25s infinite;
+    animation: slide 2s ease 0.25s infinite;
+}
+
+.preloader .lines .line.line-3 {
+    top: 30px;
+    -webkit-animation: slide 2s ease 0.5s infinite;
+    animation: slide 2s ease 0.5s infinite;
+}
+
+.preloader .loading-text {
+    position: absolute;
+    top: 50%;
+    left: 1.1%;
+    right: 0%;
+    text-align: center;
+    width: 100%;
+    color: #fff;
+    font-size: 13px;
+    letter-spacing: 3px;
+    line-height: 10px;
+    height: 10px;
+    -webkit-animation: fade 1s ease 0s infinite;
+    animation: fade 1s ease 0s infinite;
+}
+
+@-webkit-keyframes slide {
+    0% {
+        clip: rect(0, 0, 20px, 0);
+    }
+    30% {
+        clip: rect(0, 80px, 20px, 0);
+    }
+    50% {
+        clip: rect(0, 80px, 20px, 0);
+    }
+    80% {
+        clip: rect(0, 80px, 20px, 80px);
+    }
+    100% {
+        clip: rect(0, 80px, 20px, 80px);
+    }
+}
+
+@keyframes slide {
+    0% {
+        clip: rect(0, 0, 20px, 0);
+    }
+    30% {
+        clip: rect(0, 80px, 20px, 0);
+    }
+    50% {
+        clip: rect(0, 80px, 20px, 0);
+    }
+    80% {
+        clip: rect(0, 80px, 20px, 80px);
+    }
+    100% {
+        clip: rect(0, 80px, 20px, 80px);
+    }
+}
+
+@-webkit-keyframes fade {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fade {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+tfoot {
+    display: none;
+}
+
+.Edit {
+    color: #55d1b8!important;
+    padding-right: 15px;
+    border: none;
+    background: transparent;
+}
+
+.Delete {
+    color: #E52659;
+    border: none;
+    background: transparent;
+}
+
+.New_post {
+    border: 0px;
+    border-radius: 0px;
+    background: #34BFA3;
+}
+
+.no-container .container-fluid {
+    padding: 0!important;
+}
+
+.category-form .btn-lg {
+    font-size: 15px;
+}
+
+.lobicard-custom-control .card-header {
+    padding: 10px;
+}
+
+.upper-btn {
+    position: relative;
+    top: 33%;
+    left: 34%;
+}
+
+.btn-default.Draft {
+    border-radius: 0px;
+    margin-right: 20px;
+    background: #959393;
+    color: #fff;
+}
+
+.btn-primary.Publish {
+    border-radius: 0px;
+}
+
+.badge-primary {
+    background: #36a2f5
+}
+
+.swal2-popup .swal2-styled {
+    padding: .25em 1em;
+}
+
+.swal2-confirm {
+    background-color: #34BFA3!important;
+}
+
+.swal2-popup .swal2-styled {
+    border-radius: 0px!important;
+}
+
+.swal2-icon.swal2-warning {
+    color: #ffc516;
+    border-color: #ffc516;
+}
+
+.btn-lg {
+    border-radius: 0px!important;
+}
+
+.avatar_img {
+    margin: 0;
+    text-align: center;
+}
+
+.avatar_img img {
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    border: 0;
+    border-radius: 50%;
+}
+
+.single-btn {
+    padding-top: 40px;
+    float: right;
+}
+
+.card-title span {
+    padding: 12px;
+}
+
+.cover-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    border-radius: 0px 0px 5px 5px;
+}
+
+.materials-section .card-body {
+    position: relative;
+    padding: 0px;
+}
+
+.materials-section .card-header {
+    padding: 12px;
+}
+
+a.default-color:hover {
+    color: #576F7F;
+}
+
+.upper-btn-material {
+    position: relative;
+    top: 33%;
+    left: 50%;
+    right: 0%;
+}
+
+.datepicker-orient-top
+{
+    top:43%!important;
+}
+.main-content
+{
+    overflow:hidden;
+}

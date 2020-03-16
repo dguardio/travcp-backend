@@ -26,7 +26,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 /**Authentication**/
 
 Route::group(['middleware' => ['api', 'forceJson'],
-    'prefix' => 'auth'], function ($router) {
+    'prefix' => 'auth'], function () {
     Route::post('login', 'AuthController@login');
     Route::post('register', "AuthController@register");
     Route::post('logout', 'AuthController@logout');
@@ -41,7 +41,7 @@ Route::group(['middleware' => ['api', 'forceJson'],
     Route::get('me', 'AuthController@me');
 });
 
-Route::group(['middleware' => 'api'], function($router){
+Route::group(['middleware' => 'api'], function(){
 
     Route::get('forums', function(Request $request){
         
@@ -146,6 +146,7 @@ Route::group(['middleware' => ['api', 'forceJson']], function(){
     /** Bookings **/
     Route::get('bookings/', 'BookingsController@index'); // get all bookings
     Route::post('bookings/exists', 'BookingsController@checkIfPreviousBookingExists'); // check if booking exists
+    Route::post('bookings/paid_for', 'BookingsController@booking_paid_for');
     Route::get('bookings/{id}', 'BookingsController@show'); // get a single booking
 
     /** Uploads **/
@@ -168,6 +169,7 @@ Route::group(['middleware' => ['api', 'forceJson']], function(){
 
     /** Medals **/
     Route::get('medals/', 'MedalController@index'); // get all medals
+    Route::get('/medals/user/{user}', 'MedalController@getUserMedal');
 
     /** Favourites **/
     Route::get('favourites/', 'FavouriteController@index'); // get all favourites
@@ -315,3 +317,8 @@ Route::post('/affiliate_application', 'AffiliateApplicationsController@store');
 Route::get('affiliate_application/by_user/{user_id}', 'AffiliateApplicationsController@getByUserId');
 
 Route::get('/experiences/fully_booked/{experience_id}', 'ExperiencesController@experienceFullyBooked');
+
+// KPIs FOR MERCHANT DASHBOARD
+Route::get('/kpi/total_experiences_per_month/{merchant_id}', 'KPIController@get_total_created_experiences_per_month');
+Route::get('/kpi/total_bookings_per_month/{merchant_id}', 'KPIController@get_total_user_bookings_per_month');
+Route::get('/kpi/total_favourites_per_month/{merchant_id}', 'KPIController@get_total_user_favourites_per_month');

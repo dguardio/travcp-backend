@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Medal\MedalStoreRequest;
-use App\Http\Requests\Medal\MedalUpdateRequest;
+use App\User;
 use App\Medal;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use App\Http\Requests\Medal\MedalStoreRequest;
 use App\Http\Resources\Medal as MedalResource;
+use App\Http\Requests\Medal\MedalUpdateRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 class MedalController extends Controller
 {
     /**
@@ -141,5 +143,13 @@ class MedalController extends Controller
 
         $errors = ['unknown error occurred while trying to delete medal'];
         return response(['errors'=> $errors], 500);
+    }
+
+    public function getUserMedal(User $user)
+    {
+        $user_medal_id = $user->medal_id;
+        $medal = Medal::find($user_medal_id);
+        $data = [ $medal ];
+        return response()->json(compact('data'), 200);
     }
 }
