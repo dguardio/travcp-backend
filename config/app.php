@@ -122,7 +122,7 @@ return [
     */
     'cloudinary_url' => env('CLOUDINARY_URL', 'cloudinary://'),
 
-    'frontend' => env('FRONTEND_ROUTE', 'https://travvapp.herokuapp.com'),
+    'frontend' => env('FRONTEND_ROUTE', 'http://app.travcp.com'),
     /*
     |--------------------------------------------------------------------------
     | Logging Configuration

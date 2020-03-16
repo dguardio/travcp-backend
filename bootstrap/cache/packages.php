@@ -43,6 +43,13 @@
       'Image' => 'Intervention\\Image\\Facades\\Image',
     ),
   ),
+  'larapack/doctrine-support' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Larapack\\DoctrineSupport\\DoctrineSupportServiceProvider',
+    ),
+  ),
   'larapack/voyager-hooks' => 
   array (
     'providers' => 
@@ -89,6 +96,14 @@
     'providers' => 
     array (
       0 => 'willvincent\\Rateable\\RateableServiceProvider',
+    ),
+  ),
+  'xethron/migrations-generator' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Way\\Generators\\GeneratorsServiceProvider',
+      1 => 'Xethron\\MigrationsGenerator\\MigrationsGeneratorServiceProvider',
     ),
   ),
 );
