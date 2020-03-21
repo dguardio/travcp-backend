@@ -27,7 +27,7 @@
         "test-hook": "^1.0",
         "thedarkkid/cloudinary-flysystem": "*@dev",
         "tymon/jwt-auth": "^1.0.0-rc.2",
-        "willvincent/laravel-rateable": "^1.07"
+        "willvincent/laravel-rateable": "^1.0.8"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
