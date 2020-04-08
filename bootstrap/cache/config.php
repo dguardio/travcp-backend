@@ -11,7 +11,7 @@
     'key' => 'base64:efbNqmjvnIqlUzRVmhmEHxoCRvo9a5GgxaL2O0iYQ8g=',
     'cipher' => 'AES-256-CBC',
     'cloudinary_url' => 'cloudinary://',
-    'frontend' => 'https://travvapp.herokuapp.com',
+    'frontend' => 'http://app.travcp.com',
     'log' => 'single',
     'log_level' => 'debug',
     'providers' => 
